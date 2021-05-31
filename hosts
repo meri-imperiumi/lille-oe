@@ -1,0 +1,5 @@
+[prod]
+lille-oe-pi           ansible_ssh_host=192.168.1.105
+
+[dev]
+lille-oe-pi-dev          ansible_ssh_host=lille-oe-pi.local

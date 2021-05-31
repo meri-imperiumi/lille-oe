@@ -1,0 +1,20 @@
+{
+  "name": "signalk-server-config",
+  "version": "0.0.1",
+  "description": "This file is here to track your plugin and webapp installs.",
+  "repository": {},
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@meri-imperiumi/signalk-autostate": "^0.1.6",
+    "@signalk/aisreporter": "^1.0.1",
+    "@signalk/charts-plugin": "^2.3.0",
+    "@signalk/udp-nmea-plugin": "^1.2.2",
+    "freeboard-sk-helper": "^1.3.1",
+    "signalk-anchoralarm-plugin": "^1.9.2",
+    "signalk-barometer-trend": "^2.2.1",
+    "signalk-derived-data": "^1.29.0",
+    "signalk-ruuvitag-plugin": "^1.2.3",
+    "signalk-simple-notifications": "^1.3.0",
+    "sk-resources-fs": "^1.3.0"
+  }
+}

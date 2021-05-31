@@ -1,0 +1,56 @@
+[
+  {
+    "context": "vessels.self",
+    "updates": [
+      {
+        "values": [
+          {
+            "path": "",
+            "value": {
+              "name": "Lille Ø",
+              "mmsi": "211692440",
+              "communication": {
+                "callsignVhf": "DH8613"
+              }
+            }
+          },
+          {
+            "path": "design.draft",
+            "value": {
+              "maximum": 1.55
+            }
+          },
+          {
+            "path": "design.length",
+            "value": {
+              "overall": 9.36
+            }
+          },
+          {
+            "path": "design.beam",
+            "value": 3.05
+          },
+          {
+            "path": "design.airHeight",
+            "value": 13
+          },
+          {
+            "path": "sensors.gps.fromBow",
+            "value": 6
+          },
+          {
+            "path": "sensors.gps.fromCenter",
+            "value": 1
+          },
+          {
+            "path": "design.aisShipType",
+            "value": {
+              "name": "Sailing",
+              "id": 36
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

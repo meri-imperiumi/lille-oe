@@ -1,0 +1,46 @@
+{
+  "pipedProviders": [
+    {
+      "pipeElements": [
+        {
+          "type": "providers/simple",
+          "options": {
+            "logging": false,
+            "type": "NMEA0183",
+            "subOptions": {
+              "validateChecksum": true,
+              "type": "udp",
+              "port": "4123",
+              "sentenceEvent": "rutx11"
+            }
+          }
+        }
+      ],
+      "id": "RutX11",
+      "enabled": true
+    }
+  ],
+  "interfaces": {
+    "applicationData": true,
+    "appstore": true,
+    "logfiles": true,
+    "nmea-tcp": true,
+    "playground": true,
+    "plugins": true,
+    "providers": true,
+    "rest": true,
+    "tcp": true,
+    "webapps": true,
+    "ws": true
+  },
+  "mdns": true,
+  "ssl": false,
+  "wsCompression": false,
+  "enablePluginLogging": true,
+  "port": 3000,
+  "sslport": 3443,
+  "pruneContextsMinutes": 60,
+  "security": {
+    "strategy": "./tokensecurity"
+  }
+}

@@ -1,0 +1,49 @@
+---
+- name: S/Y Lille Oe Onboard Computer
+  hosts: all
+  remote_user: pi
+  gather_facts: yes
+  become: yes
+
+  vars:
+    - hostname: lille-oe-pi
+    - timezone: Europe/Berlin
+    - signalk_aws_iot:
+        enabled: true
+        enableLogging: false
+        configuration:
+          aws_host: "{{ aws_iot_host }}"
+          aws_client_id: "{{ aws_iot_client_id }}"
+          aws_key: "{{ aws_iot_key }}"
+          aws_cert: "{{ aws_iot_cert }}"
+          aws_ca: "{{ aws_iot_ca }}"
+          send_inverval: 10
+
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+  roles:
+    - role: marinepi-provisioning/roles/common
+    - role: node-ble
+    - role: marinepi-provisioning/roles/signalk-npm
+
+  tasks:
+    - name: Deploy SSH keys for bergie
+      authorized_key:
+        user: pi
+        state: present
+        key: https://github.com/bergie.keys
+    - name: Deploy SSH keys for cannonerd
+      authorized_key:
+        user: pi
+        state: present
+        key: https://github.com/cannonerd.keys
+    - name: Restart signalk-server
+      service:
+        name: signalk-server
+        state: restarted
+
+  handlers:
+    - include: ../roles/marinepi-provisioning/handlers/handlers.yml
