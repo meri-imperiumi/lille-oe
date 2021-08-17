@@ -61,5 +61,91 @@
   "pruneContextsMinutes": 60,
   "security": {
     "strategy": "./tokensecurity"
+  },
+  "sourcePriorities": {
+    "navigation.position": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": "1000"
+      }
+    ],
+    "navigation.datetime": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": "1000"
+      }
+    ],
+    "navigation.headingTrue": [
+      {
+        "sourceRef": "derived-data",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": "1000"
+      }
+    ],
+    "navigation.magneticVariation": [
+      {
+        "sourceRef": "can0.0",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.1",
+        "timeout": "1000"
+      }
+    ],
+    "navigation.speedOverGround": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": "1000"
+      },
+      {
+        "sourceRef": "venus.com.victronenergy.gps.0",
+        "timeout": "3000"
+      }
+    ],
+    "environment.outside.temperature": [
+      {
+        "sourceRef": "can0.32",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "ruuvitag.dd6822",
+        "timeout": "1000"
+      }
+    ],
+    "environment.outside.pressure": [
+      {
+        "sourceRef": "can0.32",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "ruuvitag.dd6822",
+        "timeout": "1000"
+      }
+    ],
+    "navigation.gnss.antennaAltitude": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": "1000"
+      }
+    ]
   }
 }
