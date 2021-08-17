@@ -1,0 +1,11 @@
+{
+  "configuration": {
+    "eula": true,
+    "tos": true,
+    "privacy": true,
+    "gdpr": true,
+    "interval": 24,
+    "equipment": "RutX11"
+  },
+  "enabled": true
+}

@@ -1,0 +1,31 @@
+{
+  "configuration": {
+    "installType": "mqtt",
+    "dbusAddress": "tcp:host=192.168.1.57,port=78",
+    "MQTT": {
+      "host": "192.168.1.137"
+    },
+    "pollInterval": 20,
+    "usePosition": false,
+    "relayPath0": "electrical.switches.venus-0",
+    "relayPath1": "electrical.switches.venus-1",
+    "instanceMappings": [
+      {
+        "type": "com.victronenergy.battery",
+        "venusId": 277,
+        "signalkId": "house"
+      },
+      {
+        "type": "com.victronenergy.vebus",
+        "venusId": 276,
+        "signalkId": "multiplus"
+      },
+      {
+        "type": "com.victronenergy.solarcharger",
+        "venusId": 277,
+        "signalkId": "cabintop"
+      }
+    ]
+  },
+  "enabled": true
+}

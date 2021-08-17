@@ -1,0 +1,141 @@
+{
+  "configuration": {
+    "AISv2": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "ATTITUDE": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "BATTERYv2": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "COG_SOGv2": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "DEPTHv2": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "EXHAUST_TEMPERATURE": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "ENGINE_PARAMETERS": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "ENVIRONMENT_PARAMETERS": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "GPS_LOCATIONv2": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "HEADINGv2": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "NOTIFICATIONS": {
+      "enabled": true,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "ENVIRONMENT_PARAMETERS_SEA": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "SPEED": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "SYSTEM_TIMEv2": {
+      "enabled": true,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "TANKS": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "TEMPERATURE_OUTSIDE": {
+      "enabled": true,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "TEMPERATURE_INSIDE": {
+      "enabled": true,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "TEMPERATURE_ENGINEROOM": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "TEMPERATURE_refridgerator": {
+      "enabled": true,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "TEMPERATURE_FREEZER": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "TEMPERATURE_MAINCABIN": {
+      "enabled": true,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "TEMPERATURE_HEATINGSYSTEM": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "TEMPERATURE_DEWPOINT": {
+      "enabled": true,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "TEMPERATURE_APPARENTWINDCHILL": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "TEMPERATURE_THEORETICALWINDCHILL": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "TEMPERATURE_HEATINDEX": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "WINDv2": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    }
+  },
+  "enabled": true,
+  "enableDebug": false
+}

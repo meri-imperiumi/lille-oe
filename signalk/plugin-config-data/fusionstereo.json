@@ -1,0 +1,29 @@
+{
+  "configuration": {
+    "autoDiscover": true,
+    "deviceid": "12",
+    "enableAlarms": true,
+    "alarmInput": "Aux",
+    "alarmAudioFile": "builtin_alarm.mp3",
+    "alarmUnMute": true,
+    "alarmSetVolume": false,
+    "alarmVolume": 12,
+    "availableSources": {
+      "Aux": true,
+      "AM": false,
+      "FM": true,
+      "Aux 2": false,
+      "USB": true,
+      "iPod": false,
+      "BT": true,
+      "Android": false,
+      "DAB": false
+    },
+    "availableZones": {
+      "Zone 1": true,
+      "Zone 2": false
+    }
+  },
+  "enabled": true,
+  "enableDebug": false
+}

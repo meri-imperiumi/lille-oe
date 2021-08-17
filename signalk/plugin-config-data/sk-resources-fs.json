@@ -1,0 +1,13 @@
+{
+  "configuration": {
+    "API": {
+      "routes": true,
+      "waypoints": true,
+      "notes": true,
+      "regions": true
+    },
+    "source": "filesystem",
+    "path": "./resources"
+  },
+  "enabled": true
+}

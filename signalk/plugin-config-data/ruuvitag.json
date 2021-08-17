@@ -1,0 +1,56 @@
+{
+  "configuration": {
+    "f592198ffb60": {
+      "enabled": false,
+      "name": "f59219",
+      "location": "inside.mainCabin"
+    },
+    "f681c40cd5ee": {
+      "enabled": false,
+      "name": "f681c4",
+      "location": "inside.mainCabin"
+    },
+    "d9f0ec2d50f6": {
+      "enabled": false,
+      "name": "d9f0ec",
+      "location": "inside.mainCabin"
+    },
+    "eb3b8a82bbc2": {
+      "enabled": true,
+      "name": "eb3b8a",
+      "location": "inside.cooler"
+    },
+    "d90da2452401": {
+      "enabled": true,
+      "name": "d90da2",
+      "location": "inside.wardrobe"
+    },
+    "f77fb56acded": {
+      "enabled": false,
+      "name": "f77fb5",
+      "location": "inside.mainCabin"
+    },
+    "f69f55604b4a": {
+      "enabled": false,
+      "name": "f69f55",
+      "location": "inside.mainCabin"
+    },
+    "f47c75534c07": {
+      "enabled": true,
+      "name": "f47c75",
+      "location": "inside.refrigerator"
+    },
+    "dd68222a7658": {
+      "enabled": true,
+      "name": "dd6822",
+      "location": "outside"
+    },
+    "e05371530ce6": {
+      "enabled": true,
+      "name": "e05371",
+      "location": "inside.mainCabin"
+    }
+  },
+  "enableLogging": false,
+  "enabled": true
+}

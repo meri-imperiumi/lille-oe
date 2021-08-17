@@ -1,0 +1,8 @@
+{
+  "configuration": {
+    "interval": 60,
+    "sudo": true,
+    "preferNetworkTime": true
+  },
+  "enabled": true
+}

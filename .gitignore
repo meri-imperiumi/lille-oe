@@ -1,3 +1,8 @@
 roles/marinepi-provisioning
 signalk/security.json
 signalk/*.log
+signalk/node_modules/
+signalk/plugin-config-data/ais-forwarder.json
+signalk/plugin-config-data/aisreporter.json
+signalk/plugin-config-data/signalk-to-influxdb.json
+signalk/plugin-config-data/signalk-windy.json
