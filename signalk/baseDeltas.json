@@ -15,18 +15,6 @@
             }
           },
           {
-            "path": "design.draft",
-            "value": {
-              "maximum": 1.55
-            }
-          },
-          {
-            "path": "design.length",
-            "value": {
-              "overall": 9.36
-            }
-          },
-          {
             "path": "design.beam",
             "value": 3.05
           },
@@ -36,17 +24,22 @@
           },
           {
             "path": "sensors.gps.fromBow",
-            "value": 6
+            "value": 9
           },
           {
             "path": "sensors.gps.fromCenter",
-            "value": 1
+            "value": 0
           },
           {
-            "path": "design.aisShipType",
+            "path": "design.draft",
             "value": {
-              "name": "Sailing",
-              "id": 36
+              "maximum": 1.55
+            }
+          },
+          {
+            "path": "design.length",
+            "value": {
+              "overall": 9.37
             }
           }
         ]
