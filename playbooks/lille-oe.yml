@@ -28,6 +28,8 @@
     - role: marinepi-provisioning/roles/common
     - role: node-ble
     - role: marinepi-provisioning/roles/signalk-npm
+    - role: marinepi-provisioning/roles/influxdb
+    - role: marinepi-provisioning/roles/canboat
 
   tasks:
     - name: Deploy SSH keys for bergie
