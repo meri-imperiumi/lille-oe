@@ -33,6 +33,7 @@
     - role: node-ble
     - role: marinepi-provisioning/roles/signalk-npm
     - role: marinepi-provisioning/roles/influxdb
+    - role: marinepi-provisioning/roles/grafana
     - role: marinepi-provisioning/roles/canboat
 
   tasks:
