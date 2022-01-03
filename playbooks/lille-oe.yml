@@ -8,16 +8,12 @@
   vars:
     - hostname: lille-oe-pi
     - timezone: Europe/Berlin
-    - signalk_aws_iot:
-        enabled: true
-        enableLogging: false
-        configuration:
-          aws_host: "{{ aws_iot_host }}"
-          aws_client_id: "{{ aws_iot_client_id }}"
-          aws_key: "{{ aws_iot_key }}"
-          aws_cert: "{{ aws_iot_cert }}"
-          aws_ca: "{{ aws_iot_ca }}"
-          send_inverval: 10
+    - grafana_admin_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          63376562373065303536313733636331663365313339333064356563623834393137343365303265
+          6666353932633637326235636463393632343939326265360a653962643032333363366232303338
+          61633237343039623566653137353065653235633766306663633238656630663632383561373734
+          3664306434653766350a383533643230333362336661346535393434346264636661376132666633
 
   pre_tasks:
     - name: Update apt cache
