@@ -34,6 +34,7 @@
     - role: marinepi-provisioning/roles/signalk-npm
     - role: marinepi-provisioning/roles/influxdb
     - role: marinepi-provisioning/roles/grafana
+      grafana_port: 3000
     - role: marinepi-provisioning/roles/canboat
 
   tasks:
