@@ -23,6 +23,10 @@
     - name: Update apt cache
       apt:
         update_cache: yes
+    - name: Ensure Python venv
+      apt:
+        name: python3-venv
+        state: present
 
   roles:
     - role: marinepi-provisioning/roles/common
