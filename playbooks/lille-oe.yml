@@ -32,6 +32,8 @@
     - role: marinepi-provisioning/roles/common
     - role: node-ble
     - role: marinepi-provisioning/roles/signalk-npm
+      signalk_defaults_file: "{{ inventory_dir }}/signalk/defaults.json"
+      signalk_settings_file: "{{ inventory_dir }}/signalk/settings.json"
     - role: marinepi-provisioning/roles/influxdb
     - role: marinepi-provisioning/roles/grafana
       grafana_port: 3000
