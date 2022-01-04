@@ -18,7 +18,7 @@
         }
       ],
       "id": "RutX11",
-      "enabled": true
+      "enabled": false
     },
     {
       "pipeElements": [
@@ -56,7 +56,7 @@
   "ssl": false,
   "wsCompression": false,
   "enablePluginLogging": true,
-  "port": 3000,
+  "port": 80,
   "sslport": 3443,
   "pruneContextsMinutes": 60,
   "security": {
@@ -123,8 +123,12 @@
         "timeout": ""
       },
       {
-        "sourceRef": "ruuvitag.dd6822",
+        "sourceRef": "can0.40",
         "timeout": "1000"
+      },
+      {
+        "sourceRef": "ruuvitag.dd6822",
+        "timeout": "2000"
       }
     ],
     "environment.outside.pressure": [
@@ -147,5 +151,7 @@
         "timeout": "1000"
       }
     ]
-  }
+  },
+  "keepMostRecentLogsOnly": false,
+  "logCountToKeep": 24
 }

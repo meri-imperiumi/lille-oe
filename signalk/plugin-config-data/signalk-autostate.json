@@ -1,0 +1,8 @@
+{
+  "configuration": {
+    "default_propulsion": "sailing",
+    "position_minutes": 10,
+    "underway_threshold": 100
+  },
+  "enabled": true
+}

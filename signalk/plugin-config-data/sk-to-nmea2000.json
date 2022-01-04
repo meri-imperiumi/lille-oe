@@ -50,6 +50,16 @@
       "resend": 0,
       "resendTime": 30
     },
+    "xte": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "navigationdata": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
     "NOTIFICATIONS": {
       "enabled": true,
       "resend": 0,
@@ -73,7 +83,8 @@
     "TANKS": {
       "enabled": false,
       "resend": 0,
-      "resendTime": 30
+      "resendTime": 30,
+      "tanks": []
     },
     "TEMPERATURE_OUTSIDE": {
       "enabled": true,
@@ -86,7 +97,7 @@
       "resendTime": 30
     },
     "TEMPERATURE_ENGINEROOM": {
-      "enabled": false,
+      "enabled": true,
       "resend": 0,
       "resendTime": 30
     },

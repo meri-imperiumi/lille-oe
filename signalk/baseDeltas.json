@@ -31,15 +31,10 @@
             "value": 0
           },
           {
-            "path": "design.draft",
+            "path": "design.aisShipType",
             "value": {
-              "maximum": 1.55
-            }
-          },
-          {
-            "path": "design.length",
-            "value": {
-              "overall": 9.37
+              "name": "Sailing",
+              "id": 36
             }
           }
         ]

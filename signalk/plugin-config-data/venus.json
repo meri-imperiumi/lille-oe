@@ -24,6 +24,26 @@
         "type": "com.victronenergy.solarcharger",
         "venusId": 277,
         "signalkId": "cabintop"
+      },
+      {
+        "type": "com.victronenergy.solarcharger",
+        "venusId": 279,
+        "signalkId": "flinsail"
+      },
+      {
+        "type": "com.victronenergy.tank",
+        "venusId": 23,
+        "signalkId": "diesel"
+      }
+    ],
+    "temperatureMappings": [
+      {
+        "venusId": 24,
+        "signalkPath": "environment.inside.engineRoom.temperature"
+      },
+      {
+        "venusId": 25,
+        "signalkPath": "environment.inside.saloon.temperature"
       }
     ]
   },

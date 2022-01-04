@@ -3,7 +3,7 @@
     "default_ttl": 100,
     "engine_instances": "port, starboard",
     "battery_instances": "house",
-    "tank_instances": "fuel.0, fuel.1",
+    "tank_instances": "diesel",
     "air_instances": "outside",
     "air": {
       "Air density": true,
@@ -41,10 +41,10 @@
     },
     "wind": {
       "groundWind": true,
-      "groundWindDirection": false,
+      "groundWindDirection": true,
       "trueWind": true,
       "directionTrue": true,
-      "directionMagnetic2": false,
+      "directionMagnetic2": true,
       "directionMagnetic": false,
       "windShift": false
     },
@@ -59,7 +59,7 @@
     },
     "sun": {
       "Sun": true,
-      "Sun Time": false
+      "Sun Time": true
     },
     "tanks": {
       "tankVolume_fuel.0": false,

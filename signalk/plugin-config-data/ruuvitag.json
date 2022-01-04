@@ -18,7 +18,7 @@
     "eb3b8a82bbc2": {
       "enabled": true,
       "name": "eb3b8a",
-      "location": "inside.cooler"
+      "location": "inside.heating"
     },
     "d90da2452401": {
       "enabled": true,
@@ -48,6 +48,16 @@
     "e05371530ce6": {
       "enabled": true,
       "name": "e05371",
+      "location": "inside.mainCabin"
+    },
+    "ea6074308b14": {
+      "enabled": true,
+      "name": "ea6074",
+      "location": "inside.heads"
+    },
+    "e91472934455": {
+      "enabled": false,
+      "name": "e91472",
       "location": "inside.mainCabin"
     }
   },
