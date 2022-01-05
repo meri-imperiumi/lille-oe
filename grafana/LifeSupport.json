@@ -1523,7 +1523,7 @@
           },
           "folderName": "General",
           "folderUid": "",
-          "updated": "2022-01-03T16:49:12+01:00",
+          "updated": "2022-01-05T12:36:45+01:00",
           "updatedBy": {
             "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
             "id": 1,
@@ -1533,11 +1533,15 @@
         "name": "Battery SoC / Current",
         "type": "timeseries",
         "uid": "lbXDma0nk",
-        "version": 2
+        "version": 3
       },
       "options": {
         "legend": {
-          "calcs": [],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "list",
           "placement": "bottom"
         },
@@ -1651,6 +1655,6 @@
   "timezone": "",
   "title": "Life support",
   "uid": "gyw_lbA7k",
-  "version": 24,
+  "version": 25,
   "weekStart": ""
 }
