@@ -31,6 +31,18 @@
             "value": 0
           },
           {
+            "path": "design.draft",
+            "value": {
+              "maximum": 1.55
+            }
+          },
+          {
+            "path": "design.length",
+            "value": {
+              "overall": 9.36
+            }
+          },
+          {
             "path": "design.aisShipType",
             "value": {
               "name": "Sailing",
