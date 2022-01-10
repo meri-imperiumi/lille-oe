@@ -833,43 +833,182 @@
             "mode": "thresholds"
           },
           "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "area"
+            }
+          },
+          "mappings": [],
+          "max": 360,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 45
+              },
+              {
+                "color": "blue",
+                "value": 135
+              },
+              {
+                "color": "orange",
+                "value": 225
+              },
+              {
+                "color": "green",
+                "value": 315
+              }
+            ]
+          },
+          "unit": "degree"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
+      "id": 19,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "alias": "TWA",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eWjoLxAnk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "environment.wind.directionTrue",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "*180 / 3.1459"
+                ],
+                "type": "math"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Wind direction",
+      "type": "timeseries"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
             "fillOpacity": 70,
             "lineWidth": 0
           },
           "mappings": [
             {
               "options": {
-                "High": {
-                  "color": "blue",
+                "Between Low and High": {
+                  "color": "orange",
                   "index": 1
                 },
+                "High": {
+                  "color": "blue",
+                  "index": 2
+                },
                 "Low": {
-                  "color": "orange",
+                  "color": "red",
                   "index": 0
                 },
                 "dawn": {
                   "color": "semi-dark-purple",
-                  "index": 7
+                  "index": 8
                 },
                 "day": {
                   "color": "yellow",
-                  "index": 2
+                  "index": 3
                 },
                 "dusk": {
                   "color": "semi-dark-purple",
-                  "index": 6
+                  "index": 7
                 },
                 "night": {
                   "color": "blue",
-                  "index": 3
+                  "index": 4
                 },
                 "sunrise": {
                   "color": "orange",
-                  "index": 5
+                  "index": 6
                 },
                 "sunset": {
                   "color": "orange",
-                  "index": 4
+                  "index": 5
                 }
               },
               "type": "value"
@@ -899,7 +1038,7 @@
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 30
       },
       "id": 14,
       "options": {
@@ -1059,12 +1198,16 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 34
       },
       "id": 4,
       "options": {
         "legend": {
-          "calcs": [],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "list",
           "placement": "bottom"
         },
@@ -1139,6 +1282,6 @@
   "timezone": "",
   "title": "Weather",
   "uid": "KNkl3x07k",
-  "version": 24,
+  "version": 29,
   "weekStart": ""
 }
