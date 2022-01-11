@@ -40,8 +40,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
+                "color": "light-blue",
                 "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -76,7 +80,7 @@
           },
           "folderName": "General",
           "folderUid": "",
-          "updated": "2022-01-03T15:44:22+01:00",
+          "updated": "2022-01-11T08:48:31+01:00",
           "updatedBy": {
             "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
             "id": 1,
@@ -86,7 +90,7 @@
         "name": "Inside temperature",
         "type": "gauge",
         "uid": "Rkvfqb0nk",
-        "version": 1
+        "version": 2
       },
       "options": {
         "orientation": "auto",
@@ -167,8 +171,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
+                "color": "light-blue",
                 "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -203,7 +211,7 @@
           },
           "folderName": "General",
           "folderUid": "",
-          "updated": "2022-01-03T16:30:59+01:00",
+          "updated": "2022-01-11T08:48:10+01:00",
           "updatedBy": {
             "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
             "id": 1,
@@ -213,7 +221,7 @@
         "name": "Outside feels like",
         "type": "gauge",
         "uid": "C47B3b0nz",
-        "version": 3
+        "version": 5
       },
       "options": {
         "orientation": "auto",
@@ -291,8 +299,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
+                "color": "super-light-blue",
                 "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -310,7 +322,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 5,
+        "w": 4,
         "x": 10,
         "y": 0
       },
@@ -419,8 +431,8 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 5,
-        "x": 15,
+        "w": 4,
+        "x": 14,
         "y": 0
       },
       "id": 13,
@@ -520,6 +532,7 @@
           "color": {
             "mode": "thresholds"
           },
+          "decimals": 0,
           "mappings": [],
           "max": 5,
           "min": 1,
@@ -546,7 +559,7 @@
       "gridPos": {
         "h": 6,
         "w": 4,
-        "x": 20,
+        "x": 18,
         "y": 0
       },
       "id": 15,
@@ -611,6 +624,140 @@
       "type": "stat"
     },
     {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "alarm"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "ok"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 2,
+        "x": 22,
+        "y": 0
+      },
+      "id": 19,
+      "libraryPanel": {
+        "description": "",
+        "meta": {
+          "connectedDashboards": 1,
+          "created": "2022-01-05T16:39:54+01:00",
+          "createdBy": {
+            "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
+            "id": 1,
+            "name": "bergie"
+          },
+          "folderName": "General",
+          "folderUid": "",
+          "updated": "2022-01-05T16:39:54+01:00",
+          "updatedBy": {
+            "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
+            "id": 1,
+            "name": "bergie"
+          }
+        },
+        "name": "Bilge alarm",
+        "type": "stat",
+        "uid": "8w5-4UA7k",
+        "version": 1
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eWjoLxAnk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "limit": "1",
+          "measurement": "electrical.venus-input.1.inputState",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Bilge",
+      "type": "stat"
+    },
+    {
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -649,8 +796,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
+                "color": "light-blue",
                 "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
               },
               {
                 "color": "yellow",
@@ -1655,6 +1806,6 @@
   "timezone": "",
   "title": "Life support",
   "uid": "gyw_lbA7k",
-  "version": 25,
+  "version": 34,
   "weekStart": ""
 }
