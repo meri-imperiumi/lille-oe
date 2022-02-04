@@ -3,7 +3,7 @@
     "devices": [
       {
         "name": "Main engine",
-        "skMonitorPath": "propulsion.main.state",
+        "skMonitorPath": "electrical.chargers.alternator.power",
         "secTimeout": 60,
         "secResume": 300,
         "skHoursPath": "propulsion.main.runTime",
@@ -13,5 +13,5 @@
       }
     ]
   },
-  "enabled": false
+  "enabled": true
 }
