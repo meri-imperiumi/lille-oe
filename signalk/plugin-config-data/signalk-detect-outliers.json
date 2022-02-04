@@ -1,0 +1,11 @@
+{
+  "configuration": {
+    "sendOutlierPath": true,
+    "threshold_depth": 1000,
+    "threshold_STW": 100,
+    "allowedChange_AWS": 10,
+    "AWS_maxValue": 150,
+    "filterPositionZero": true
+  },
+  "enabled": true
+}
