@@ -3,8 +3,9 @@ Description=Back up InfluxDB to S3 every week
 
 [Timer]
 OnCalendar=weekly
+AccuracySec=1h
 Persistent=true
-RandomizedDelaySec=1h
+RandomizedDelaySec=3600
 
 [Install]
 WantedBy=timers.target
