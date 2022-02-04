@@ -17,8 +17,28 @@
         "duplicate": true
       },
       {
-        "path": "electrical.batteries.house-second.voltage",
+        "path": "electrical.alternator.279-second.voltage",
         "newPath": "electrical.batteries.starter.voltage",
+        "duplicate": false
+      },
+      {
+        "path": "electrical.alternator.279.current",
+        "newPath": "electrical.chargers.alternator.current",
+        "duplicate": false
+      },
+      {
+        "path": "electrical.alternator.279.power",
+        "newPath": "electrical.chargers.alternator.power",
+        "duplicate": false
+      },
+      {
+        "path": "electrical.alternator.279.temperature",
+        "newPath": "electrical.chargers.alternator.temperature",
+        "duplicate": false
+      },
+      {
+        "path": "electrical.alternator.279.voltage",
+        "newPath": "electrical.chargers.alternator.voltage",
         "duplicate": false
       }
     ]

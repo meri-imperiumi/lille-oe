@@ -36,7 +36,7 @@
       "location": "inside.mainCabin"
     },
     "f47c75534c07": {
-      "enabled": true,
+      "enabled": false,
       "name": "f47c75",
       "location": "inside.refrigerator"
     },

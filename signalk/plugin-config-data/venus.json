@@ -34,6 +34,11 @@
         "type": "com.victronenergy.tank",
         "venusId": 23,
         "signalkId": "diesel"
+      },
+      {
+        "type": "com.victronenergy.tank",
+        "venusId": 29,
+        "signalkId": "water"
       }
     ],
     "temperatureMappings": [
@@ -44,6 +49,10 @@
       {
         "venusId": 25,
         "signalkPath": "environment.inside.saloon.temperature"
+      },
+      {
+        "venusId": 35,
+        "signalkPath": "environment.inside.refrigerator.temperature"
       }
     ]
   },

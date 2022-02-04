@@ -31,7 +31,10 @@
           "color": {
             "mode": "thresholds"
           },
+          "decimals": 1,
           "mappings": [],
+          "max": 1,
+          "min": 0.2,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -70,7 +73,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "datasource": {
@@ -197,7 +200,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "datasource": {
@@ -302,7 +305,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "datasource": {
@@ -401,7 +404,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "datasource": {
@@ -494,7 +497,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "datasource": {
@@ -587,7 +590,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "datasource": {
@@ -680,7 +683,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "datasource": {
@@ -758,7 +761,15 @@
                 "low power": {
                   "color": "transparent",
                   "index": 0,
-                  "text": "off"
+                  "text": "idle"
+                },
+                "off": {
+                  "color": "transparent",
+                  "index": 5
+                },
+                "passthru": {
+                  "color": "dark-blue",
+                  "index": 6
                 }
               },
               "type": "value"
@@ -916,7 +927,7 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "line"
             }
           },
           "mappings": [],
@@ -930,8 +941,8 @@
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "blue",
+                "value": 0
               }
             ]
           },
@@ -1004,7 +1015,7 @@
           },
           "folderName": "General",
           "folderUid": "",
-          "updated": "2022-01-05T12:36:45+01:00",
+          "updated": "2022-01-22T13:05:38+01:00",
           "updatedBy": {
             "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
             "id": 1,
@@ -1014,7 +1025,7 @@
         "name": "Battery SoC / Current",
         "type": "timeseries",
         "uid": "lbXDma0nk",
-        "version": 3
+        "version": 4
       },
       "options": {
         "legend": {
@@ -1218,6 +1229,21 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Alternator"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
           }
         ]
       },
@@ -1326,6 +1352,48 @@
           "tags": []
         },
         {
+          "alias": "Alternator",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eWjoLxAnk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "electrical.chargers.alternator.power",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
           "alias": "Shore",
           "datasource": {
             "type": "influxdb",
@@ -1349,7 +1417,7 @@
           "measurement": "electrical.inverters.multiplus.acin.power",
           "orderByTime": "ASC",
           "policy": "default",
-          "refId": "C",
+          "refId": "E",
           "resultFormat": "time_series",
           "select": [
             [
@@ -1592,6 +1660,6 @@
   "timezone": "",
   "title": "Electricity",
   "uid": "6EmAzaA7k",
-  "version": 21,
+  "version": 26,
   "weekStart": ""
 }
