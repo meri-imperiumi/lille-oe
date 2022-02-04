@@ -1,0 +1,10 @@
+[Unit]
+Description=Backup InfluxDB to S3
+
+[Service]
+ExecStart=/home/pi/influxdb-backup.sh
+Environment=BACKUP_PATH=/tmp/lille-oe-influxdb DATABASE=lille-oe AWS_ACCESS_KEY_ID= AWS_SECRET_ACCESS_KEY= S3_BUCKET=sy-lille-oe S3_KEY_PREFIX=lille-oe-influxdb
+Type=oneshot
+
+[Install]
+WantedBy=timers.target

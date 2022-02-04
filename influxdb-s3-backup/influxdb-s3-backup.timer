@@ -1,0 +1,10 @@
+[Unit]
+Description=Back up InfluxDB to S3 every week
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target
