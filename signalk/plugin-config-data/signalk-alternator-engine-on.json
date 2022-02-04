@@ -1,0 +1,7 @@
+{
+  "configuration": {
+    "alternator_path": "electrical.chargers.alternator.power",
+    "engine_path": "propulsion.main.state"
+  },
+  "enabled": true
+}

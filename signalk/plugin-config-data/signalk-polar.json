@@ -1,14 +1,14 @@
 {
   "configuration": {
-    "engine": "doNotStore",
+    "engine": "propulsion.*.state",
     "sqliteFile": "polarDatabase.db",
     "polarName": "dynamicPolar",
     "polarDescription": "Dynamic polar diagram from actual sailing",
+    "mainPolarUuid": "f7fe1f11-9692-4eb6-bbfc-1e2f786df89e",
     "angleResolution": 1,
     "twsInterval": 4,
     "maxWind": 15,
-    "rateOfTurnLimit": 5,
-    "mainPolarUuid": "f7fe1f11-9692-4eb6-bbfc-1e2f786df89e"
+    "rateOfTurnLimit": 5
   },
   "enabled": true
 }
