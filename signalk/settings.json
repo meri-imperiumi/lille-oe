@@ -133,12 +133,12 @@
     ],
     "environment.outside.pressure": [
       {
-        "sourceRef": "can0.32",
-        "timeout": ""
-      },
-      {
         "sourceRef": "ruuvitag.dd6822",
         "timeout": "1000"
+      },
+      {
+        "sourceRef": "can0.32",
+        "timeout": "2000"
       }
     ],
     "navigation.gnss.antennaAltitude": [
