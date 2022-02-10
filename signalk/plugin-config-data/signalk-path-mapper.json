@@ -45,7 +45,7 @@
         "path": "environment.outside.temperature",
         "newPath": "environment.outside.cockpit.temperature",
         "source": "ruuvitag.dd6822",
-        "duplicate": false
+        "duplicate": true
       }
     ]
   },
