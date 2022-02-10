@@ -127,8 +127,12 @@
         "timeout": "1000"
       },
       {
+        "sourceRef": "can0.174",
+        "timeout": "3000"
+      },
+      {
         "sourceRef": "ruuvitag.dd6822",
-        "timeout": "2000"
+        "timeout": "4000"
       }
     ],
     "environment.outside.pressure": [
