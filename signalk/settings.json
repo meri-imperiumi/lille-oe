@@ -154,6 +154,66 @@
         "sourceRef": "can0.31",
         "timeout": "1000"
       }
+    ],
+    "navigation.gnss.methodQuality": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": "1000"
+      }
+    ],
+    "navigation.gnss.satellites": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": "1000"
+      }
+    ],
+    "navigation.gnss.horizontalDilution": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": "1000"
+      }
+    ],
+    "navigation.gnss.positionDilution": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": "1000"
+      }
+    ],
+    "navigation.gnss.geoidalSeparation": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": "1000"
+      }
+    ],
+    "navigation.gnss.type": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": "1000"
+      }
     ]
   },
   "keepMostRecentLogsOnly": false,

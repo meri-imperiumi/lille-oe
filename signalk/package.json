@@ -5,7 +5,7 @@
   "repository": {},
   "license": "Apache-2.0",
   "dependencies": {
-    "@meri-imperiumi/signalk-alternator-engine-on": "^1.0.1",
+    "@meri-imperiumi/signalk-alternator-engine-on": "^1.0.2",
     "@meri-imperiumi/signalk-audio-notifications": "^1.0.2",
     "@meri-imperiumi/signalk-autostate": "^0.1.7",
     "@meri-imperiumi/signalk-teltonika-rutx11": "^0.3.0",
