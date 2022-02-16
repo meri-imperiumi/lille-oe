@@ -24,8 +24,8 @@
       "vmg_Wind": false
     },
     "heading": {
-      "cog_true": false,
-      "heading": true,
+      "cog_true": true,
+      "heading": false,
       "leeway": false,
       "kFactor": 12,
       "magneticVariation": false

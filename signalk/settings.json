@@ -70,7 +70,7 @@
       },
       {
         "sourceRef": "can0.31",
-        "timeout": "1000"
+        "timeout": "5000"
       }
     ],
     "navigation.datetime": [
@@ -80,16 +80,16 @@
       },
       {
         "sourceRef": "can0.31",
-        "timeout": "1000"
+        "timeout": "5000"
       }
     ],
     "navigation.headingTrue": [
       {
-        "sourceRef": "derived-data",
+        "sourceRef": "can0.31",
         "timeout": ""
       },
       {
-        "sourceRef": "can0.31",
+        "sourceRef": "derived-data",
         "timeout": "1000"
       }
     ],
@@ -100,7 +100,7 @@
       },
       {
         "sourceRef": "can0.1",
-        "timeout": "1000"
+        "timeout": "5000"
       }
     ],
     "navigation.speedOverGround": [
@@ -110,11 +110,11 @@
       },
       {
         "sourceRef": "can0.31",
-        "timeout": "1000"
+        "timeout": "2000"
       },
       {
         "sourceRef": "venus.com.victronenergy.gps.0",
-        "timeout": "3000"
+        "timeout": "5000"
       }
     ],
     "environment.outside.temperature": [
@@ -152,7 +152,7 @@
       },
       {
         "sourceRef": "can0.31",
-        "timeout": "1000"
+        "timeout": "5000"
       }
     ],
     "navigation.gnss.methodQuality": [
@@ -162,7 +162,7 @@
       },
       {
         "sourceRef": "can0.31",
-        "timeout": "1000"
+        "timeout": "5000"
       }
     ],
     "navigation.gnss.satellites": [
@@ -172,7 +172,7 @@
       },
       {
         "sourceRef": "can0.31",
-        "timeout": "1000"
+        "timeout": "5000"
       }
     ],
     "navigation.gnss.horizontalDilution": [
@@ -182,7 +182,7 @@
       },
       {
         "sourceRef": "can0.31",
-        "timeout": "1000"
+        "timeout": "5000"
       }
     ],
     "navigation.gnss.positionDilution": [
@@ -192,7 +192,7 @@
       },
       {
         "sourceRef": "can0.31",
-        "timeout": "1000"
+        "timeout": "5000"
       }
     ],
     "navigation.gnss.geoidalSeparation": [
@@ -202,7 +202,7 @@
       },
       {
         "sourceRef": "can0.31",
-        "timeout": "1000"
+        "timeout": "5000"
       }
     ],
     "navigation.gnss.type": [
@@ -212,7 +212,31 @@
       },
       {
         "sourceRef": "can0.31",
+        "timeout": "5000"
+      }
+    ],
+    "navigation.courseOverGroundTrue": [
+      {
+        "sourceRef": "derived-data",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
         "timeout": "1000"
+      },
+      {
+        "sourceRef": "venus.com.victronenergy.gps.0",
+        "timeout": "5000"
+      }
+    ],
+    "navigation.gnss.integrity": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": "5000"
       }
     ]
   },

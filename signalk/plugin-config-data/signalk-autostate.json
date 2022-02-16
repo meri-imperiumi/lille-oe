@@ -4,5 +4,7 @@
     "position_minutes": 10,
     "underway_threshold": 100
   },
-  "enabled": true
+  "enabled": true,
+  "enableDebug": false,
+  "enableLogging": false
 }
