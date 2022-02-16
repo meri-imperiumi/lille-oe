@@ -43,6 +43,10 @@
             }
           },
           {
+            "path": "environment.depth.transducerToKeel",
+            "value": -1.35
+          },
+          {
             "path": "design.aisShipType",
             "value": {
               "name": "Sailing",
