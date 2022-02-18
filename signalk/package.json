@@ -9,6 +9,7 @@
     "@meri-imperiumi/signalk-audio-notifications": "^1.0.2",
     "@meri-imperiumi/signalk-autostate": "^0.1.7",
     "@meri-imperiumi/signalk-teltonika-rutx11": "^0.3.0",
+    "@meri-imperiumi/signalk-triplogger": "^1.0.1",
     "@mxtommy/kip": "^1.2.3",
     "@signalk/aisreporter": "^1.1.0",
     "@signalk/charts-plugin": "^2.3.0",
