@@ -16,7 +16,7 @@
       "location": "inside.mainCabin"
     },
     "eb3b8a82bbc2": {
-      "enabled": true,
+      "enabled": false,
       "name": "eb3b8a",
       "location": "inside.heating"
     },
@@ -41,17 +41,17 @@
       "location": "inside.refrigerator"
     },
     "dd68222a7658": {
-      "enabled": true,
+      "enabled": false,
       "name": "dd6822",
       "location": "outside"
     },
     "e05371530ce6": {
-      "enabled": true,
+      "enabled": false,
       "name": "e05371",
       "location": "inside.mainCabin"
     },
     "ea6074308b14": {
-      "enabled": true,
+      "enabled": false,
       "name": "ea6074",
       "location": "inside.heads"
     },
@@ -62,5 +62,5 @@
     }
   },
   "enableLogging": false,
-  "enabled": true
+  "enabled": false
 }

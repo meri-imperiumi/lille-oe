@@ -53,6 +53,26 @@
       {
         "venusId": 35,
         "signalkPath": "environment.inside.refrigerator.temperature"
+      },
+      {
+        "venusId": 34,
+        "signalkPath": "environment.inside.heads.temperature"
+      },
+      {
+        "venusId": 33,
+        "signalkPath": "environment.inside.mainCabin.temperature"
+      },
+      {
+        "venusId": 32,
+        "signalkPath": "environment.outside.temperature"
+      },
+      {
+        "venusId": 37,
+        "signalkPath": "environment.inside.heating.temperature"
+      },
+      {
+        "venusId": 36,
+        "signalkPath": "environment.inside.wardrobe.temperature"
       }
     ]
   },

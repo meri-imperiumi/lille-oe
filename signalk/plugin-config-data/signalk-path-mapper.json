@@ -7,9 +7,9 @@
         "duplicate": true
       },
       {
-        "path": "environment.outside.relativeHumidity",
-        "newPath": "environment.outside.humidity",
-        "duplicate": false
+        "path": "environment.outside.humidity",
+        "newPath": "environment.outside.relativeHumidity",
+        "duplicate": true
       },
       {
         "path": "environment.inside.mainCabin.relativeHumidity",
@@ -46,6 +46,26 @@
         "newPath": "environment.outside.cockpit.temperature",
         "source": "ruuvitag.dd6822",
         "duplicate": true
+      },
+      {
+        "path": "environment.inside.heads.humidity",
+        "newPath": "environment.inside.heads.relativeHumidity",
+        "duplicate": false
+      },
+      {
+        "path": "environment.inside.mainCabin.humidity",
+        "newPath": "environment.inside.mainCabin.relativeHumidity",
+        "duplicate": false
+      },
+      {
+        "path": "environment.inside.heating.humidity",
+        "newPath": "environment.inside.heating.relativeHumidity",
+        "duplicate": false
+      },
+      {
+        "path": "environment.inside.wardrobe.humidity",
+        "newPath": "environment.inside.wardrobe.relativeHumidity",
+        "duplicate": false
       }
     ]
   },
