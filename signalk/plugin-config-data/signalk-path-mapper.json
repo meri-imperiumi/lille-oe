@@ -65,7 +65,7 @@
       {
         "path": "environment.inside.mainCabin.relativeHumidity",
         "newPath": "environment.inside.humidity",
-        "duplicate": false
+        "duplicate": true
       }
     ]
   },
