@@ -238,6 +238,26 @@
         "sourceRef": "can0.31",
         "timeout": "5000"
       }
+    ],
+    "environment.wind.angleApparent": [
+      {
+        "sourceRef": "can0.25",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.32",
+        "timeout": "5000"
+      }
+    ],
+    "environment.wind.speedApparent": [
+      {
+        "sourceRef": "can0.25",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.32",
+        "timeout": "5000"
+      }
     ]
   },
   "keepMostRecentLogsOnly": false,
