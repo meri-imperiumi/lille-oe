@@ -117,32 +117,14 @@
         "timeout": "5000"
       }
     ],
-    "environment.outside.temperature": [
-      {
-        "sourceRef": "can0.32",
-        "timeout": ""
-      },
-      {
-        "sourceRef": "can0.40",
-        "timeout": "1000"
-      },
-      {
-        "sourceRef": "can0.174",
-        "timeout": "3000"
-      },
-      {
-        "sourceRef": "ruuvitag.dd6822",
-        "timeout": "4000"
-      }
-    ],
     "environment.outside.pressure": [
       {
-        "sourceRef": "ruuvitag.dd6822",
-        "timeout": "1000"
+        "sourceRef": "can0.25",
+        "timeout": "5000"
       },
       {
         "sourceRef": "can0.32",
-        "timeout": "2000"
+        "timeout": "5000"
       }
     ],
     "navigation.gnss.antennaAltitude": [
@@ -257,6 +239,26 @@
       {
         "sourceRef": "can0.32",
         "timeout": "5000"
+      }
+    ],
+    "environment.outside.humidity": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": ""
+      }
+    ],
+    "environment.outside.temperature": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.25",
+        "timeout": "60000"
+      },
+      {
+        "sourceRef": "can0.32",
+        "timeout": "90000"
       }
     ]
   },

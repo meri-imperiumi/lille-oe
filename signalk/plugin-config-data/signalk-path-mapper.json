@@ -2,6 +2,12 @@
   "configuration": {
     "mappings": [
       {
+        "path": "environment.outside.humidity",
+        "newPath": "environment.outside.humidityFromWind",
+        "source": "can0.25",
+        "duplicate": false
+      },
+      {
         "path": "environment.inside.saloon.temperature",
         "newPath": "environment.inside.temperature",
         "duplicate": true
