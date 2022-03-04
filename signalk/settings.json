@@ -199,20 +199,20 @@
     ],
     "navigation.courseOverGroundTrue": [
       {
-        "sourceRef": "can0.1",
-        "timeout": ""
-      },
-      {
         "sourceRef": "derived-data",
-        "timeout": "5000"
+        "timeout": "8000"
       },
       {
         "sourceRef": "can0.31",
-        "timeout": "8000"
+        "timeout": "5000"
       },
       {
         "sourceRef": "venus.com.victronenergy.gps.0",
         "timeout": "16000"
+      },
+      {
+        "sourceRef": "can0.1",
+        "timeout": "18000"
       }
     ],
     "navigation.gnss.integrity": [

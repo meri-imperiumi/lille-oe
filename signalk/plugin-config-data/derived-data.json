@@ -31,7 +31,7 @@
       "leeway": false,
       "kFactor": 12,
       "leewayAngle": false,
-      "magneticVariation": false
+      "magneticVariation": true
     },
     "traffic": {
       "CPA": false,
