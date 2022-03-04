@@ -745,6 +745,10 @@
                 "value": null
               },
               {
+                "color": "#EAB839",
+                "value": -3
+              },
+              {
                 "color": "green",
                 "value": 0
               }
@@ -1361,6 +1365,90 @@
       },
       "targets": [
         {
+          "alias": "Shore",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eWjoLxAnk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "electrical.inverters.multiplus.acin.power",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "Alternator",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eWjoLxAnk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "electrical.chargers.alternator.power",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
           "alias": "Cabin top",
           "datasource": {
             "type": "influxdb",
@@ -1426,90 +1514,6 @@
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "Alternator",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "eWjoLxAnk"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "electrical.chargers.alternator.power",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "D",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "Shore",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "eWjoLxAnk"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "electrical.inverters.multiplus.acin.power",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "E",
           "resultFormat": "time_series",
           "select": [
             [
@@ -1650,47 +1654,6 @@
       },
       "targets": [
         {
-          "alias": "DC",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "eWjoLxAnk"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "electrical.venus.dcPower",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
           "alias": "AC",
           "datasource": {
             "type": "influxdb",
@@ -1731,6 +1694,47 @@
             ]
           ],
           "tags": []
+        },
+        {
+          "alias": "DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eWjoLxAnk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "electrical.venus.dcPower",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
         }
       ],
       "title": "Power consumption",
@@ -1752,6 +1756,6 @@
   "timezone": "",
   "title": "Electricity",
   "uid": "6EmAzaA7k",
-  "version": 30,
+  "version": 33,
   "weekStart": ""
 }
