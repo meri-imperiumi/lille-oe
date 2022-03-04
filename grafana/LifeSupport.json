@@ -1033,54 +1033,6 @@
           "tags": []
         },
         {
-          "alias": "cockpit",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "eWjoLxAnk"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "environment.outside.cockpit.temperature",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "G",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "- 273.15"
-                ],
-                "type": "math"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
           "alias": "saloon",
           "datasource": {
             "type": "influxdb",
@@ -2061,6 +2013,6 @@
   "timezone": "",
   "title": "Life support",
   "uid": "gyw_lbA7k",
-  "version": 38,
+  "version": 39,
   "weekStart": ""
 }

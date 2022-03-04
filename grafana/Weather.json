@@ -154,8 +154,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
+                "color": "light-blue",
                 "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -172,8 +176,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 6,
+        "h": 7,
+        "w": 5,
         "x": 0,
         "y": 3
       },
@@ -190,7 +194,7 @@
           },
           "folderName": "General",
           "folderUid": "",
-          "updated": "2022-01-03T16:30:59+01:00",
+          "updated": "2022-01-11T08:48:10+01:00",
           "updatedBy": {
             "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
             "id": 1,
@@ -200,7 +204,7 @@
         "name": "Outside feels like",
         "type": "gauge",
         "uid": "C47B3b0nz",
-        "version": 3
+        "version": 5
       },
       "options": {
         "orientation": "auto",
@@ -214,7 +218,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.6",
       "targets": [
         {
           "datasource": {
@@ -301,9 +305,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 6,
+        "h": 7,
+        "w": 5,
+        "x": 5,
         "y": 3
       },
       "id": 10,
@@ -319,7 +323,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.6",
       "targets": [
         {
           "datasource": {
@@ -410,9 +414,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 12,
+        "h": 7,
+        "w": 5,
+        "x": 10,
         "y": 3
       },
       "id": 8,
@@ -428,7 +432,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.6",
       "targets": [
         {
           "datasource": {
@@ -508,9 +512,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 18,
+        "h": 7,
+        "w": 5,
+        "x": 15,
         "y": 3
       },
       "id": 12,
@@ -526,7 +530,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "8.3.6",
       "targets": [
         {
           "datasource": {
@@ -571,6 +575,105 @@
       ],
       "title": "Relative humidity",
       "type": "gauge"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1050,
+          "min": 990,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1013
+              }
+            ]
+          },
+          "unit": "pressurehpa"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 20,
+        "y": 3
+      },
+      "id": 21,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eWjoLxAnk"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "environment.outside.pressure",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  " / 100"
+                ],
+                "type": "math"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Baro",
+      "type": "stat"
     },
     {
       "description": "",
@@ -637,7 +740,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 10
       },
       "id": 2,
       "libraryPanel": {
@@ -857,7 +960,7 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "area"
+              "mode": "line"
             }
           },
           "mappings": [],
@@ -896,12 +999,16 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 20
       },
       "id": 19,
       "options": {
         "legend": {
-          "calcs": [],
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
           "displayMode": "list",
           "placement": "bottom"
         },
@@ -1038,7 +1145,7 @@
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 29
       },
       "id": 14,
       "options": {
@@ -1198,7 +1305,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 33
       },
       "id": 4,
       "options": {
@@ -1217,6 +1324,7 @@
       },
       "targets": [
         {
+          "alias": "Baro",
           "datasource": {
             "type": "influxdb",
             "uid": "eWjoLxAnk"
@@ -1282,6 +1390,6 @@
   "timezone": "",
   "title": "Weather",
   "uid": "KNkl3x07k",
-  "version": 29,
+  "version": 39,
   "weekStart": ""
 }
