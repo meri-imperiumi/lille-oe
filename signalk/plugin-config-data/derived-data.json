@@ -18,16 +18,19 @@
     },
     "course data": {
       "dtg": false,
+      "cog_magnetic": false,
       "eta_waypoint": false,
+      "setDrift": false,
       "steer_error": false,
       "vmg_Course": false,
       "vmg_Wind": false
     },
     "heading": {
       "cog_true": true,
-      "heading": false,
+      "heading": true,
       "leeway": false,
       "kFactor": 12,
+      "leewayAngle": false,
       "magneticVariation": false
     },
     "traffic": {

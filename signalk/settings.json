@@ -85,12 +85,12 @@
     ],
     "navigation.headingTrue": [
       {
-        "sourceRef": "can0.31",
-        "timeout": ""
+        "sourceRef": "derived-data",
+        "timeout": "5000"
       },
       {
-        "sourceRef": "derived-data",
-        "timeout": "1000"
+        "sourceRef": "can0.31",
+        "timeout": "5000"
       }
     ],
     "navigation.magneticVariation": [
@@ -110,11 +110,11 @@
       },
       {
         "sourceRef": "can0.31",
-        "timeout": "2000"
+        "timeout": "5000"
       },
       {
         "sourceRef": "venus.com.victronenergy.gps.0",
-        "timeout": "5000"
+        "timeout": "8000"
       }
     ],
     "environment.outside.pressure": [
@@ -199,16 +199,20 @@
     ],
     "navigation.courseOverGroundTrue": [
       {
-        "sourceRef": "derived-data",
+        "sourceRef": "can0.1",
         "timeout": ""
       },
       {
+        "sourceRef": "derived-data",
+        "timeout": "5000"
+      },
+      {
         "sourceRef": "can0.31",
-        "timeout": "1000"
+        "timeout": "8000"
       },
       {
         "sourceRef": "venus.com.victronenergy.gps.0",
-        "timeout": "5000"
+        "timeout": "16000"
       }
     ],
     "navigation.gnss.integrity": [
@@ -259,6 +263,22 @@
       {
         "sourceRef": "can0.32",
         "timeout": "90000"
+      }
+    ],
+    "navigation.courseOverGroundMagnetic": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": ""
+      }
+    ],
+    "navigation.headingMagnetic": [
+      {
+        "sourceRef": "can0.0",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": "5000"
       }
     ]
   },
