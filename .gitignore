@@ -6,3 +6,4 @@ signalk/plugin-config-data/ais-forwarder.json
 signalk/plugin-config-data/aisreporter.json
 signalk/plugin-config-data/signalk-to-influxdb.json
 signalk/plugin-config-data/signalk-windy.json
+signalk/plugin-config-data/signalk-triplogger/current.json
