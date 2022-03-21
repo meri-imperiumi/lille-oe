@@ -1,6 +1,6 @@
 {
   "configuration": {
-    "default_ttl": 100,
+    "default_ttl": 0,
     "engine_instances": "main",
     "battery_instances": "house,starter",
     "tank_instances": "fuel.diesel,freshWater.water",

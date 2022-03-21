@@ -147,6 +147,6 @@
       "resendTime": 30
     }
   },
-  "enabled": true,
+  "enabled": false,
   "enableDebug": false
 }
