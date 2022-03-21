@@ -1,0 +1,47 @@
+{
+  "configuration": {
+    "source": "mode",
+    "Mode": {
+      "dayLevel": 8,
+      "nightLevel": 3
+    },
+    "Sun": {
+      "dawn": {
+        "mode": "night",
+        "backlight": 4
+      },
+      "sunrise": {
+        "mode": "day",
+        "backlight": 4
+      },
+      "day": {
+        "mode": "day",
+        "backlight": 8
+      },
+      "sunset": {
+        "mode": "day",
+        "backlight": 4
+      },
+      "dusk": {
+        "mode": "night",
+        "backlight": 4
+      },
+      "night": {
+        "mode": "night",
+        "backlight": 2
+      }
+    },
+    "Lux": {
+      "path": "environment.outside.lux"
+    },
+    "Display": {
+      "dayLevel": 8,
+      "nightLevel": 3
+    },
+    "MFD": {
+      "dayLevel": 2,
+      "nightLevel": 3
+    }
+  },
+  "enabled": true
+}
