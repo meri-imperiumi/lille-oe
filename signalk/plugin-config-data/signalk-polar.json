@@ -1,6 +1,7 @@
 {
   "configuration": {
     "engine": "propulsion.*.state",
+    "additional_info": "main",
     "sqliteFile": "polarDatabase.db",
     "polarName": "dynamicPolar",
     "polarDescription": "Dynamic polar diagram from actual sailing",
