@@ -117,16 +117,6 @@
         "timeout": "8000"
       }
     ],
-    "environment.outside.pressure": [
-      {
-        "sourceRef": "can0.25",
-        "timeout": "5000"
-      },
-      {
-        "sourceRef": "can0.32",
-        "timeout": "5000"
-      }
-    ],
     "navigation.gnss.antennaAltitude": [
       {
         "sourceRef": "can0.1",
@@ -267,6 +257,20 @@
       {
         "sourceRef": "derived-data",
         "timeout": ""
+      }
+    ],
+    "environment.outside.pressure": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.25",
+        "timeout": "60000"
+      },
+      {
+        "sourceRef": "can0.32",
+        "timeout": "120000"
       }
     ]
   },
