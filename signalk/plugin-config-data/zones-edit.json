@@ -1,0 +1,32 @@
+{
+  "configuration": {
+    "zones": [
+      {
+        "active": true,
+        "key": "tanks.freshWater.water.currentLevel",
+        "zones": [
+          {
+            "lower": 0,
+            "upper": 0.2,
+            "state": "warn",
+            "method": [
+              "visual"
+            ],
+            "message": "Freshwater tank level low"
+          },
+          {
+            "lower": 0.8,
+            "upper": 1,
+            "state": "alert",
+            "method": [
+              "visual",
+              "sound"
+            ],
+            "message": "Freshwater tank too full"
+          }
+        ]
+      }
+    ]
+  },
+  "enabled": true
+}
