@@ -6,7 +6,7 @@
         "key": "environment.depth.belowSurface",
         "name": "depth",
         "lowValue": 2,
-        "state": "emergency",
+        "state": "warn",
         "visual": true,
         "sound": true
       },

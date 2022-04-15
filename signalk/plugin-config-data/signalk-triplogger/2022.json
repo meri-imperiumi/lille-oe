@@ -1,11 +1,11 @@
 {
   "started": "2022-03-03T13:28:41.298Z",
   "ended": null,
-  "total": 42690,
+  "total": 43596,
   "states": {
     "anchored": 0,
-    "motoring": 7331,
+    "motoring": 8187,
     "moored": 0,
-    "sailing": 35359
+    "sailing": 35409
   }
 }
