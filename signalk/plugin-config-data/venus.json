@@ -39,6 +39,11 @@
         "type": "com.victronenergy.tank",
         "venusId": 29,
         "signalkId": "water"
+      },
+      {
+        "type": "com.victronenergy.solarcharger",
+        "venusId": 289,
+        "signalkId": "aftarch"
       }
     ],
     "temperatureMappings": [
