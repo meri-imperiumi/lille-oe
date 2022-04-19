@@ -26,7 +26,7 @@
       "vmg_Wind": false
     },
     "heading": {
-      "cog_true": true,
+      "cog_true": false,
       "heading": true,
       "leeway": false,
       "kFactor": 12,
@@ -56,6 +56,7 @@
     "wind": {
       "groundWind": true,
       "groundWindDirection": true,
+      "groundWindDirection2": false,
       "trueWind": true,
       "directionTrue": true,
       "directionMagnetic2": true,
@@ -83,5 +84,6 @@
       "tankVolume2_fuel.1": false
     }
   },
-  "enabled": true
+  "enabled": true,
+  "enableDebug": false
 }

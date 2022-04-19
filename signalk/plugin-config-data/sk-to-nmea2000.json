@@ -36,8 +36,8 @@
       "resendTime": 30
     },
     "ENVIRONMENT_PARAMETERS": {
-      "enabled": false,
-      "resend": 0,
+      "enabled": true,
+      "resend": 2,
       "resendTime": 30
     },
     "GPS_LOCATIONv2": {
@@ -46,6 +46,11 @@
       "resendTime": 30
     },
     "HEADINGv2": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "LEEWAY": {
       "enabled": false,
       "resend": 0,
       "resendTime": 30
@@ -88,7 +93,7 @@
     },
     "TEMPERATURE_OUTSIDE": {
       "enabled": true,
-      "resend": 0,
+      "resend": 2,
       "resendTime": 30
     },
     "TEMPERATURE_INSIDE": {
@@ -147,6 +152,6 @@
       "resendTime": 30
     }
   },
-  "enabled": false,
+  "enabled": true,
   "enableDebug": false
 }

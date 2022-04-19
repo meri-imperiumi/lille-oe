@@ -237,12 +237,6 @@
         "timeout": "90000"
       }
     ],
-    "navigation.courseOverGroundMagnetic": [
-      {
-        "sourceRef": "can0.1",
-        "timeout": ""
-      }
-    ],
     "navigation.headingMagnetic": [
       {
         "sourceRef": "can0.0",
@@ -251,12 +245,6 @@
       {
         "sourceRef": "can0.31",
         "timeout": "5000"
-      }
-    ],
-    "navigation.courseOverGroundTrue": [
-      {
-        "sourceRef": "derived-data",
-        "timeout": ""
       }
     ],
     "environment.outside.pressure": [
@@ -271,6 +259,12 @@
       {
         "sourceRef": "can0.32",
         "timeout": "120000"
+      }
+    ],
+    "navigation.courseOverGroundTrue": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": ""
       }
     ]
   },
