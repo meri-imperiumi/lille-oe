@@ -26,6 +26,7 @@
   "liveNow": false,
   "panels": [
     {
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -59,6 +60,30 @@
         "y": 0
       },
       "id": 9,
+      "libraryPanel": {
+        "description": "",
+        "meta": {
+          "connectedDashboards": 2,
+          "created": "2022-04-19T09:09:55+02:00",
+          "createdBy": {
+            "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
+            "id": 1,
+            "name": "bergie"
+          },
+          "folderName": "General",
+          "folderUid": "",
+          "updated": "2022-04-19T09:09:55+02:00",
+          "updatedBy": {
+            "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
+            "id": 1,
+            "name": "bergie"
+          }
+        },
+        "name": "State of Charge",
+        "type": "stat",
+        "uid": "noOUiWQnk",
+        "version": 1
+      },
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -73,7 +98,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "datasource": {
@@ -165,7 +190,7 @@
       "libraryPanel": {
         "description": "",
         "meta": {
-          "connectedDashboards": 3,
+          "connectedDashboards": 2,
           "created": "2022-01-03T15:44:30+01:00",
           "createdBy": {
             "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
@@ -200,7 +225,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "datasource": {
@@ -305,7 +330,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "datasource": {
@@ -404,7 +429,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "datasource": {
@@ -497,7 +522,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "datasource": {
@@ -590,7 +615,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "datasource": {
@@ -683,7 +708,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "datasource": {
@@ -779,7 +804,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "datasource": {
@@ -1818,6 +1843,6 @@
   "timezone": "",
   "title": "Electricity",
   "uid": "6EmAzaA7k",
-  "version": 34,
+  "version": 35,
   "weekStart": ""
 }
