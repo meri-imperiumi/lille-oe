@@ -1,6 +1,6 @@
 {
   "configuration": {
-    "source": "mode",
+    "source": "sun",
     "Mode": {
       "dayLevel": 8,
       "nightLevel": 3
@@ -12,15 +12,15 @@
       },
       "sunrise": {
         "mode": "day",
-        "backlight": 4
+        "backlight": 5
       },
       "day": {
         "mode": "day",
-        "backlight": 8
+        "backlight": 9
       },
       "sunset": {
-        "mode": "day",
-        "backlight": 4
+        "mode": "night",
+        "backlight": 5
       },
       "dusk": {
         "mode": "night",
