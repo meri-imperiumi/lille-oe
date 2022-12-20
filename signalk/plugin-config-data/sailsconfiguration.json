@@ -1,0 +1,41 @@
+{
+  "configuration": {
+    "deltaInterval": 60,
+    "sails": [
+      {
+        "id": "main",
+        "name": "Main",
+        "description": "Fully-battened Elvstrøm main sail with two reefs. From 2006 but first used in 2022",
+        "type": "mainsail",
+        "area": 21,
+        "material": "Dacron",
+        "brand": "Elvstrøm Sails",
+        "minimumWind": 2,
+        "active": false
+      },
+      {
+        "id": "genoa",
+        "name": "Genoa 1",
+        "description": "Laminated furling Genoa 1 made by Elvstrøm in 2006",
+        "type": "genoa",
+        "area": 30.2,
+        "brand": "Elvstrøm Sails",
+        "material": "Laminate",
+        "active": false
+      },
+      {
+        "id": "parasailor",
+        "name": "Parasailor",
+        "description": "Parasailor by Istec, from 2022",
+        "type": "spinnaker",
+        "area": 68,
+        "minimumWind": 2.3,
+        "maximumWind": 13.8,
+        "material": "Nylon",
+        "brand": "Istec",
+        "active": false
+      }
+    ]
+  },
+  "enabled": true
+}
