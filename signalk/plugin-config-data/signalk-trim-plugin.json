@@ -1,0 +1,109 @@
+{
+  "configuration": {
+    "autoMode": true,
+    "adviceMode": true,
+    "sails": [
+      {
+        "sail": "Main",
+        "parts": [
+          {
+            "part": "Sheet",
+            "markers": "White,Blue,Green,Red,Black,Pink,Orange,Yellow,Grey,Purple"
+          },
+          {
+            "part": "Traveller",
+            "markers": "-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10"
+          },
+          {
+            "part": "Boom vang",
+            "markers": "White,Blue,Green,Red,Black,Pink,Orange,Yellow,Grey,Purple"
+          },
+          {
+            "part": "Luff"
+          },
+          {
+            "part": "Foot"
+          },
+          {
+            "part": "Backstay"
+          },
+          {
+            "part": "Profile"
+          },
+          {
+            "part": "Running backstay"
+          }
+        ]
+      },
+      {
+        "sail": "Genua",
+        "parts": [
+          {
+            "part": "Sheet",
+            "markers": "White,Blue,Green,Red,Black,Pink,Orange,Yellow,Grey,Purple"
+          },
+          {
+            "part": "Sheetangle / Rails",
+            "markers": "1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20"
+          },
+          {
+            "part": "Luff"
+          },
+          {
+            "part": "Profile"
+          }
+        ]
+      }
+    ],
+    "wavePath": "navigation.attitude",
+    "wave": [
+      {
+        "type": "Almost no waves",
+        "min": 0,
+        "max": 10
+      },
+      {
+        "type": "Lot of waves",
+        "min": 10,
+        "max": 100
+      }
+    ],
+    "windSpeedPath": "environment.wind.speedTrue",
+    "windSpeed": [
+      {
+        "type": "Weak",
+        "min": 0,
+        "max": 10
+      },
+      {
+        "type": "Moderate",
+        "min": 10,
+        "max": 25
+      },
+      {
+        "type": "Hard",
+        "min": 25,
+        "max": 100
+      }
+    ],
+    "windAnglePath": "environment.wind.angleTrueWater",
+    "windAngle": [
+      {
+        "type": "Upwind",
+        "min": 0,
+        "max": 55
+      },
+      {
+        "type": "Half wind",
+        "min": 55,
+        "max": 105
+      },
+      {
+        "type": "Down wind",
+        "min": 105,
+        "max": 180
+      }
+    ]
+  },
+  "enabled": true
+}

@@ -1,0 +1,123 @@
+{
+  "configuration": {
+    "null": null,
+    "sourceAddress": 1,
+    "avgTrueWindDirection": {
+      "enabled": false,
+      "path": ""
+    },
+    "biasAdvantage": {
+      "enabled": false,
+      "path": ""
+    },
+    "chainLength": {
+      "enabled": false,
+      "path": ""
+    },
+    "course": {
+      "enabled": false,
+      "path": "navigation.courseOverGroundTrue"
+    },
+    "drBearing": {
+      "enabled": false,
+      "path": ""
+    },
+    "drDistance": {
+      "enabled": false,
+      "path": ""
+    },
+    "groundWind": {
+      "enabled": true,
+      "path": "environment.wind.speedOverGround"
+    },
+    "groundWindDirection": {
+      "enabled": true,
+      "path": "environment.wind.directionGround"
+    },
+    "headingOppTack": {
+      "enabled": true,
+      "path": "performance.tackTrue"
+    },
+    "heelAngle": {
+      "enabled": true,
+      "path": "navigation.attitude"
+    },
+    "leewayAngle": {
+      "enabled": false,
+      "path": "navigation.leewayAngle"
+    },
+    "mastRake": {
+      "enabled": false,
+      "path": ""
+    },
+    "nextLegBearing": {
+      "enabled": false,
+      "path": ""
+    },
+    "nextLegTargetSpeed": {
+      "enabled": false,
+      "path": ""
+    },
+    "oppTackCOG": {
+      "enabled": false,
+      "path": ""
+    },
+    "oppTackTarget": {
+      "enabled": false,
+      "path": "performance.tackTrue"
+    },
+    "oppWindAngle": {
+      "enabled": false,
+      "path": ""
+    },
+    "polarPerformance": {
+      "enabled": true,
+      "path": "performance.polarPerformance"
+    },
+    "polarSpeed": {
+      "enabled": true,
+      "path": "performance.polarSpeed"
+    },
+    "tackingPerf": {
+      "enabled": false,
+      "path": ""
+    },
+    "targetTWA": {
+      "enabled": false,
+      "path": "performance.targetAngle"
+    },
+    "tideRate": {
+      "enabled": false,
+      "path": ""
+    },
+    "tideSet": {
+      "enabled": false,
+      "path": ""
+    },
+    "trimAngle": {
+      "enabled": false,
+      "path": "navigation.attitude"
+    },
+    "vmg": {
+      "enabled": true,
+      "path": "performance.velocityMadeGood"
+    },
+    "vmgperf": {
+      "enabled": false,
+      "path": ""
+    },
+    "windAngleMast": {
+      "enabled": false,
+      "path": ""
+    },
+    "windLift": {
+      "enabled": false,
+      "path": ""
+    },
+    "windPhase": {
+      "enabled": false,
+      "path": ""
+    }
+  },
+  "enabled": true
+}
