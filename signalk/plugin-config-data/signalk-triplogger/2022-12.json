@@ -1,0 +1,10 @@
+{
+  "started": "2022-12-01T00:00:07.006Z",
+  "ended": null,
+  "total": 12673,
+  "states": {
+    "moored": 0,
+    "motoring": 2253,
+    "sailing": 10420
+  }
+}
