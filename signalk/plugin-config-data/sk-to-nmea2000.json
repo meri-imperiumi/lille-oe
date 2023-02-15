@@ -11,9 +11,19 @@
       "resendTime": 30
     },
     "BATTERYv2": {
-      "enabled": false,
+      "enabled": true,
       "resend": 0,
-      "resendTime": 30
+      "resendTime": 30,
+      "batteries": [
+        {
+          "signalkId": "house",
+          "instanceId": 1
+        },
+        {
+          "signalkId": "starter",
+          "instanceId": 2
+        }
+      ]
     },
     "COG_SOGv2": {
       "enabled": false,
@@ -86,10 +96,19 @@
       "resendTime": 30
     },
     "TANKS": {
-      "enabled": false,
+      "enabled": true,
       "resend": 0,
       "resendTime": 30,
-      "tanks": []
+      "tanks": [
+        {
+          "signalkPath": "tanks.freshWater.water",
+          "instanceId": 1
+        },
+        {
+          "signalkPath": "tanks.fuel.diesel",
+          "instanceId": 2
+        }
+      ]
     },
     "TEMPERATURE_OUTSIDE": {
       "enabled": true,

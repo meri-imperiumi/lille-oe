@@ -17,3 +17,7 @@ signalk/plugin-config-data/signalk-hour-meter/
 signalk/plugin-config-data/signalk-polar/*.db
 signalk/plugin-config-data/signalk-triplogger/current.json
 signalk/plugin-config-data/signalk-triplogger/2022-*-*.json
+signalk/plugin-config-data/signalk-triplogger/2023-*-*.json
+signalk/plugin-config-data/signalk-logbook/
+signalk/plugin-config-data/noflo-signalk.json
+signalk/plugin-config-data/signalk-to-nfl.json

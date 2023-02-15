@@ -1,0 +1,16 @@
+{
+  "configuration": {
+    "tempUnits": "C",
+    "Device ID SHRGBW2-E8DB84811DB0": {
+      "deviceName": "Shelly RGBW2 ",
+      "enabled": true,
+      "devicePath": "saloonPortRgbw2"
+    },
+    "Device ID SHRGBW2-E8DB84811D45": {
+      "deviceName": "Shelly RGBW2 ",
+      "enabled": true,
+      "devicePath": "saloonStarboardRgbw2"
+    }
+  },
+  "enabled": true
+}
