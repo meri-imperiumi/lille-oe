@@ -31,7 +31,7 @@
       "resendTime": 30
     },
     "DEPTHv2": {
-      "enabled": false,
+      "enabled": true,
       "resend": 0,
       "resendTime": 30
     },
@@ -86,7 +86,7 @@
       "resendTime": 30
     },
     "SPEED": {
-      "enabled": false,
+      "enabled": true,
       "resend": 0,
       "resendTime": 30
     },

@@ -311,6 +311,26 @@
         "sourceRef": "ydnr02.YD",
         "timeout": "2000"
       }
+    ],
+    "navigation.attitude": [
+      {
+        "sourceRef": "can0.15",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.0",
+        "timeout": "4000"
+      }
+    ],
+    "navigation.trip.log": [
+      {
+        "sourceRef": "signalk-triplogger.XX",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.71",
+        "timeout": "60000000"
+      }
     ]
   },
   "keepMostRecentLogsOnly": false,
