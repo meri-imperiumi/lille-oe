@@ -11,17 +11,25 @@
         "material": "Dacron",
         "brand": "Elvstrøm Sails",
         "minimumWind": 2,
-        "active": false
+        "active": true,
+        "reefs": [
+          17,
+          10
+        ],
+        "reducedState": {
+          "reefs": 0
+        }
       },
       {
         "id": "genoa",
         "name": "Genoa 1",
         "description": "Laminated furling Genoa 1 made by Elvstrøm in 2006",
         "type": "genoa",
-        "area": 30.2,
+        "area": 29.2,
         "brand": "Elvstrøm Sails",
         "material": "Laminate",
-        "active": false
+        "active": true,
+        "continuousReefing": true
       },
       {
         "id": "parasailor",
@@ -34,6 +42,22 @@
         "material": "Nylon",
         "brand": "Istec",
         "active": false
+      },
+      {
+        "id": "staysail",
+        "name": "Staysail",
+        "type": "staysail",
+        "material": "Dacron",
+        "brand": "Elvstrøm Sails",
+        "active": false,
+        "area": 14.5,
+        "reducedState": {
+          "reefs": 0,
+          "furledRatio": 0
+        },
+        "reefs": [
+          9
+        ]
       }
     ]
   },
