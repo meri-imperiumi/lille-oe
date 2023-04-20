@@ -1,0 +1,53 @@
+{
+  "configuration": {
+    "calibrations": [
+      {
+        "path": "navigation.speedThroughWater",
+        "sourceRef": "can0.71",
+        "period": "",
+        "mappings": [
+          {
+            "in": 0,
+            "out": 0
+          },
+          {
+            "in": 3.96,
+            "out": 1.74
+          },
+          {
+            "in": 4.11556,
+            "out": 1.8
+          },
+          {
+            "in": 4.16,
+            "out": 1.85
+          },
+          {
+            "in": 5,
+            "out": 2.2
+          },
+          {
+            "in": 5.86,
+            "out": 2.5
+          }
+        ]
+      },
+      {
+        "path": "navigation.log",
+        "sourceRef": "can0.71",
+        "period": "",
+        "mappings": [
+          {
+            "in": 114.4,
+            "out": 50.6
+          },
+          {
+            "in": 115.2,
+            "out": 51
+          }
+        ]
+      }
+    ]
+  },
+  "enabled": true
+}
