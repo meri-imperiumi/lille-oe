@@ -1,9 +1,48 @@
 {
   "configuration": {
+    "config": [
+      {
+        "group": "Default",
+        "source": "sun",
+        "Mode": {
+          "dayLevel": 8,
+          "nightLevel": 3
+        },
+        "Sun": {
+          "dawn": {
+            "mode": "night",
+            "backlight": 4
+          },
+          "sunrise": {
+            "mode": "day",
+            "backlight": 5
+          },
+          "day": {
+            "mode": "day",
+            "backlight": 9
+          },
+          "sunset": {
+            "mode": "night",
+            "backlight": 5
+          },
+          "dusk": {
+            "mode": "night",
+            "backlight": 4
+          },
+          "night": {
+            "mode": "night",
+            "backlight": 2
+          }
+        },
+        "Lux": {
+          "path": "environment.outside.lux"
+        }
+      }
+    ],
     "source": "sun",
     "Mode": {
       "dayLevel": 8,
-      "nightLevel": 3
+      "nightLevel": 1
     },
     "Sun": {
       "dawn": {
@@ -20,7 +59,7 @@
       },
       "sunset": {
         "mode": "night",
-        "backlight": 5
+        "backlight": 7
       },
       "dusk": {
         "mode": "night",
@@ -28,7 +67,7 @@
       },
       "night": {
         "mode": "night",
-        "backlight": 2
+        "backlight": 1
       }
     },
     "Lux": {
