@@ -72,6 +72,26 @@
         "path": "environment.inside.mainCabin.relativeHumidity",
         "newPath": "environment.inside.humidity",
         "duplicate": true
+      },
+      {
+        "path": "electrical.dcsource.290.current",
+        "newPath": "electrical.chargers.hydrogenerator.current",
+        "duplicate": false
+      },
+      {
+        "path": "electrical.dcsource.290.power",
+        "newPath": "electrical.chargers.hydrogenerator.power",
+        "duplicate": false
+      },
+      {
+        "path": "electrical.dcsource.290.temperature",
+        "newPath": "electrical.chargers.hydrogenerator.temperature",
+        "duplicate": false
+      },
+      {
+        "path": "electrical.dcsource.290.voltage",
+        "newPath": "electrical.chargers.hydrogenerator.voltage",
+        "duplicate": false
       }
     ]
   },
