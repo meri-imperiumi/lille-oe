@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -26,6 +29,10 @@
   "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "gridPos": {
         "h": 3,
         "w": 12,
@@ -83,6 +90,10 @@
       "type": "logs"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "gridPos": {
         "h": 3,
         "w": 12,
@@ -140,6 +151,10 @@
       "type": "logs"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -185,7 +200,7 @@
       "libraryPanel": {
         "description": "",
         "meta": {
-          "connectedDashboards": 2,
+          "connectedDashboards": 3,
           "created": "2022-01-03T15:44:18+01:00",
           "createdBy": {
             "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
@@ -218,7 +233,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
@@ -271,11 +286,17 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
+          "decimals": 1,
           "mappings": [],
           "max": 40,
           "min": 0,
@@ -311,6 +332,30 @@
         "y": 3
       },
       "id": 10,
+      "libraryPanel": {
+        "description": "",
+        "meta": {
+          "connectedDashboards": 1,
+          "created": "2022-04-25T14:05:54+02:00",
+          "createdBy": {
+            "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
+            "id": 1,
+            "name": "bergie"
+          },
+          "folderName": "General",
+          "folderUid": "",
+          "updated": "2022-04-25T14:05:54+02:00",
+          "updatedBy": {
+            "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
+            "id": 1,
+            "name": "bergie"
+          }
+        },
+        "name": "Wind speed",
+        "type": "gauge",
+        "uid": "MK-iiaQnz",
+        "version": 1
+      },
       "options": {
         "orientation": "auto",
         "reduceOptions": {
@@ -323,7 +368,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
@@ -376,6 +421,11 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -420,6 +470,30 @@
         "y": 3
       },
       "id": 8,
+      "libraryPanel": {
+        "description": "",
+        "meta": {
+          "connectedDashboards": 1,
+          "created": "2022-04-25T14:05:58+02:00",
+          "createdBy": {
+            "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
+            "id": 1,
+            "name": "bergie"
+          },
+          "folderName": "General",
+          "folderUid": "",
+          "updated": "2022-11-05T20:27:18+01:00",
+          "updatedBy": {
+            "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
+            "id": 1,
+            "name": "bergie"
+          }
+        },
+        "name": "Wind direction",
+        "type": "gauge",
+        "uid": "UqsmmaQnz",
+        "version": 2
+      },
       "options": {
         "orientation": "auto",
         "reduceOptions": {
@@ -432,7 +506,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
@@ -453,7 +527,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "environment.wind.directionGround",
+          "measurement": "environment.wind.directionTrue",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -485,6 +559,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -530,7 +608,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
@@ -577,6 +655,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -623,7 +705,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
@@ -676,6 +758,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -683,6 +769,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -746,7 +834,7 @@
       "libraryPanel": {
         "description": "",
         "meta": {
-          "connectedDashboards": 2,
+          "connectedDashboards": 3,
           "created": "2022-01-03T15:59:12+01:00",
           "createdBy": {
             "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
@@ -775,10 +863,12 @@
             "mean"
           ],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -930,6 +1020,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -970,8 +1064,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -1010,10 +1103,12 @@
             "mean"
           ],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -1069,6 +1164,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1076,7 +1175,8 @@
           },
           "custom": {
             "fillOpacity": 70,
-            "lineWidth": 0
+            "lineWidth": 0,
+            "spanNulls": false
           },
           "mappings": [
             {
@@ -1094,7 +1194,7 @@
                   "index": 0
                 },
                 "dawn": {
-                  "color": "semi-dark-purple",
+                  "color": "dark-orange",
                   "index": 8
                 },
                 "day": {
@@ -1102,11 +1202,11 @@
                   "index": 3
                 },
                 "dusk": {
-                  "color": "semi-dark-purple",
+                  "color": "dark-orange",
                   "index": 7
                 },
                 "night": {
-                  "color": "blue",
+                  "color": "purple",
                   "index": 4
                 },
                 "sunrise": {
@@ -1125,8 +1225,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -1151,14 +1250,16 @@
       "options": {
         "alignValue": "left",
         "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom"
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
         },
         "mergeValues": true,
         "rowHeight": 0.9,
         "showValue": "auto",
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -1250,6 +1351,10 @@
       "type": "state-timeline"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1288,8 +1393,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1316,10 +1420,12 @@
             "mean"
           ],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -1376,7 +1482,7 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 34,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1390,6 +1496,6 @@
   "timezone": "",
   "title": "Weather",
   "uid": "KNkl3x07k",
-  "version": 39,
+  "version": 44,
   "weekStart": ""
 }

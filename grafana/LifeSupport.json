@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -26,6 +29,10 @@
   "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -80,7 +87,7 @@
           },
           "folderName": "General",
           "folderUid": "",
-          "updated": "2022-01-11T08:48:31+01:00",
+          "updated": "2022-04-20T15:24:08+02:00",
           "updatedBy": {
             "avatarUrl": "/avatar/995f27ce7205a79c55d4e44223cd6de0",
             "id": 1,
@@ -90,7 +97,7 @@
         "name": "Inside temperature",
         "type": "gauge",
         "uid": "Rkvfqb0nk",
-        "version": 2
+        "version": 4
       },
       "options": {
         "orientation": "auto",
@@ -104,7 +111,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
@@ -125,7 +132,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "environment.inside.saloon.temperature",
+          "measurement": "environment.inside.temperature",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -157,6 +164,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -235,7 +246,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
@@ -288,6 +299,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -341,7 +356,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
@@ -394,6 +409,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -474,7 +493,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
@@ -527,6 +546,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -577,7 +600,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
@@ -624,6 +647,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -665,7 +692,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
@@ -718,6 +745,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -758,7 +789,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
@@ -805,6 +836,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -845,7 +880,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
@@ -892,12 +927,18 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -978,7 +1019,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1278,12 +1320,18 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1386,7 +1434,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1566,12 +1615,18 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "axisSoftMax": 1,
@@ -1669,7 +1724,8 @@
             "mean"
           ],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1765,6 +1821,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eWjoLxAnk"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1772,6 +1832,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1904,7 +1966,8 @@
             "mean"
           ],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -2003,7 +2066,7 @@
     }
   ],
   "refresh": "5m",
-  "schemaVersion": 35,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
