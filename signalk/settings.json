@@ -331,6 +331,16 @@
         "sourceRef": "can0.71",
         "timeout": "60000000"
       }
+    ],
+    "navigation.log": [
+      {
+        "sourceRef": "signalk-triplogger.XX",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.71",
+        "timeout": "60000000"
+      }
     ]
   },
   "keepMostRecentLogsOnly": false,

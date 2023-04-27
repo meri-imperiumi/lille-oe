@@ -1,0 +1,8 @@
+{
+  "configuration": {
+    "update_interval": 10000,
+    "totals": true,
+    "totals_base": 683751.4
+  },
+  "enabled": true
+}
