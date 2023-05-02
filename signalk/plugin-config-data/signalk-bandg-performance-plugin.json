@@ -14,9 +14,17 @@
       "enabled": false,
       "path": ""
     },
-    "course": {
+    "codeZeroLoad": {
       "enabled": false,
+      "path": ""
+    },
+    "course": {
+      "enabled": true,
       "path": "navigation.courseOverGroundTrue"
+    },
+    "cunningham": {
+      "enabled": false,
+      "path": ""
     },
     "drBearing": {
       "enabled": false,
@@ -26,13 +34,13 @@
       "enabled": false,
       "path": ""
     },
-    "groundWind": {
-      "enabled": true,
-      "path": "environment.wind.speedOverGround"
-    },
     "groundWindDirection": {
       "enabled": true,
       "path": "environment.wind.directionGround"
+    },
+    "groundWind": {
+      "enabled": true,
+      "path": "environment.wind.speedOverGround"
     },
     "headingOppTack": {
       "enabled": true,
@@ -41,6 +49,10 @@
     "heelAngle": {
       "enabled": true,
       "path": "navigation.attitude"
+    },
+    "jacuzziTemperature": {
+      "enabled": false,
+      "path": "environment.jacuzzi.temperature"
     },
     "leewayAngle": {
       "enabled": false,
@@ -63,27 +75,35 @@
       "path": ""
     },
     "oppTackTarget": {
-      "enabled": false,
+      "enabled": true,
       "path": "performance.tackTrue"
     },
     "oppWindAngle": {
       "enabled": false,
       "path": ""
     },
-    "polarPerformance": {
-      "enabled": true,
-      "path": "performance.polarPerformance"
+    "outhaulLoad": {
+      "enabled": false,
+      "path": ""
+    },
+    "plowAngle": {
+      "enabled": false,
+      "path": ""
     },
     "polarSpeed": {
       "enabled": true,
       "path": "performance.polarSpeed"
     },
-    "tackingPerf": {
+    "polarPerformance": {
+      "enabled": true,
+      "path": "performance.polarPerformance"
+    },
+    "poolTemperature": {
       "enabled": false,
-      "path": ""
+      "path": "environment.pool.temperature"
     },
     "targetTWA": {
-      "enabled": false,
+      "enabled": true,
       "path": "performance.targetAngle"
     },
     "tideRate": {
@@ -94,8 +114,12 @@
       "enabled": false,
       "path": ""
     },
-    "trimAngle": {
+    "tackingPerf": {
       "enabled": false,
+      "path": ""
+    },
+    "trimAngle": {
+      "enabled": true,
       "path": "navigation.attitude"
     },
     "vmg": {
@@ -110,11 +134,179 @@
       "enabled": false,
       "path": ""
     },
+    "windPhase": {
+      "enabled": false,
+      "path": ""
+    },
     "windLift": {
       "enabled": false,
       "path": ""
     },
-    "windPhase": {
+    "user1": {
+      "enabled": false,
+      "path": ""
+    },
+    "user2": {
+      "enabled": false,
+      "path": ""
+    },
+    "user3": {
+      "enabled": false,
+      "path": ""
+    },
+    "user4": {
+      "enabled": false,
+      "path": ""
+    },
+    "user5": {
+      "enabled": false,
+      "path": ""
+    },
+    "user6": {
+      "enabled": false,
+      "path": ""
+    },
+    "user7": {
+      "enabled": false,
+      "path": ""
+    },
+    "user8": {
+      "enabled": false,
+      "path": ""
+    },
+    "user9": {
+      "enabled": false,
+      "path": ""
+    },
+    "user10": {
+      "enabled": false,
+      "path": ""
+    },
+    "user11": {
+      "enabled": false,
+      "path": ""
+    },
+    "user12": {
+      "enabled": false,
+      "path": ""
+    },
+    "user13": {
+      "enabled": false,
+      "path": ""
+    },
+    "user14": {
+      "enabled": false,
+      "path": ""
+    },
+    "user15": {
+      "enabled": false,
+      "path": ""
+    },
+    "user16": {
+      "enabled": false,
+      "path": ""
+    },
+    "user17": {
+      "enabled": false,
+      "path": ""
+    },
+    "user18": {
+      "enabled": false,
+      "path": ""
+    },
+    "user19": {
+      "enabled": false,
+      "path": ""
+    },
+    "user20": {
+      "enabled": false,
+      "path": ""
+    },
+    "user21": {
+      "enabled": false,
+      "path": ""
+    },
+    "user22": {
+      "enabled": false,
+      "path": ""
+    },
+    "user23": {
+      "enabled": false,
+      "path": ""
+    },
+    "user24": {
+      "enabled": false,
+      "path": ""
+    },
+    "user25": {
+      "enabled": false,
+      "path": ""
+    },
+    "user26": {
+      "enabled": false,
+      "path": ""
+    },
+    "user27": {
+      "enabled": false,
+      "path": ""
+    },
+    "user28": {
+      "enabled": false,
+      "path": ""
+    },
+    "user29": {
+      "enabled": false,
+      "path": ""
+    },
+    "user30": {
+      "enabled": false,
+      "path": ""
+    },
+    "user31": {
+      "enabled": false,
+      "path": ""
+    },
+    "user32": {
+      "enabled": false,
+      "path": ""
+    },
+    "remote0": {
+      "enabled": false,
+      "path": ""
+    },
+    "remote1": {
+      "enabled": false,
+      "path": ""
+    },
+    "remote2": {
+      "enabled": false,
+      "path": ""
+    },
+    "remote3": {
+      "enabled": false,
+      "path": ""
+    },
+    "remote4": {
+      "enabled": false,
+      "path": ""
+    },
+    "remote5": {
+      "enabled": false,
+      "path": ""
+    },
+    "remote6": {
+      "enabled": false,
+      "path": ""
+    },
+    "remote7": {
+      "enabled": false,
+      "path": ""
+    },
+    "remote8": {
+      "enabled": false,
+      "path": ""
+    },
+    "remote9": {
       "enabled": false,
       "path": ""
     }
