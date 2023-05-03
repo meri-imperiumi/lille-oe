@@ -1,6 +1,7 @@
 {
   "configuration": {
     "null": null,
+    "emulate": true,
     "sourceAddress": 1,
     "avgTrueWindDirection": {
       "enabled": false,
