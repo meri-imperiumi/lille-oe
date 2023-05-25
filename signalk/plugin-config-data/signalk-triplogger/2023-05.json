@@ -1,10 +1,11 @@
 {
   "started": "2023-05-01T00:00:04.090Z",
   "ended": null,
-  "total": 72116,
+  "total": 803028,
   "states": {
     "moored": 0,
-    "sailing": 70595,
-    "motoring": 1521
+    "sailing": 722473,
+    "motoring": 80555,
+    "anchored": 0
   }
 }
