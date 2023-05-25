@@ -23,12 +23,12 @@
       "setDrift": false,
       "steer_error": false,
       "vmg_Course": false,
-      "vmg_Wind": false
+      "vmg_Wind": true
     },
     "heading": {
       "cog_true": false,
       "heading": true,
-      "leeway": false,
+      "leeway": true,
       "kFactor": 12,
       "leewayAngle": false,
       "magneticVariation": true
@@ -55,8 +55,8 @@
     },
     "wind": {
       "groundWind": true,
-      "groundWindDirection": true,
-      "groundWindDirection2": false,
+      "groundWindDirection": false,
+      "groundWindDirection2": true,
       "trueWind": true,
       "directionTrue": true,
       "directionMagnetic2": true,

@@ -92,6 +92,11 @@
         "path": "electrical.dcsource.290.voltage",
         "newPath": "electrical.chargers.hydrogenerator.voltage",
         "duplicate": false
+      },
+      {
+        "path": "environment.wind.directionTrue",
+        "newPath": "environment.wind.directionGround",
+        "duplicate": true
       }
     ]
   },

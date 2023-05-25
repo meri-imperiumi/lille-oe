@@ -80,6 +80,11 @@
       "resend": 0,
       "resendTime": 30
     },
+    "RAYMARINE": {
+      "enabled": false,
+      "resend": 0,
+      "resendTime": 30
+    },
     "ENVIRONMENT_PARAMETERS_SEA": {
       "enabled": false,
       "resend": 0,
@@ -166,9 +171,11 @@
       "resendTime": 30
     },
     "WINDv2": {
-      "enabled": false,
+      "enabled": true,
       "resend": 0,
-      "resendTime": 30
+      "resendTime": 30,
+      "environmentwindangleApparent": "can0.71",
+      "environmentwindspeedApparent": "can0.71"
     }
   },
   "enabled": true,
