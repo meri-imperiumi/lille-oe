@@ -23,11 +23,11 @@
           },
           "sunset": {
             "mode": "night",
-            "backlight": 5
+            "backlight": 8
           },
           "dusk": {
             "mode": "night",
-            "backlight": 4
+            "backlight": 6
           },
           "night": {
             "mode": "night",
