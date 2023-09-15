@@ -11,7 +11,7 @@
         "Sun": {
           "dawn": {
             "mode": "night",
-            "backlight": 4
+            "backlight": 5
           },
           "sunrise": {
             "mode": "day",
@@ -27,11 +27,11 @@
           },
           "dusk": {
             "mode": "night",
-            "backlight": 6
+            "backlight": 5
           },
           "night": {
             "mode": "night",
-            "backlight": 2
+            "backlight": 3
           }
         },
         "Lux": {
