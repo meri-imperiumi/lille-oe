@@ -1,10 +1,14 @@
 {
   "configuration": {
-    "broadcastAddress": "192.168.1.255",
-    "port": 2000,
-    "nmea0183": true,
-    "nmea0183out": true,
-    "lineDelimiter": "LF"
+    "destinations": [
+      {
+        "broadcastAddress": "192.168.1.255",
+        "port": 2000,
+        "nmea0183": true,
+        "nmea0183out": true,
+        "lineDelimiter": "LF"
+      }
+    ]
   },
   "enabled": true
 }
