@@ -1,0 +1,548 @@
+{
+    "caseSensitive": false,
+    "properties": {
+        "name": "SetRgbW",
+        "main": false,
+        "library": "signalk-server-config",
+        "icon": "lightbulb-o",
+        "description": "Set RGBW values for a given light",
+        "runtimeName": "signalk-server-config/SetRgbW"
+    },
+    "inports": {
+        "r": {
+            "process": "Red",
+            "port": "number",
+            "metadata": {
+                "x": 720,
+                "y": -72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "g": {
+            "process": "Green",
+            "port": "number",
+            "metadata": {
+                "x": 720,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "b": {
+            "process": "Blue",
+            "port": "number",
+            "metadata": {
+                "x": 720,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "w": {
+            "process": "White",
+            "port": "number",
+            "metadata": {
+                "x": 720,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "path": {
+            "process": "SendPath",
+            "port": "string",
+            "metadata": {
+                "x": 720,
+                "y": -252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "in": {
+            "process": "Run",
+            "port": "in",
+            "metadata": {
+                "x": 396,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "outports": {
+        "out": {
+            "process": "flow/All_5ewtf",
+            "port": "out",
+            "metadata": {
+                "x": 1512,
+                "y": 0,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "error": {
+            "process": "flow/All_5ewtf",
+            "port": "error",
+            "metadata": {
+                "x": 1512,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "groups": [],
+    "processes": {
+        "White": {
+            "component": "math/SendNumber",
+            "metadata": {
+                "label": "White",
+                "x": 864,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Blue": {
+            "component": "math/SendNumber",
+            "metadata": {
+                "label": "Blue",
+                "x": 864,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Green": {
+            "component": "math/SendNumber",
+            "metadata": {
+                "label": "Green",
+                "x": 864,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Red": {
+            "component": "math/SendNumber",
+            "metadata": {
+                "label": "Red",
+                "x": 864,
+                "y": -72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "SendPath": {
+            "component": "strings/SendString",
+            "metadata": {
+                "label": "SendPath",
+                "x": 864,
+                "y": -252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Run": {
+            "component": "core/Split",
+            "metadata": {
+                "label": "Run",
+                "x": 540,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "PutRed": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "PutRed",
+                "x": 1188,
+                "y": -72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "PutGreen": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "PutGreen",
+                "x": 1188,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "PutBlue": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "PutBlue",
+                "x": 1188,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "PutWhite": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "PutWhite",
+                "x": 1188,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "flow/All_5ewtf": {
+            "component": "flow/All",
+            "metadata": {
+                "label": "All",
+                "x": 1368,
+                "y": 108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "RedPath": {
+            "component": "strings/Append",
+            "metadata": {
+                "label": "RedPath",
+                "x": 1044,
+                "y": -108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "GreenPath": {
+            "component": "strings/Append",
+            "metadata": {
+                "label": "GreenPath",
+                "x": 1044,
+                "y": 0,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "BluePath": {
+            "component": "strings/Append",
+            "metadata": {
+                "label": "BluePath",
+                "x": 1044,
+                "y": 108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "WhitePath": {
+            "component": "strings/Append",
+            "metadata": {
+                "label": "WhitePath",
+                "x": 1044,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "Run",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SendPath",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "Run",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Red",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "Run",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Green",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "Run",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Blue",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "Run",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "White",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "Red",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "PutRed",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
+            "src": {
+                "process": "Green",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "PutGreen",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "Blue",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "PutBlue",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "White",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "PutWhite",
+                "port": "value"
+            }
+        },
+        {
+            "src": {
+                "process": "PutRed",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "flow/All_5ewtf",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
+            "src": {
+                "process": "PutGreen",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "flow/All_5ewtf",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "PutBlue",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "flow/All_5ewtf",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "PutWhite",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "flow/All_5ewtf",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "SendPath",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "RedPath",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "RedPath",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "PutRed",
+                "port": "path"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "SendPath",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "GreenPath",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "GreenPath",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "PutGreen",
+                "port": "path"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "SendPath",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "BluePath",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "BluePath",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "PutBlue",
+                "port": "path"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "SendPath",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "WhitePath",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "WhitePath",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "PutWhite",
+                "port": "path"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "data": ".red",
+            "tgt": {
+                "process": "RedPath",
+                "port": "append"
+            }
+        },
+        {
+            "data": ".green",
+            "tgt": {
+                "process": "GreenPath",
+                "port": "append"
+            }
+        },
+        {
+            "data": ".blue",
+            "tgt": {
+                "process": "BluePath",
+                "port": "append"
+            }
+        },
+        {
+            "data": ".white",
+            "tgt": {
+                "process": "WhitePath",
+                "port": "append"
+            }
+        }
+    ]
+}

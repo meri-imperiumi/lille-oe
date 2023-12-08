@@ -1,0 +1,741 @@
+{
+    "caseSensitive": false,
+    "properties": {
+        "name": "main",
+        "environment": {
+            "type": "noflo-nodejs"
+        }
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "NightSailingBB": {
+            "component": "signalk-server-config/SetRgbW",
+            "metadata": {
+                "label": "NightSailingBB",
+                "x": 900,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "NightSailingSB": {
+            "component": "signalk-server-config/SetRgbW",
+            "metadata": {
+                "label": "NightSailingSB",
+                "x": 900,
+                "y": 324,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "WorkLightBB": {
+            "component": "signalk-server-config/SetRgbW",
+            "metadata": {
+                "label": "WorkLightBB",
+                "x": 900,
+                "y": 432,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "WorkLightSB": {
+            "component": "signalk-server-config/SetRgbW",
+            "metadata": {
+                "label": "WorkLightSB",
+                "x": 900,
+                "y": 540,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "ListenNavigation": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenNavigation",
+                "x": 360,
+                "y": 288,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "ListenMode": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenMode",
+                "x": 360,
+                "y": 468,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "IsUnderway": {
+            "component": "signalk/ValueIn",
+            "metadata": {
+                "label": "IsUnderway",
+                "x": 504,
+                "y": 288,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "signalk/ValueIn_e6y2b": {
+            "component": "signalk/ValueIn",
+            "metadata": {
+                "label": "ValueIn",
+                "x": 504,
+                "y": 468,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "signalk/And_39va6": {
+            "component": "signalk/And",
+            "metadata": {
+                "label": "And",
+                "x": 684,
+                "y": 396,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "DetectClickA": {
+            "component": "signalk/DetectChange",
+            "metadata": {
+                "label": "DetectClickA",
+                "x": 504,
+                "y": 756,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "SendBBValue": {
+            "component": "core/Kick",
+            "metadata": {
+                "label": "SendBBValue",
+                "x": 684,
+                "y": 756,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "SwitchBBLight": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "SwitchBBLight",
+                "x": 900,
+                "y": 756,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "InvertBBState": {
+            "component": "signalk/InvertBoolean",
+            "metadata": {
+                "label": "InvertBBState",
+                "x": 504,
+                "y": 900,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "LightBB": {
+            "component": "core/Split",
+            "metadata": {
+                "label": "LightBB",
+                "x": 180,
+                "y": 900,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "ListenBBLight": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenBBLight",
+                "x": 360,
+                "y": 900,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "ListenRemoteA": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenRemoteA",
+                "x": 360,
+                "y": 756,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "LightSB": {
+            "component": "core/Split",
+            "metadata": {
+                "label": "LightSB",
+                "x": 180,
+                "y": 1296,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "ListenRemoteB": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenRemoteB",
+                "x": 360,
+                "y": 1152,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "ListenSBLight": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenSBLight",
+                "x": 360,
+                "y": 1296,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "DetectClickB": {
+            "component": "signalk/DetectChange",
+            "metadata": {
+                "label": "DetectClickB",
+                "x": 504,
+                "y": 1152,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "InvertSBState": {
+            "component": "signalk/InvertBoolean",
+            "metadata": {
+                "label": "InvertSBState",
+                "x": 504,
+                "y": 1296,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Kick_u68v2": {
+            "component": "core/Kick",
+            "metadata": {
+                "label": "Kick",
+                "x": 684,
+                "y": 1152,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "signalk/SendPut_k5vq1": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "SendPut",
+                "x": 900,
+                "y": 1152,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "ListenNavigation",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "IsUnderway",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "ListenMode",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "signalk/ValueIn_e6y2b",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "IsUnderway",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "signalk/And_39va6",
+                "port": "values"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "signalk/ValueIn_e6y2b",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "signalk/And_39va6",
+                "port": "values"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "IsUnderway",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "signalk/And_39va6",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "signalk/And_39va6",
+                "port": "pass"
+            },
+            "tgt": {
+                "process": "NightSailingBB",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
+            "src": {
+                "process": "signalk/And_39va6",
+                "port": "pass"
+            },
+            "tgt": {
+                "process": "NightSailingSB",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
+            "src": {
+                "process": "signalk/And_39va6",
+                "port": "fail"
+            },
+            "tgt": {
+                "process": "WorkLightBB",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "signalk/And_39va6",
+                "port": "fail"
+            },
+            "tgt": {
+                "process": "WorkLightSB",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "LightBB",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchBBLight",
+                "port": "path"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "LightBB",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "ListenBBLight",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "ListenBBLight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "InvertBBState",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "InvertBBState",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SendBBValue",
+                "port": "data"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "ListenRemoteA",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "DetectClickA",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
+            "src": {
+                "process": "DetectClickA",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SendBBValue",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
+            "src": {
+                "process": "SendBBValue",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchBBLight",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
+            "src": {
+                "process": "LightSB",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "signalk/SendPut_k5vq1",
+                "port": "path"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "LightSB",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "ListenSBLight",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "ListenSBLight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "InvertSBState",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 5
+            }
+        },
+        {
+            "src": {
+                "process": "InvertSBState",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Kick_u68v2",
+                "port": "data"
+            },
+            "metadata": {
+                "route": 5
+            }
+        },
+        {
+            "src": {
+                "process": "ListenRemoteB",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "DetectClickB",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "DetectClickB",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Kick_u68v2",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "core/Kick_u68v2",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "signalk/SendPut_k5vq1",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "data": 0,
+            "tgt": {
+                "process": "NightSailingBB",
+                "port": "w"
+            }
+        },
+        {
+            "data": 0,
+            "tgt": {
+                "process": "NightSailingBB",
+                "port": "b"
+            }
+        },
+        {
+            "data": 0,
+            "tgt": {
+                "process": "NightSailingBB",
+                "port": "g"
+            }
+        },
+        {
+            "data": 255,
+            "tgt": {
+                "process": "NightSailingBB",
+                "port": "r"
+            }
+        },
+        {
+            "data": 0,
+            "tgt": {
+                "process": "NightSailingSB",
+                "port": "w"
+            }
+        },
+        {
+            "data": 0,
+            "tgt": {
+                "process": "NightSailingSB",
+                "port": "b"
+            }
+        },
+        {
+            "data": 0,
+            "tgt": {
+                "process": "NightSailingSB",
+                "port": "g"
+            }
+        },
+        {
+            "data": 255,
+            "tgt": {
+                "process": "NightSailingSB",
+                "port": "r"
+            }
+        },
+        {
+            "data": "electrical.switches.saloonPortRgbw2",
+            "tgt": {
+                "process": "NightSailingBB",
+                "port": "path"
+            }
+        },
+        {
+            "data": "electrical.switches.saloonPortRgbw2",
+            "tgt": {
+                "process": "WorkLightBB",
+                "port": "path"
+            }
+        },
+        {
+            "data": "electrical.switches.saloonStarboardRgbw2",
+            "tgt": {
+                "process": "NightSailingSB",
+                "port": "path"
+            }
+        },
+        {
+            "data": "electrical.switches.saloonStarboardRgbw2",
+            "tgt": {
+                "process": "WorkLightSB",
+                "port": "path"
+            }
+        },
+        {
+            "data": 105,
+            "tgt": {
+                "process": "WorkLightBB",
+                "port": "w"
+            }
+        },
+        {
+            "data": 13,
+            "tgt": {
+                "process": "WorkLightBB",
+                "port": "b"
+            }
+        },
+        {
+            "data": 101,
+            "tgt": {
+                "process": "WorkLightBB",
+                "port": "g"
+            }
+        },
+        {
+            "data": 255,
+            "tgt": {
+                "process": "WorkLightBB",
+                "port": "r"
+            }
+        },
+        {
+            "data": 105,
+            "tgt": {
+                "process": "WorkLightSB",
+                "port": "w"
+            }
+        },
+        {
+            "data": 13,
+            "tgt": {
+                "process": "WorkLightSB",
+                "port": "b"
+            }
+        },
+        {
+            "data": 101,
+            "tgt": {
+                "process": "WorkLightSB",
+                "port": "g"
+            }
+        },
+        {
+            "data": 255,
+            "tgt": {
+                "process": "WorkLightSB",
+                "port": "r"
+            }
+        },
+        {
+            "data": "sailing,motoring",
+            "tgt": {
+                "process": "IsUnderway",
+                "port": "values"
+            }
+        },
+        {
+            "data": "night",
+            "tgt": {
+                "process": "signalk/ValueIn_e6y2b",
+                "port": "values"
+            }
+        },
+        {
+            "data": "navigation.state",
+            "tgt": {
+                "process": "ListenNavigation",
+                "port": "in"
+            }
+        },
+        {
+            "data": "environment.mode",
+            "tgt": {
+                "process": "ListenMode",
+                "port": "in"
+            }
+        },
+        {
+            "data": "electrical.switches.saloonPortRgbw2.state",
+            "tgt": {
+                "process": "LightBB",
+                "port": "in"
+            }
+        },
+        {
+            "data": "electrical.switches.remoteA.state",
+            "tgt": {
+                "process": "ListenRemoteA",
+                "port": "in"
+            }
+        },
+        {
+            "data": "electrical.switches.remoteB.state",
+            "tgt": {
+                "process": "ListenRemoteB",
+                "port": "in"
+            }
+        },
+        {
+            "data": "electrical.switches.saloonStarboardRgbw2.state",
+            "tgt": {
+                "process": "LightSB",
+                "port": "in"
+            }
+        }
+    ]
+}
