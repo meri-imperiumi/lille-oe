@@ -29,7 +29,10 @@
         "brand": "Elvstrøm Sails",
         "material": "Laminate",
         "active": true,
-        "continuousReefing": true
+        "continuousReefing": true,
+        "reducedState": {
+          "furledRatio": 0
+        }
       },
       {
         "id": "parasailor",
