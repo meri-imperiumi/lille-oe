@@ -14,7 +14,7 @@
     "@signalk/aisreporter": "^1.1.0",
     "@signalk/calibration": "^1.3.1",
     "@signalk/charts-plugin": "^2.3.1",
-    "@signalk/freeboard-sk": "^2.3.1",
+    "@signalk/freeboard-sk": "^2.3.2",
     "@signalk/instrumentpanel": "^0.24.0",
     "@signalk/sailsconfiguration": "^1.1.0",
     "@signalk/signalk-autopilot": "^1.4.0",

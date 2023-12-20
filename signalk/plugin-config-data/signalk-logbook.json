@@ -3,6 +3,8 @@
     "crewNames": [
       "ihmis-suski",
       "bergie"
-    ]
-  }
+    ],
+    "displayTimeZone": "UTC"
+  },
+  "enabled": true
 }

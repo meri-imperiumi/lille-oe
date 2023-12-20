@@ -78,6 +78,14 @@
       {
         "venusId": 36,
         "signalkPath": "environment.inside.wardrobe.temperature"
+      },
+      {
+        "venusId": 38,
+        "signalkPath": "environment.inside.dragonslair.temperature"
+      },
+      {
+        "venusId": 39,
+        "signalkPath": "environment.inside.watermaker.temperature"
       }
     ]
   },
