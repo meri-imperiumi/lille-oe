@@ -1,0 +1,73 @@
+---
+- name: S/Y Lille Oe Nav Station computer
+  hosts: all
+  remote_user: pi
+  gather_facts: yes
+  become: yes
+
+  vars:
+    - hostname: navstation
+    - timezone: UTC
+    - kiosk_url: http://192.168.1.105:3000/d/PEJzmaw7z/navstation-under-way?orgId=1&refresh=30s&kiosk
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+    - name: Set timezone
+      timezone:
+        name: "{{ timezone }}"
+
+  tasks:
+    - name: Ensure panel in Wayfire.ini
+      community.general.ini_file:
+        path: /home/pi/.config/wayfire.ini
+        section: autostart
+        option: panel
+        value: wfrespawn wf-panel-pi
+    - name: Ensure background in Wayfire.ini
+      community.general.ini_file:
+        path: /home/pi/.config/wayfire.ini
+        section: autostart
+        option: background
+        value: wfrespawn pcmanfm --desktop --profile LXDE-pi
+    - name: Ensure xdg-autostart in Wayfire.ini
+      community.general.ini_file:
+        path: /home/pi/.config/wayfire.ini
+        section: autostart
+        option: xdg-autostart
+        value: lxsession-xdg-autostart
+
+    - name: Ensure Chromium in Wayfire.ini
+      community.general.ini_file:
+        path: /home/pi/.config/wayfire.ini
+        section: autostart
+        option: chromium
+        value: "chromium-browser \"{{ kiosk_url }}\" --kiosk --noerrdialogs --disable-infobars --no-first-run --ozone-platform=wayland --enable-features=OverlayScrollbar --start-maximized"
+    - name: Ensure screensaver in Wayfire.ini
+      community.general.ini_file:
+        path: /home/pi/.config/wayfire.ini
+        section: autostart
+        option: screensaver
+        value: "false"
+    - name: Ensure dpms in Wayfire.ini
+      community.general.ini_file:
+        path: /home/pi/.config/wayfire.ini
+        section: autostart
+        option: dpms
+        value: "false"
+    - name: Deploy SSH keys for bergie
+      authorized_key:
+        user: pi
+        state: present
+        key: https://github.com/bergie.keys
+    - name: Deploy SSH keys for cannonerd
+      authorized_key:
+        user: pi
+        state: present
+        key: https://github.com/cannonerd.keys
+    - name: Autoremove any unused packages
+      apt:
+        autoremove: yes
+
+    - name: Autoclean the system
+      apt:
+        autoclean: yes
