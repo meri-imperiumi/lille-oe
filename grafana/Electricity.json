@@ -1509,6 +1509,10 @@
                   "color": "blue",
                   "index": 3
                 },
+                "float": {
+                  "color": "dark-green",
+                  "index": 8
+                },
                 "inverting": {
                   "color": "red",
                   "index": 1
@@ -1525,6 +1529,10 @@
                 "passthru": {
                   "color": "dark-blue",
                   "index": 6
+                },
+                "sustain": {
+                  "color": "light-green",
+                  "index": 7
                 }
               },
               "type": "value"
@@ -1660,6 +1668,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1694,7 +1704,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "blue",
@@ -1791,10 +1802,12 @@
             "mean"
           ],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -1935,7 +1948,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2349,7 +2363,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2531,7 +2546,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2626,7 +2642,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2721,7 +2738,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2814,6 +2832,6 @@
   "timezone": "",
   "title": "Electricity",
   "uid": "6EmAzaA7k",
-  "version": 44,
+  "version": 46,
   "weekStart": ""
 }
