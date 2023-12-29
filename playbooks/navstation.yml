@@ -141,6 +141,12 @@
         shell: /bin/bash
         groups: crew
         append: true
+    - name: Add the minidlna user
+      ansible.builtin.user:
+        name: minidlna
+        shell: /usr/sbin/nologin
+        groups: crew
+        append: true
     - name: Set up Samba file server
       ansible.builtin.include_role:
         name: vladgh.samba.server
@@ -199,7 +205,7 @@
           media_dir=V,/mnt/library/Video-Local
           friendly_name=NAS
           db_dir=/var/cache/minidlna
-        dest: /etc/minidnla.conf
+        dest: /etc/minidlna.conf
 
     - name: Autoremove any unused packages
       apt:
