@@ -49,13 +49,14 @@
         section: autostart
         option: xdg-autostart
         value: lxsession-xdg-autostart
-
     - name: Ensure Chromium in Wayfire.ini
       community.general.ini_file:
         path: /home/pi/.config/wayfire.ini
         section: autostart
         option: chromium
-        value: "chromium-browser \"{{ kiosk_url }}\" --kiosk --noerrdialogs --disable-infobars --no-first-run --ozone-platform=wayland --enable-features=OverlayScrollbar --start-maximized"
+        value: chromium-browser "{{ kiosk_url }}" --kiosk --noerrdialogs
+          --disable-infobars --no-first-run --ozone-platform=wayland
+          --enable-features=OverlayScrollbar --start-maximized
     - name: Ensure screensaver in Wayfire.ini
       community.general.ini_file:
         path: /home/pi/.config/wayfire.ini
