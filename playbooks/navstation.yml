@@ -5,21 +5,21 @@
   gather_facts: yes
   become: yes
   vars:
-    - hostname: navstation
-    - timezone: UTC
-    - kiosk_url: http://192.168.1.105:3000/d/PEJzmaw7z/navstation-under-way?orgId=1&refresh=30s&kiosk
-    - samba_netbios_name: NAS
-      samba_apple_extensions: true
-      samba_shares_root: /mnt
-      samba_server_string: Lille Oe onboard NAS
-      samba_shares:
-        - name: library
-          comment: Lille Oe onboard library
-          group: crew
-          write_list: +crew
-      samba_users:
-        - name: ihmissuski
-        - name: bergie
+    hostname: navstation
+    timezone: UTC
+    kiosk_url: http://192.168.1.105:3000/d/PEJzmaw7z/navstation-under-way?orgId=1&refresh=30s&kiosk
+    samba_netbios_name: NAS
+    samba_apple_extensions: true
+    samba_shares_root: /mnt
+    samba_server_string: Lille Oe onboard NAS
+    samba_shares:
+      - name: library
+        comment: Lille Oe onboard library
+        group: crew
+        write_list: +crew
+    samba_users:
+      - name: ihmissuski
+      - name: bergie
   pre_tasks:
     - name: Update apt cache
       apt: null
