@@ -49,6 +49,13 @@
         on_calendar: weekly
         persistent: true
         randomized_delay_sec: 3600
+      rclone_video:
+        exec_start: /usr/local/bin/rclone sync "lilleoe-drive:Video/" "/mnt/library/Video"
+        user: pi
+        group: crew
+        on_calendar: monthly
+        persistent: true
+        randomized_delay_sec: 3600
     systemd_units:
       - name: feedi.service
         scope: system
