@@ -104,6 +104,11 @@
         user: ihmissuski
         state: present
         key: https://github.com/cannonerd.keys
+    - name: Install rclone
+      ansible.builtin.include_role:
+        name: stefangweichinger.ansible_rclone
+      vars:
+        rclone_arch: "arm64"
     - name: Autoremove any unused packages
       apt:
         autoremove: yes

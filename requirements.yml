@@ -1,4 +1,6 @@
 roles:
   - src: https://github.com/tkurki/marinepi-provisioning
+  - name: stefangweichinger.ansible_rclone
 collections:
   - name: vladgh.samba
+  - name: alphanodes.setup
