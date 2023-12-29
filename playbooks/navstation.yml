@@ -4,19 +4,33 @@
   remote_user: pi
   gather_facts: yes
   become: yes
-
   vars:
     - hostname: navstation
     - timezone: UTC
     - kiosk_url: http://192.168.1.105:3000/d/PEJzmaw7z/navstation-under-way?orgId=1&refresh=30s&kiosk
+    - samba_netbios_name: NAS
+      samba_apple_extensions: true
+      samba_shares_root: /mnt
+      samba_server_string: Lille Oe onboard NAS
+      samba_shares:
+        - name: library
+          comment: Lille Oe onboard library
+          group: crew
+          write_list: +crew
+      samba_users:
+        - name: ihmissuski
+        - name: bergie
   pre_tasks:
     - name: Update apt cache
-      apt:
+      apt: null
     - name: Set timezone
       timezone:
         name: "{{ timezone }}"
-
   tasks:
+    - name: Ensure group "crew" exists
+      ansible.builtin.group:
+        name: crew
+        state: present
     - name: Ensure panel in Wayfire.ini
       community.general.ini_file:
         path: /home/pi/.config/wayfire.ini
@@ -54,9 +68,29 @@
         section: autostart
         option: dpms
         value: "false"
+    - name: Add the bergie user
+      ansible.builtin.user:
+        name: bergie
+        shell: /bin/bash
+        groups: crew
+        append: true
+    - name: Add the ihmissuski user
+      ansible.builtin.user:
+        name: ihmissuski
+        shell: /bin/bash
+        groups: crew
+        append: true
+    - name: Set up Samba file server
+      ansible.builtin.include_role:
+        name: vladgh.samba.server
     - name: Deploy SSH keys for bergie
       authorized_key:
         user: pi
+        state: present
+        key: https://github.com/bergie.keys
+    - name: Deploy SSH keys for bergie
+      authorized_key:
+        user: bergie
         state: present
         key: https://github.com/bergie.keys
     - name: Deploy SSH keys for cannonerd
@@ -64,10 +98,15 @@
         user: pi
         state: present
         key: https://github.com/cannonerd.keys
+    - name: Deploy SSH keys for cannonerd user
+      authorized_key:
+        user: ihmissuski
+        state: present
+        key: https://github.com/cannonerd.keys
     - name: Autoremove any unused packages
       apt:
         autoremove: yes
-
     - name: Autoclean the system
       apt:
         autoclean: yes
+
