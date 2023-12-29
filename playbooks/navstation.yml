@@ -100,6 +100,12 @@
         section: autostart
         option: dpms
         value: "false"
+    - name: Add the pi user
+      ansible.builtin.user:
+        name: pi
+        shell: /bin/bash
+        groups: crew
+        append: true
     - name: Add the bergie user
       ansible.builtin.user:
         name: bergie
