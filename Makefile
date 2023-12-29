@@ -1,12 +1,12 @@
 ENV?=dev
 
 roles/marinepi-provisioning:
-	ansible-galaxy install -r requirements.yml -p roles
+	ansible-galaxy install -r requirements.yml
 
 signalk: roles/marinepi-provisioning
 	ansible-playbook -i hosts -l $(ENV) playbooks/lille-oe.yml --ask-vault-pass
 
-navstation:
+navstation: roles/marinepi-provisioning
 	ansible-playbook -i hosts -l navstation playbooks/navstation.yml
 
 backup:
