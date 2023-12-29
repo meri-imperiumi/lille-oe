@@ -49,6 +49,21 @@
         on_calendar: weekly
         persistent: true
         randomized_delay_sec: 3600
+    systemd_units:
+      - name: feedi.service
+        scope: system
+        enabled: true
+        Unit_section:
+          Description: Feedi Social Reader
+        Service_section:
+          type: exec
+          restart: always
+          User: pi
+          Group: crew
+          WorkingDirectory: /home/pi/feedi
+          ExecStart: make run
+        Install_section:
+          WantedBy: multi-user.target
   pre_tasks:
     - name: Update apt cache
       apt: null
@@ -57,6 +72,7 @@
         name: "{{ timezone }}"
   roles:
     - alphanodes.setup.systemd_timer
+    - ansible-role-systemd
   tasks:
     - name: Ensure group "crew" exists
       ansible.builtin.group:
@@ -146,6 +162,21 @@
         name: stefangweichinger.ansible_rclone
       vars:
         rclone_arch: "arm64"
+    - name: Clone feedi
+      ansible.builtin.git:
+        repo: 'https://github.com/facundoolano/feedi.git'
+        dest: /home/pi/feedi
+    - name: Add feedi build dependencies
+      ansible.builtin.apt:
+        pkg:
+          - libxml2-dev
+          - libxslt-dev
+          - libffi-dev
+          - npm
+    - name: Build feedi
+      ansible.builtin.command:
+        cmd: make
+        chdir: /home/pi/feedi
     - name: Autoremove any unused packages
       apt:
         autoremove: yes
