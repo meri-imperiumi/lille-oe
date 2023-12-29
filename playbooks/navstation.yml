@@ -166,6 +166,7 @@
       ansible.builtin.git:
         repo: 'https://github.com/facundoolano/feedi.git'
         dest: /home/pi/feedi
+      register: feediclone
     - name: Add feedi build dependencies
       ansible.builtin.apt:
         pkg:
@@ -177,6 +178,22 @@
       ansible.builtin.command:
         cmd: make
         chdir: /home/pi/feedi
+      when: feediclone.changed
+    - name: Install MiniDLNA
+      ansible.builtin.apt:
+        pkg:
+          - minidlna
+    - name: Configure MiniDLNA
+      ansible.builtin.copy:
+        content: |
+          media_dir=A,/mnt/library/Audio
+          media_dir=A,/mnt/library/Audio-Local
+          media_dir=V,/mnt/library/Video
+          media_dir=V,/mnt/library/Video-Local
+          friendly_name=NAS
+          db_dir=/var/cache/minidlna
+        dest: /etc/minidnla.conf
+
     - name: Autoremove any unused packages
       apt:
         autoremove: yes
