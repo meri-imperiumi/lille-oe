@@ -20,12 +20,43 @@
     samba_users:
       - name: ihmissuski
       - name: bergie
+    timers:
+      rclone_lille_oe:
+        exec_start: /usr/local/bin/rclone sync "lilleoe-drive:Lille Ø/" "/mnt/library/Lille Ø" --drive-export-formats pdf,svg
+        user: pi
+        group: crew
+        on_calendar: daily
+        persistent: true
+        randomized_delay_sec: 3600
+      rclone_keittokirja:
+        exec_start: /usr/local/bin/rclone sync "lilleoe-drive:meri-imperiumin Keittokirja/" /mnt/library/keittokirja --drive-export-formats pdf
+        user: pi
+        group: crew
+        on_calendar: weekly
+        persistent: true
+        randomized_delay_sec: 3600
+      rclone_bookshelf:
+        exec_start: /usr/local/bin/rclone sync lilleoe-drive:Bookshelf/ /mnt/library/Bookshelf --drive-export-formats pdf
+        user: pi
+        group: crew
+        on_calendar: weekly
+        persistent: true
+        randomized_delay_sec: 3600
+      rclone_audio:
+        exec_start: /usr/local/bin/rclone sync "lilleoe-drive:Audio/" "/mnt/library/Audio"
+        user: pi
+        group: crew
+        on_calendar: weekly
+        persistent: true
+        randomized_delay_sec: 3600
   pre_tasks:
     - name: Update apt cache
       apt: null
     - name: Set timezone
       timezone:
         name: "{{ timezone }}"
+  roles:
+    - alphanodes.setup.systemd_timer
   tasks:
     - name: Ensure group "crew" exists
       ansible.builtin.group:
