@@ -1,5 +1,8 @@
 {
   "configuration": {
+    "RUT240": false,
+    "enable_gps": true,
+    "GPSBE": false,
     "ip": "192.168.1.1",
     "port": 502,
     "interval": 260
