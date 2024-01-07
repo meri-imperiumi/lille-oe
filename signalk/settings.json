@@ -71,7 +71,8 @@
               "port": "1457",
               "toStdout": [
                 "seatalkOut"
-              ]
+              ],
+              "noDataReceivedTimeout": "30"
             }
           }
         }
@@ -340,6 +341,26 @@
       {
         "sourceRef": "can0.71",
         "timeout": "60000000"
+      }
+    ],
+    "environment.wind.angleApparent": [
+      {
+        "sourceRef": "can0.71",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "ydnr02.II",
+        "timeout": "3000"
+      }
+    ],
+    "environment.wind.speedApparent": [
+      {
+        "sourceRef": "can0.71",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "ydnr02.II",
+        "timeout": "3000"
       }
     ]
   },
