@@ -71,6 +71,20 @@
           ExecStart: make run
         Install_section:
           WantedBy: multi-user.target
+      - name: handbook.service
+        scope: system
+        enabled: true
+        Unit_section:
+          Description: Lille Oe Handbook
+        Service_section:
+          type: exec
+          restart: always
+          User: pi
+          Group: crew
+          WorkingDirectory: /mnt/repositories/handbook
+          ExecStart: make run
+        Install_section:
+          WantedBy: multi-user.target
   pre_tasks:
     - name: Update apt cache
       apt: null
@@ -206,7 +220,16 @@
           friendly_name=NAS
           db_dir=/var/cache/minidlna
         dest: /etc/minidlna.conf
-
+    - name: Clone Lille Oe Handbook
+      ansible.builtin.git:
+        repo: 'https://github.com/meri-imperiumi/handbook.git'
+        dest: /mnt/repositories/handbook
+      register: handbookclone
+    - name: Install handbook dependencies
+      ansible.builtin.command:
+        cmd: 'make'
+        chdir: /mnt/repositories/handbook
+      when: handbookclone.changed
     - name: Autoremove any unused packages
       apt:
         autoremove: yes
