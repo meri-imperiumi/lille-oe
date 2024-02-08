@@ -23,9 +23,18 @@
       {
         "enabled": false,
         "key": "propulsion.port.temperature",
-        "name": "enging temperature",
+        "name": "engine temperature",
         "highValue": 327.594,
         "state": "alert",
+        "visual": true,
+        "sound": true
+      },
+      {
+        "enabled": true,
+        "key": "electrical.venus-input.1.inputState",
+        "name": "bilge water level",
+        "lowValue": 1,
+        "state": "alarm",
         "visual": true,
         "sound": true
       }
