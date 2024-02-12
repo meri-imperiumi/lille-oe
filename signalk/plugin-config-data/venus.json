@@ -3,9 +3,10 @@
     "installType": "mqtt",
     "dbusAddress": "tcp:host=192.168.1.57,port=78",
     "MQTT": {
-      "host": "192.168.1.137"
+      "host": "192.168.2.137"
     },
     "pollInterval": 20,
+    "useDeviceNames": false,
     "usePosition": false,
     "relayPath0": "electrical.switches.venus-0",
     "relayPath1": "electrical.switches.venus-1",

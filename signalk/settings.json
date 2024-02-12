@@ -67,7 +67,7 @@
             "subOptions": {
               "validateChecksum": true,
               "type": "tcp",
-              "host": "192.168.1.215",
+              "host": "192.168.2.215",
               "port": "1457",
               "toStdout": [
                 "seatalkOut"

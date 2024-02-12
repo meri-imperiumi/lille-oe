@@ -7,7 +7,7 @@
   vars:
     hostname: navstation
     timezone: UTC
-    kiosk_url: http://192.168.1.105:3000/d/PEJzmaw7z/navstation-under-way?orgId=1&refresh=30s&kiosk
+    kiosk_url: http://192.168.2.105:3000/d/PEJzmaw7z/navstation-under-way?orgId=1&refresh=30s&kiosk
     samba_netbios_name: NAS
     samba_apple_extensions: true
     samba_shares_root: /mnt
