@@ -14,7 +14,8 @@
         "active": true,
         "reefs": [
           17,
-          10
+          10,
+          5
         ],
         "reducedState": {
           "reefs": 0
@@ -61,6 +62,21 @@
         "reefs": [
           9
         ]
+      },
+      {
+        "id": "stormjib",
+        "name": "Storm jib",
+        "type": "staysail",
+        "material": "Dacron",
+        "active": false,
+        "area": 5,
+        "reefs": [
+          3.2
+        ],
+        "reducedState": {
+          "reefs": 0,
+          "furledRatio": 0
+        }
       }
     ]
   },
