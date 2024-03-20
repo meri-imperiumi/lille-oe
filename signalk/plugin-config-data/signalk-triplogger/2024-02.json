@@ -1,9 +1,10 @@
 {
   "started": "2024-02-01T00:00:08.685Z",
-  "ended": null,
-  "total": 14291,
+  "ended": "2024-03-01T00:00:05.172Z",
+  "total": 15245,
   "states": {
     "moored": 0,
-    "motoring": 14291
+    "motoring": 15245,
+    "constrained by draft": 0
   }
 }
