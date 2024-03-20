@@ -1,6 +1,17 @@
 {
   "configuration": {
     "tempUnits": "C",
+    "useCustomDiscovery": false,
+    "Device ID Shelly Plus 1-shellyplus1-e86beaede454": {
+      "deviceName": "Shelly Plus 1 ",
+      "enabled": true,
+      "devicePath": "deckLight"
+    },
+    "Device ID Shelly Plus 1-shellyplus1-e86beaedce9c": {
+      "deviceName": "Shelly Plus 1 ",
+      "enabled": true,
+      "devicePath": "anchorLight"
+    },
     "Device ID SHRGBW2-E8DB84811DB0": {
       "deviceName": "Shelly RGBW2 ",
       "enabled": true,
