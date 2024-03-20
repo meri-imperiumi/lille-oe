@@ -87,6 +87,10 @@
       {
         "venusId": 39,
         "signalkPath": "environment.inside.watermaker.temperature"
+      },
+      {
+        "venusId": 20,
+        "signalkPath": "environment.inside.doomlocker.temperature"
       }
     ]
   },
