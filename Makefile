@@ -12,4 +12,7 @@ navstation: roles/marinepi-provisioning
 backup:
 	rsync -avzuh -e ssh "pi@192.168.2.105:/home/pi/.signalk/*" signalk
 
-.PHONY: deploy backup
+restore:
+	rsync -avzuh -e ssh signalk/* "pi@192.168.2.131:/home/pi/.signalk/"
+
+.PHONY: backup restore signalk navstation
