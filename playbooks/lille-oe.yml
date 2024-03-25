@@ -45,6 +45,12 @@
         user: pi
         state: present
         key: https://github.com/cannonerd.keys
+    - name: Audio notification dependencies
+      ansible.builtin.apt:
+        pkg:
+          - festival
+          - festvox-kallpc16k
+          - mpg123
     - name: Restart signalk-server
       service:
         name: signalk-server
