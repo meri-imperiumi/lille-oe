@@ -11,8 +11,10 @@ navstation: roles/marinepi-provisioning
 
 backup:
 	rsync -avzuh -e ssh "pi@192.168.2.105:/home/pi/.signalk/*" signalk
+#	scp "pi@192.168.2.105:/var/lib/grafana/grafana.db" .
 
 restore:
-	rsync -avzuh -e ssh signalk/* "pi@192.168.2.131:/home/pi/.signalk/"
+	rsync -avzuh -e ssh signalk/* "pi@192.168.2.105:/home/pi/.signalk/"
+#	scp grafana.db "pi@192.168.2.105:/var/lib/grafana/"
 
 .PHONY: backup restore signalk navstation
