@@ -1,6 +1,8 @@
 {
   "configuration": {
     "alternator_path": "electrical.chargers.alternator.power",
+    "chargingmodePath": "electrical.chargers.alternator.chargingMode",
+    "use_chargingmode": true,
     "engine_path": "propulsion.main.state"
   },
   "enabled": true

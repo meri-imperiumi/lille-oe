@@ -18,28 +18,18 @@
         "duplicate": true
       },
       {
-        "path": "electrical.alternator.279-second.voltage",
+        "path": "electrical.alternator.289.voltage",
         "newPath": "electrical.batteries.starter.voltage",
         "duplicate": false
       },
       {
-        "path": "electrical.alternator.279.current",
+        "path": "electrical.alternator.289.current",
         "newPath": "electrical.chargers.alternator.current",
         "duplicate": false
       },
       {
-        "path": "electrical.alternator.279.power",
+        "path": "electrical.alternator.289.power",
         "newPath": "electrical.chargers.alternator.power",
-        "duplicate": false
-      },
-      {
-        "path": "electrical.alternator.279.temperature",
-        "newPath": "electrical.chargers.alternator.temperature",
-        "duplicate": false
-      },
-      {
-        "path": "electrical.alternator.279.voltage",
-        "newPath": "electrical.chargers.alternator.voltage",
         "duplicate": false
       },
       {
@@ -97,6 +87,11 @@
         "path": "environment.wind.directionTrue",
         "newPath": "environment.wind.directionGround",
         "duplicate": true
+      },
+      {
+        "path": "electrical.alternator.289.chargingMode",
+        "newPath": "electrical.chargers.alternator.chargingMode",
+        "duplicate": false
       }
     ]
   },
