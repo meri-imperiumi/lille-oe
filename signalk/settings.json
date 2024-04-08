@@ -349,7 +349,7 @@
         "timeout": ""
       },
       {
-        "sourceRef": "ydnr02.II",
+        "sourceRef": "can0.15",
         "timeout": "3000"
       }
     ],
@@ -359,7 +359,27 @@
         "timeout": ""
       },
       {
-        "sourceRef": "ydnr02.II",
+        "sourceRef": "can0.15",
+        "timeout": "3000"
+      }
+    ],
+    "environment.wind.speedOverGround": [
+      {
+        "sourceRef": "derived-data",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.15",
+        "timeout": "3000"
+      }
+    ],
+    "environment.wind.directionTrue": [
+      {
+        "sourceRef": "derived-data",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.15",
         "timeout": "3000"
       }
     ]

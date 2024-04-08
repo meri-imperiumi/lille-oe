@@ -60,6 +60,16 @@
       "resend": 0,
       "resendTime": 30
     },
+    "HUMIDITY_OUTSIDE": {
+      "enabled": true,
+      "resend": 0,
+      "resendTime": 30
+    },
+    "HUMIDITY_INSIDE": {
+      "enabled": true,
+      "resend": 0,
+      "resendTime": 30
+    },
     "LEEWAY": {
       "enabled": false,
       "resend": 0,
@@ -80,13 +90,18 @@
       "resend": 0,
       "resendTime": 30
     },
+    "PRESSURE_ATMOSPHERIC": {
+      "enabled": true,
+      "resend": 0,
+      "resendTime": 30
+    },
     "RAYMARINE": {
       "enabled": true,
       "resend": 0,
       "resendTime": 30
     },
     "ENVIRONMENT_PARAMETERS_SEA": {
-      "enabled": false,
+      "enabled": true,
       "resend": 0,
       "resendTime": 30
     },
@@ -183,7 +198,7 @@
       "environmentwindspeedApparent": "can0.71"
     },
     "WIND_TRUE": {
-      "enabled": false,
+      "enabled": true,
       "resend": 0,
       "resendTime": 30
     }
