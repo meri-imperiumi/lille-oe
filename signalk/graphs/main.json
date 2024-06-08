@@ -280,6 +280,26 @@
                 "width": 72,
                 "height": 72
             }
+        },
+        "signalk/All_cweuh": {
+            "component": "signalk/All",
+            "metadata": {
+                "label": "All",
+                "x": 684,
+                "y": 72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "SwitchAnchorLight": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "SwitchAnchorLight",
+                "x": 900,
+                "y": 72,
+                "width": 72,
+                "height": 72
+            }
         }
     },
     "connections": [
@@ -648,6 +668,45 @@
             }
         },
         {
+            "src": {
+                "process": "IsNight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "signalk/All_cweuh",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "IsAnchored",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "signalk/All_cweuh",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "signalk/All_cweuh",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchAnchorLight",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
             "data": 0,
             "tgt": {
                 "process": "NightSailingBB",
@@ -855,6 +914,13 @@
             "tgt": {
                 "process": "DeckLight",
                 "port": "in"
+            }
+        },
+        {
+            "data": "electrical.switches.anchorLight.state",
+            "tgt": {
+                "process": "SwitchAnchorLight",
+                "port": "path"
             }
         }
     ]
