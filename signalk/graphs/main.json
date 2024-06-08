@@ -281,10 +281,10 @@
                 "height": 72
             }
         },
-        "signalk/All_cweuh": {
+        "AnchoredAndNight": {
             "component": "signalk/All",
             "metadata": {
-                "label": "All",
+                "label": "AnchoredAndNight",
                 "x": 684,
                 "y": 72,
                 "width": 72,
@@ -673,7 +673,7 @@
                 "port": "out"
             },
             "tgt": {
-                "process": "signalk/All_cweuh",
+                "process": "AnchoredAndNight",
                 "port": "in"
             },
             "metadata": {
@@ -686,7 +686,7 @@
                 "port": "out"
             },
             "tgt": {
-                "process": "signalk/All_cweuh",
+                "process": "AnchoredAndNight",
                 "port": "in"
             },
             "metadata": {
@@ -695,7 +695,7 @@
         },
         {
             "src": {
-                "process": "signalk/All_cweuh",
+                "process": "AnchoredAndNight",
                 "port": "out"
             },
             "tgt": {

@@ -29,7 +29,7 @@
     "noflo-core": "^0.6.1",
     "noflo-flow": "^0.8.0",
     "noflo-math": "^0.4.0",
-    "noflo-signalk": "^0.2.0",
+    "noflo-signalk": "^0.2.1",
     "noflo-strings": "^0.5.1",
     "signalk-anchoralarm-plugin": "^1.13.0",
     "signalk-bandg-displaydaynight": "^1.0.12",
