@@ -4,7 +4,8 @@
         "name": "main",
         "environment": {
             "type": "noflo-nodejs"
-        }
+        },
+        "runtimeName": "signalk-server-config/main"
     },
     "inports": {},
     "outports": {},
@@ -80,10 +81,10 @@
                 "height": 72
             }
         },
-        "signalk/ValueIn_e6y2b": {
+        "IsNight": {
             "component": "signalk/ValueIn",
             "metadata": {
-                "label": "ValueIn",
+                "label": "IsNight",
                 "x": 504,
                 "y": 468,
                 "width": 72,
@@ -175,7 +176,7 @@
             "metadata": {
                 "label": "LightSB",
                 "x": 180,
-                "y": 1296,
+                "y": 1044,
                 "width": 72,
                 "height": 72
             }
@@ -190,16 +191,6 @@
                 "height": 72
             }
         },
-        "ListenSBLight": {
-            "component": "signalk/GetSelfStream",
-            "metadata": {
-                "label": "ListenSBLight",
-                "x": 360,
-                "y": 1296,
-                "width": 72,
-                "height": 72
-            }
-        },
         "DetectClickB": {
             "component": "signalk/DetectChange",
             "metadata": {
@@ -210,32 +201,82 @@
                 "height": 72
             }
         },
-        "InvertSBState": {
+        "SendSBValue": {
+            "component": "core/Kick",
+            "metadata": {
+                "label": "SendSBValue",
+                "x": 684,
+                "y": 900,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "SwitchSBLight": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "SwitchSBLight",
+                "x": 900,
+                "y": 900,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "IsAnchored": {
+            "component": "signalk/ValueIn",
+            "metadata": {
+                "label": "IsAnchored",
+                "x": 504,
+                "y": 72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "ListenDeckLight": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenDeckLight",
+                "x": 360,
+                "y": 1296,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "DeckLight": {
+            "component": "core/Split",
+            "metadata": {
+                "label": "DeckLight",
+                "x": 180,
+                "y": 1296,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "signalk/InvertBoolean_doccg": {
             "component": "signalk/InvertBoolean",
             "metadata": {
-                "label": "InvertSBState",
+                "label": "InvertBoolean",
                 "x": 504,
                 "y": 1296,
                 "width": 72,
                 "height": 72
             }
         },
-        "core/Kick_u68v2": {
+        "SendDeckValue": {
             "component": "core/Kick",
             "metadata": {
-                "label": "Kick",
+                "label": "SendDeckValue",
                 "x": 684,
-                "y": 1152,
+                "y": 1224,
                 "width": 72,
                 "height": 72
             }
         },
-        "signalk/SendPut_k5vq1": {
+        "SwitchDeckLight": {
             "component": "signalk/SendPut",
             "metadata": {
-                "label": "SendPut",
+                "label": "SwitchDeckLight",
                 "x": 900,
-                "y": 1152,
+                "y": 1224,
                 "width": 72,
                 "height": 72
             }
@@ -261,7 +302,7 @@
                 "port": "out"
             },
             "tgt": {
-                "process": "signalk/ValueIn_e6y2b",
+                "process": "IsNight",
                 "port": "in"
             },
             "metadata": {
@@ -283,7 +324,7 @@
         },
         {
             "src": {
-                "process": "signalk/ValueIn_e6y2b",
+                "process": "IsNight",
                 "port": "out"
             },
             "tgt": {
@@ -456,50 +497,11 @@
                 "port": "out"
             },
             "tgt": {
-                "process": "signalk/SendPut_k5vq1",
+                "process": "SwitchSBLight",
                 "port": "path"
             },
             "metadata": {
                 "route": 2
-            }
-        },
-        {
-            "src": {
-                "process": "LightSB",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "ListenSBLight",
-                "port": "in"
-            },
-            "metadata": {
-                "route": 2
-            }
-        },
-        {
-            "src": {
-                "process": "ListenSBLight",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "InvertSBState",
-                "port": "in"
-            },
-            "metadata": {
-                "route": 5
-            }
-        },
-        {
-            "src": {
-                "process": "InvertSBState",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "core/Kick_u68v2",
-                "port": "data"
-            },
-            "metadata": {
-                "route": 5
             }
         },
         {
@@ -512,16 +514,42 @@
                 "port": "in"
             },
             "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "SendSBValue",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchSBLight",
+                "port": "value"
+            },
+            "metadata": {
                 "route": 4
             }
         },
         {
             "src": {
-                "process": "DetectClickB",
+                "process": "InvertBBState",
                 "port": "out"
             },
             "tgt": {
-                "process": "core/Kick_u68v2",
+                "process": "SendSBValue",
+                "port": "data"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "DetectClickA",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SendSBValue",
                 "port": "in"
             },
             "metadata": {
@@ -530,15 +558,93 @@
         },
         {
             "src": {
-                "process": "core/Kick_u68v2",
+                "process": "ListenNavigation",
                 "port": "out"
             },
             "tgt": {
-                "process": "signalk/SendPut_k5vq1",
+                "process": "IsAnchored",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "DeckLight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "ListenDeckLight",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "ListenDeckLight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "signalk/InvertBoolean_doccg",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "DetectClickB",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SendDeckValue",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "signalk/InvertBoolean_doccg",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SendDeckValue",
+                "port": "data"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "DeckLight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchDeckLight",
+                "port": "path"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "SendDeckValue",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchDeckLight",
                 "port": "value"
             },
             "metadata": {
-                "route": 4
+                "route": 3
             }
         },
         {
@@ -691,7 +797,7 @@
         {
             "data": "night",
             "tgt": {
-                "process": "signalk/ValueIn_e6y2b",
+                "process": "IsNight",
                 "port": "values"
             }
         },
@@ -734,6 +840,20 @@
             "data": "electrical.switches.saloonStarboardRgbw2.state",
             "tgt": {
                 "process": "LightSB",
+                "port": "in"
+            }
+        },
+        {
+            "data": "anchored",
+            "tgt": {
+                "process": "IsAnchored",
+                "port": "values"
+            }
+        },
+        {
+            "data": "electrical.switches.deckLight.state",
+            "tgt": {
+                "process": "DeckLight",
                 "port": "in"
             }
         }
