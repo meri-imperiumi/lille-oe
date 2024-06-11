@@ -674,10 +674,23 @@
             },
             "tgt": {
                 "process": "AnchoredAndNight",
-                "port": "in"
+                "port": "values"
             },
             "metadata": {
                 "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "IsNight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "AnchoredAndNight",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
             }
         },
         {
@@ -687,7 +700,7 @@
             },
             "tgt": {
                 "process": "AnchoredAndNight",
-                "port": "in"
+                "port": "values"
             },
             "metadata": {
                 "route": 7
