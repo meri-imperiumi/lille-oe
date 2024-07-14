@@ -350,7 +350,7 @@
       },
       {
         "sourceRef": "can0.15",
-        "timeout": "3000"
+        "timeout": "8000"
       }
     ],
     "environment.wind.speedApparent": [
@@ -381,6 +381,26 @@
       {
         "sourceRef": "can0.15",
         "timeout": "3000"
+      }
+    ],
+    "navigation.speedThroughWater": [
+      {
+        "sourceRef": "can0.71",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "ydnr02.VW",
+        "timeout": "50000"
+      }
+    ],
+    "environment.wind.angleTrueWater": [
+      {
+        "sourceRef": "derived-data",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "can0.15",
+        "timeout": "5000"
       }
     ]
   },
