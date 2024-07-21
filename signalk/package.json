@@ -15,7 +15,7 @@
     "@signalk/calibration": "^1.3.1",
     "@signalk/charts-plugin": "^3.0.0",
     "@signalk/course-provider": "^1.0.2",
-    "@signalk/freeboard-sk": "^2.8.2",
+    "@signalk/freeboard-sk": "^2.9.1",
     "@signalk/instrumentpanel": "^0.25.0",
     "@signalk/resources-provider": "^1.1.2",
     "@signalk/sailsconfiguration": "^1.1.0",
