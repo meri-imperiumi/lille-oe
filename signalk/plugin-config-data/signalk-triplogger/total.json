@@ -1,11 +1,11 @@
 {
   "started": "2023-04-27T09:53:37.868Z",
   "ended": null,
-  "total": 10011591,
+  "total": 10976904,
   "states": {
     "moored": 0,
-    "motoring": 2037334,
-    "sailing": 7974257,
+    "motoring": 2152423,
+    "sailing": 8824481,
     "anchored": 0,
     "aground": 0,
     "constrained by draft": 0

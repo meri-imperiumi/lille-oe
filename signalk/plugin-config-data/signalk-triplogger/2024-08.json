@@ -1,0 +1,11 @@
+{
+  "started": "2024-08-01T00:00:00.258Z",
+  "ended": null,
+  "total": 965313,
+  "states": {
+    "anchored": 0,
+    "motoring": 115089,
+    "sailing": 850224,
+    "moored": 0
+  }
+}
