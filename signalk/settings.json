@@ -329,8 +329,12 @@
         "timeout": ""
       },
       {
-        "sourceRef": "ydnr02.VW",
+        "sourceRef": "can0.71",
         "timeout": "60000"
+      },
+      {
+        "sourceRef": "ydnr02.VW",
+        "timeout": "600000"
       }
     ],
     "navigation.log": [
@@ -339,8 +343,12 @@
         "timeout": ""
       },
       {
-        "sourceRef": "ydnr02.VW",
+        "sourceRef": "can0.71",
         "timeout": "60000"
+      },
+      {
+        "sourceRef": "ydnr02.VW",
+        "timeout": "6000000"
       }
     ],
     "environment.wind.angleApparent": [
