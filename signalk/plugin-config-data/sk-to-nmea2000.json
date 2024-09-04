@@ -191,7 +191,7 @@
       "resendTime": 30
     },
     "WINDv2": {
-      "enabled": false,
+      "enabled": true,
       "resend": 0,
       "resendTime": 30,
       "environmentwindangleApparent": "can0.71",
