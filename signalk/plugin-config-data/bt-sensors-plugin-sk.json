@@ -1,0 +1,26 @@
+{
+  "configuration": {
+    "discoveryTimeout": 30,
+    "discoveryInterval": 60,
+    "peripherals": [
+      {
+        "active": true,
+        "mac_address": "DD:68:22:2A:76:58",
+        "discoveryTimeout": 30,
+        "params": {
+          "name": "Outside"
+        },
+        "paths": {
+          "pressure": "environment.outside.pressure",
+          "accY": "environment.outside.accelerationY",
+          "accX": "environment.outside.accelerationX",
+          "accZ": "environment.outside.accelerationZ",
+          "humidity": "environment.outside.humidity",
+          "temp": "environment.outside.temperature",
+          "battV": "environment.outside.voltage"
+        }
+      }
+    ]
+  },
+  "enabled": true
+}

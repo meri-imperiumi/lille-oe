@@ -243,6 +243,10 @@
       {
         "sourceRef": "venus.com.victronenergy.temperature.32",
         "timeout": ""
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": "50000"
       }
     ],
     "navigation.headingMagnetic": [
@@ -259,6 +263,10 @@
       {
         "sourceRef": "venus.com.victronenergy.temperature.32",
         "timeout": ""
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": "50000"
       },
       {
         "sourceRef": "can0.25",
@@ -409,6 +417,56 @@
       {
         "sourceRef": "can0.15",
         "timeout": "5000"
+      }
+    ],
+    "environment.outside.accelerationZ": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": "50000"
+      }
+    ],
+    "environment.outside.accelerationX": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": "50000"
+      }
+    ],
+    "environment.outside.accelerationY": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": "50000"
+      }
+    ],
+    "environment.outside.voltage": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": "50000"
+      }
+    ],
+    "environment.outside.temperature": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": ""
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": "50000"
       }
     ]
   },
