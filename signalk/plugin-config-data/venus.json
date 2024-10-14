@@ -45,6 +45,11 @@
         "type": "com.victronenergy.solarcharger",
         "venusId": 289,
         "signalkId": "aftarch"
+      },
+      {
+        "type": "com.victronenergy.solarcharger",
+        "venusId": 290,
+        "signalkId": "bowpanel"
       }
     ],
     "temperatureMappings": [
