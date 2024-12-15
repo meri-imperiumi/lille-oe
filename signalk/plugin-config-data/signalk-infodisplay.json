@@ -1,0 +1,24 @@
+{
+  "configuration": {
+    "defaultUrl": "http://192.168.2.105:3000/d/PEJzmaw7z/navstation-motoring?from=now-3h&to=now&timezone=utc&refresh=30s&kiosk",
+    "stateUrls": [
+      {
+        "state": "moored",
+        "url": "http://192.168.2.105:3000/d/ee6eb1rban20we/navstation-moored?from=now-3h&to=now&timezone=utc&refresh=30s&kiosk"
+      },
+      {
+        "state": "sailing",
+        "url": "http://192.168.2.105:3000/d/be6edtjwmtdkwf/navstation-sailing?from=now-3h&to=now&timezone=utc&refresh=30s&kiosk"
+      },
+      {
+        "state": "motoring",
+        "url": "http://192.168.2.105:3000/d/PEJzmaw7z/navstation-motoring?from=now-3h&to=now&timezone=utc&refresh=30s&kiosk"
+      },
+      {
+        "state": "anchored",
+        "url": "http://192.168.2.105:3000/d/be6ecvkc8uuwwb/navstation-anchored?from=now-3h&to=now&timezone=utc&refresh=30s&kiosk"
+      }
+    ]
+  },
+  "enabled": true
+}

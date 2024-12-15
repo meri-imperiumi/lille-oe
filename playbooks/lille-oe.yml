@@ -55,6 +55,13 @@
       service:
         name: signalk-server
         state: restarted
-
+    - name: Clone [b]log repository
+      ansible.builtin.git:
+        repo: 'git@github.com:meri-imperiumi/log.git'
+        dest: /home/pi/log
+    - name: Clone printer repository
+      ansible.builtin.git:
+        repo: 'https://github.com/meri-imperiumi/logbook-printer.git'
+        dest: /home/pi/logbook-printer
   handlers:
     - include: ../roles/marinepi-provisioning/handlers/handlers.yml
