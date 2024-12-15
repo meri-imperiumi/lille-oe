@@ -5,6 +5,7 @@
     "MQTT": {
       "host": "192.168.2.137"
     },
+    "VRM": {},
     "pollInterval": 20,
     "useDeviceNames": false,
     "usePosition": false,
@@ -79,7 +80,7 @@
       },
       {
         "venusId": 37,
-        "signalkPath": "environment.inside.heating.temperature"
+        "signalkPath": "environment.water.temperature"
       },
       {
         "venusId": 36,

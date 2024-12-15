@@ -2,13 +2,13 @@
   "configuration": {
     "paths": [
       {
-        "enabled": false,
+        "enabled": true,
         "key": "environment.depth.belowSurface",
         "name": "depth",
         "lowValue": 2,
         "state": "warn",
         "visual": true,
-        "sound": true
+        "sound": false
       },
       {
         "enabled": false,
