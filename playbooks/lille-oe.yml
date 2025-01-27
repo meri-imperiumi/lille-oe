@@ -6,15 +6,21 @@
   become: yes
 
   vars:
-    - hostname: lille-oe-pi
-    - timezone: Europe/Berlin
-    - grafana_admin_password: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          63376562373065303536313733636331663365313339333064356563623834393137343365303265
-          6666353932633637326235636463393632343939326265360a653962643032333363366232303338
-          61633237343039623566653137353065653235633766306663633238656630663632383561373734
-          3664306434653766350a383533643230333362336661346535393434346264636661376132666633
-
+    hostname: lille-oe-pi
+    timezone: UTC
+    timers:
+      logbook_backup:
+        exec_start: /home/pi/log/.github/backup.sh
+        user: pi
+        group: pi
+        on_calendar: hourly
+        persistent: true
+      logbook_print:
+        exec_start: node /home/pi/logbook-printer/index.mjs
+        user: pi
+        group: pi
+        on_calendar: '*:0/15'
+        persistent: true
   pre_tasks:
     - name: Update apt cache
       apt:
@@ -33,6 +39,7 @@
     - role: marinepi-provisioning/roles/grafana
       grafana_port: 3000
     - role: marinepi-provisioning/roles/canboat
+    - alphanodes.setup.systemd_timer
 
   tasks:
     - name: Deploy SSH keys for bergie
