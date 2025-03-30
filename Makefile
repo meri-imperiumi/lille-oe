@@ -1,13 +1,11 @@
-ENV?=dev
-
 roles/marinepi-provisioning:
 	ansible-galaxy install -r requirements.yml
 
 signalk: roles/marinepi-provisioning
-	ansible-playbook -i hosts -l $(ENV) playbooks/lille-oe.yml --ask-vault-pass
+	ansible-playbook -i hosts -l lille-oe-pi playbooks/lille-oe.yml --vault-password-file secrets.pass --extra-vars "@secrets.yml"
 
-navstation: roles/marinepi-provisioning
-	ansible-playbook -i hosts -l navstation playbooks/navstation.yml
+nas: roles/marinepi-provisioning
+	ansible-playbook -i hosts -l lille-oe-nas playbooks/nas.yml --vault-password-file secrets.pass --extra-vars "@secrets.yml"
 
 backup:
 	rsync -avzuh -e ssh "pi@192.168.2.105:/home/pi/.signalk/*" signalk

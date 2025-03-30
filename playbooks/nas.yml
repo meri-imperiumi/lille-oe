@@ -5,7 +5,7 @@
   gather_facts: yes
   become: yes
   vars:
-    hostname: navstation
+    hostname: lille-oe-nas
     timezone: UTC
     samba_netbios_name: NAS
     samba_apple_extensions: true
@@ -18,7 +18,9 @@
         write_list: +crew
     samba_users:
       - name: ihmissuski
+        password: "{{ samba_password }}"
       - name: bergie
+        password: "{{ samba_password }}"
     timers:
       rclone_lille_oe:
         exec_start: /usr/local/bin/rclone sync "lilleoe-drive:Lille Ø/" "/mnt/library/Lille Ø" --drive-export-formats pdf,svg
@@ -162,6 +164,9 @@
           - libxslt-dev
           - libffi-dev
           - npm
+    - name: Add uv package manager
+      ansible.builtin.command:
+        cmd: pip install uv --break-system-packages
     - name: Build feedi
       ansible.builtin.command:
         cmd: make

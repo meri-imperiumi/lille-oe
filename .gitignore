@@ -1,4 +1,5 @@
 .DS_Store
+secrets.pass
 roles/marinepi-provisioning
 signalk/security.json
 signalk/*.log

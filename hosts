@@ -1,7 +1,3 @@
 [prod]
 lille-oe-pi           ansible_ssh_host=192.168.2.105
-navstation            ansible_ssh_host=192.168.2.218
-
-[dev]
-lille-oe-pi-dev          ansible_ssh_host=lille-oe-pi.local
-navstation-dev          ansible_ssh_host=navstation.local
+lille-oe-nas          ansible_ssh_host=192.168.2.140
