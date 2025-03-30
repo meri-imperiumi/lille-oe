@@ -7,7 +7,7 @@
   vars:
     hostname: infodisplay
     timezone: UTC
-    kiosk_url: http://192.168.2.105//@meri-imperiumi/signalk-infodisplay/
+    kiosk_url: http://192.168.2.105/@meri-imperiumi/signalk-infodisplay/
   pre_tasks:
     - name: Update apt cache
       apt: null
@@ -25,44 +25,24 @@
         shell: /bin/bash
         groups: crew
         append: true
-    - name: Ensure panel in Wayfire.ini
-      community.general.ini_file:
-        path: /home/pi/.config/wayfire.ini
-        section: autostart
-        option: panel
-        value: wfrespawn wf-panel-pi
-    - name: Ensure background in Wayfire.ini
-      community.general.ini_file:
-        path: /home/pi/.config/wayfire.ini
-        section: autostart
-        option: background
-        value: wfrespawn pcmanfm --desktop --profile LXDE-pi
-    - name: Ensure xdg-autostart in Wayfire.ini
-      community.general.ini_file:
-        path: /home/pi/.config/wayfire.ini
-        section: autostart
-        option: xdg-autostart
-        value: lxsession-xdg-autostart
-    - name: Ensure Chromium in Wayfire.ini
-      community.general.ini_file:
-        path: /home/pi/.config/wayfire.ini
-        section: autostart
-        option: chromium
-        value: chromium-browser "{{ kiosk_url }}" --kiosk --noerrdialogs
+    - name: Ensure labwc config dir exists
+      file:
+        path: /home/pi/.config/labwc
+        owner: pi
+        group: pi
+        state: directory
+    - name: Ensure labwc autostart exists
+      file:
+        path: /home/pi/.config/labwc/autostart
+        owner: pi
+        group: pi
+        state: touch
+    - name: Ensure Chromium in labwc autostart
+      copy:
+        dest: /home/pi/.config/labwc/autostart
+        content: chromium-browser "{{ kiosk_url }}" --kiosk --noerrdialogs
           --disable-infobars --no-first-run --ozone-platform=wayland
           --enable-features=OverlayScrollbar --start-maximized
-    - name: Ensure screensaver in Wayfire.ini
-      community.general.ini_file:
-        path: /home/pi/.config/wayfire.ini
-        section: autostart
-        option: screensaver
-        value: "false"
-    - name: Ensure dpms in Wayfire.ini
-      community.general.ini_file:
-        path: /home/pi/.config/wayfire.ini
-        section: autostart
-        option: dpms
-        value: "false"
     - name: Deploy SSH keys for bergie
       authorized_key:
         user: pi
