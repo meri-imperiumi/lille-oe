@@ -163,6 +163,7 @@
           - libxml2-dev
           - libxslt-dev
           - libffi-dev
+          - libjpeg-dev
           - npm
     - name: Add uv package manager
       ansible.builtin.command:
