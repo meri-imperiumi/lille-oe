@@ -16,7 +16,7 @@ backup:
 #	scp "pi@192.168.2.105:/var/lib/grafana/grafana.db" .
 
 influx:
-#	ssh pi@lille-oe-pi.local 'influxd backup -portable /home/pi/backup'
+	ssh pi@lille-oe-pi.local 'influxd backup -portable /home/pi/backup'
 	ssh pi@lille-oe-pi.local 'rsync -avzuh /home/pi/backup/$(shell date +"%Y%m%d")* pi@192.168.2.140:/mnt/backup/influxdb'
 
 restore:
