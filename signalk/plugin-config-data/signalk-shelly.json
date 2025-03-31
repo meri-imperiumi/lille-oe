@@ -12,15 +12,25 @@
       "enabled": true,
       "devicePath": "saloonStarboardRgbw2"
     },
-    "Device ID Shelly Plus 1-shellyplus1-e86beaedce9c": {
+    "Device ID Shelly Plus 1-shellyplus1-c82e180bca34": {
       "deviceName": "Shelly Plus 1 ",
       "enabled": true,
-      "devicePath": "anchorLight"
+      "devicePath": "navLight"
     },
     "Device ID Shelly Plus 1-shellyplus1-e86beaede454": {
       "deviceName": "Shelly Plus 1 ",
       "enabled": true,
       "devicePath": "deckLight"
+    },
+    "Device ID Shelly Plus 1-shellyplus1-e86beaedce9c": {
+      "deviceName": "Shelly Plus 1 ",
+      "enabled": true,
+      "devicePath": "anchorLight"
+    },
+    "Device ID Shelly Plus 1-shellyplus1-c82e180bca40": {
+      "deviceName": "Shelly Plus 1 ",
+      "enabled": true,
+      "devicePath": "motorLight"
     }
   },
   "enabled": true

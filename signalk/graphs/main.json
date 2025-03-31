@@ -300,6 +300,56 @@
                 "width": 72,
                 "height": 72
             }
+        },
+        "SwitchNavLights": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "SwitchNavLights",
+                "x": 900,
+                "y": -72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "UnderwayAndNight": {
+            "component": "signalk/All",
+            "metadata": {
+                "label": "UnderwayAndNight",
+                "x": 684,
+                "y": -72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "MotoringAndNight": {
+            "component": "signalk/All",
+            "metadata": {
+                "label": "MotoringAndNight",
+                "x": 684,
+                "y": -216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "IsMotoring": {
+            "component": "signalk/ValueIn",
+            "metadata": {
+                "label": "IsMotoring",
+                "x": 504,
+                "y": -72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "signalk/SendPut_livkh": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "SendPut",
+                "x": 900,
+                "y": -216,
+                "width": 72,
+                "height": 72
+            }
         }
     },
     "connections": [
@@ -720,6 +770,123 @@
             }
         },
         {
+            "src": {
+                "process": "UnderwayAndNight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchNavLights",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "IsNight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "UnderwayAndNight",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "IsNight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "UnderwayAndNight",
+                "port": "values"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "IsUnderway",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "UnderwayAndNight",
+                "port": "values"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "IsNight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "MotoringAndNight",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "IsNight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "MotoringAndNight",
+                "port": "values"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "ListenNavigation",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "IsMotoring",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "IsMotoring",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "MotoringAndNight",
+                "port": "values"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
+            "src": {
+                "process": "MotoringAndNight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "signalk/SendPut_livkh",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
             "data": 0,
             "tgt": {
                 "process": "NightSailingBB",
@@ -933,6 +1100,27 @@
             "data": "electrical.switches.anchorLight.state",
             "tgt": {
                 "process": "SwitchAnchorLight",
+                "port": "path"
+            }
+        },
+        {
+            "data": "electrical.switches.navLight.state",
+            "tgt": {
+                "process": "SwitchNavLights",
+                "port": "path"
+            }
+        },
+        {
+            "data": "motoring",
+            "tgt": {
+                "process": "IsMotoring",
+                "port": "values"
+            }
+        },
+        {
+            "data": "electrical.switches.motorLight.state",
+            "tgt": {
+                "process": "signalk/SendPut_livkh",
                 "port": "path"
             }
         }
