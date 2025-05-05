@@ -8,6 +8,8 @@
     "DBS_throttle": 0,
     "DBT": true,
     "DBT_throttle": 1000,
+    "DPT-surface": false,
+    "DPT-surface_throttle": 0,
     "DPT": true,
     "DPT_throttle": 1000,
     "GGA": true,
@@ -74,9 +76,11 @@
     "XDRNA_throttle": 0,
     "XDRTemp": false,
     "XDRTemp_throttle": 0,
+    "XTE-GC": false,
+    "XTE-GC_throttle": 0,
     "XTE": false,
     "XTE_throttle": 0,
-    "ZDA": false,
+    "ZDA": true,
     "ZDA_throttle": 0
   },
   "enabled": true
