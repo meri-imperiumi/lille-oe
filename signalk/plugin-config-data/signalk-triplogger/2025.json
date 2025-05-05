@@ -1,11 +1,11 @@
 {
   "started": "2025-01-01T00:00:08.523Z",
-  "ended": null,
-  "total": 5282717,
+  "ended": "1980-01-06T00:00:24.327Z",
+  "total": 5427168,
   "states": {
     "anchored": 0,
-    "motoring": 190255,
+    "motoring": 221380,
     "moored": 0,
-    "sailing": 5092462
+    "sailing": 5205788
   }
 }
