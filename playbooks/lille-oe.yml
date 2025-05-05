@@ -58,6 +58,10 @@
           - festival
           - festvox-kallpc16k
           - mpg123
+    - name: NTP server dependencies
+      ansible.builtin.apt:
+        pkg:
+          - chrony
     - name: Restart signalk-server
       service:
         name: signalk-server
