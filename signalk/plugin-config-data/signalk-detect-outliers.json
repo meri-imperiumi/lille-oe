@@ -7,5 +7,5 @@
     "AWS_maxValue": 67,
     "filterPositionZero": true
   },
-  "enabled": true
+  "enabled": false
 }

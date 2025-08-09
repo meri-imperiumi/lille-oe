@@ -92,6 +92,26 @@
         "path": "electrical.alternator.289.chargingMode",
         "newPath": "electrical.chargers.alternator.chargingMode",
         "duplicate": false
+      },
+      {
+        "path": "electrical.dcsource.292.current",
+        "newPath": "electrical.chargers.wind.current",
+        "duplicate": false
+      },
+      {
+        "path": "electrical.dcsource.292.power",
+        "newPath": "electrical.chargers.wind.power",
+        "duplicate": false
+      },
+      {
+        "path": "electrical.dcsource.292.voltage",
+        "newPath": "electrical.chargers.wind.voltage",
+        "duplicate": false
+      },
+      {
+        "path": "electrical.dcsource.292.temperature",
+        "newPath": "electrical.chargers.wind.temperature",
+        "duplicate": false
       }
     ]
   },
