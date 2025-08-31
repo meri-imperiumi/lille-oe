@@ -56,5 +56,117 @@
         ]
       }
     ]
+  },
+  {
+    "context": "vessels.self",
+    "updates": [
+      {
+        "meta": [
+          {
+            "path": "tanks.freshWater.water.currentLevel",
+            "value": {
+              "units": "ratio",
+              "description": "Data should be of type number.",
+              "zones": [
+                {
+                  "state": "warn",
+                  "lower": 0,
+                  "upper": 0.2,
+                  "message": "Freshwater tank level low"
+                },
+                {
+                  "state": "alert",
+                  "lower": 0.8,
+                  "upper": 1,
+                  "message": "Freshwater tank too full"
+                }
+              ],
+              "alertMethod": [
+                "visual",
+                "sound"
+              ],
+              "warnMethod": [
+                "visual"
+              ]
+            }
+          },
+          {
+            "path": "electrical.venus-input.1.inputState",
+            "value": {
+              "units": "bool",
+              "description": "Bilge water sensor",
+              "zones": [
+                {
+                  "upper": 0,
+                  "lower": 0,
+                  "state": "alarm",
+                  "message": "Bilge water alarm"
+                },
+                {
+                  "upper": 1,
+                  "lower": 1,
+                  "state": "nominal",
+                  "message": "Bilge water normal"
+                }
+              ],
+              "alarmMethod": [
+                "sound",
+                "visual"
+              ],
+              "displayName": "Bilge sensor"
+            }
+          },
+          {
+            "path": "electrical.batteries.house.voltage",
+            "value": {
+              "units": "V",
+              "description": "Voltage measured at or as close as possible to the device",
+              "zones": [
+                {
+                  "upper": 11.5,
+                  "lower": 0,
+                  "state": "warn",
+                  "message": "battery voltage low"
+                },
+                {
+                  "upper": 100,
+                  "lower": 14.5,
+                  "state": "warn",
+                  "message": "battery voltage high"
+                }
+              ],
+              "warnMethod": [
+                "sound",
+                "visual"
+              ]
+            }
+          },
+          {
+            "path": "electrical.chargers.multiplus.bms.preAlarm",
+            "value": {
+              "zones": [
+                {
+                  "upper": 0,
+                  "lower": 0,
+                  "state": "nominal",
+                  "message": "BMS pre-alarm is off"
+                },
+                {
+                  "upper": 1,
+                  "lower": 1,
+                  "state": "warn",
+                  "message": "BMS has raised a pre-alarm"
+                }
+              ],
+              "units": "bool",
+              "description": "BMS pre-alarm state",
+              "warnMethod": [
+                "visual"
+              ]
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
