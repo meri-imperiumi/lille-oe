@@ -10,8 +10,17 @@
               "name": "Lille Oe",
               "mmsi": "211692440",
               "communication": {
-                "callsignVhf": "DH8613"
+                "callsignVhf": "DH8613",
+                "email": "boat@lille-oe.de"
               }
+            }
+          },
+          {
+            "path": "registrations.national.adac",
+            "value": {
+              "country": "DE",
+              "registration": "108039-A",
+              "description": "ADAC Internationaler Bootsschein"
             }
           },
           {
@@ -173,7 +182,7 @@
                 {
                   "state": "warn",
                   "lower": 0,
-                  "upper": 2,
+                  "upper": 3,
                   "message": "Not connected to device"
                 },
                 {
@@ -183,8 +192,31 @@
                   "message": "Connected and configured"
                 }
               ],
-              "units": "",
               "warnMethod": [
+                "visual"
+              ],
+              "displayName": "Device state number"
+            }
+          },
+          {
+            "path": "electrical.batteries.2990880859.capacity.stateOfCharge",
+            "value": {
+              "units": "ratio",
+              "zones": [
+                {
+                  "upper": 0.4,
+                  "lower": 0,
+                  "state": "alert",
+                  "message": "Mast node battery low"
+                },
+                {
+                  "upper": 1,
+                  "lower": 0.97,
+                  "state": "nominal",
+                  "message": "Mast node battery fl"
+                }
+              ],
+              "alertMethod": [
                 "visual"
               ]
             }
