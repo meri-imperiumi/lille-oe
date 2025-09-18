@@ -20,10 +20,11 @@
       "dtg": false,
       "cog_magnetic": false,
       "eta_waypoint": false,
-      "setDrift": false,
+      "setDrift": true,
       "steer_error": false,
       "vmg_Course": false,
-      "vmg_Wind": true
+      "vmg_Wind": true,
+      "vmg_Wind_STW": false
     },
     "heading": {
       "cog_true": false,
@@ -36,6 +37,7 @@
     "traffic": {
       "CPA": false,
       "range": 1852,
+      "distanceToSelf": true,
       "timelimit": 30,
       "sendNotifications": false
     },
@@ -47,6 +49,7 @@
     },
     "propulsion": {
       "economymain": false,
+      "mainstate": false,
       "propslipmain": false,
       "economyport": false,
       "economystarboard": false,
