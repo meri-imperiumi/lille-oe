@@ -26,3 +26,4 @@ signalk/plugin-config-data/signalk-logbook/
 signalk/plugin-config-data/noflo-signalk.json
 signalk/plugin-config-data/signalk-to-nfl.json
 signalk/plugin-config-data/signalk-autostate/persisted-state.json
+signalk/plugin-config-data/signalk-meshtastic/node-db.json

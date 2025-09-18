@@ -1,0 +1,36 @@
+{
+  "configuration": {
+    "device": {
+      "transport": "tcp",
+      "address": "192.168.2.139",
+      "log_level": 1,
+      "heartbeat_interval": 60000
+    },
+    "nodes": [
+      {
+        "node": 3796358305,
+        "role": "crew"
+      },
+      {
+        "node": 2683209950,
+        "role": "crew"
+      },
+      {
+        "node": 3676916848,
+        "role": "onboard"
+      },
+      {
+        "node": 2990880859,
+        "role": "onboard"
+      }
+    ],
+    "communications": {
+      "send_position": true,
+      "send_alerts": true,
+      "send_environment_metrics": true,
+      "digital_switching": true,
+      "populate_vessels": true
+    }
+  },
+  "enabled": true
+}
