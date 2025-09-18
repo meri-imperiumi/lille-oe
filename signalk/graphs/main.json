@@ -341,12 +341,42 @@
                 "height": 72
             }
         },
-        "signalk/SendPut_livkh": {
+        "SwitchMotorLight": {
             "component": "signalk/SendPut",
             "metadata": {
-                "label": "SendPut",
+                "label": "SwitchMotorLight",
                 "x": 900,
                 "y": -216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "IsStationary": {
+            "component": "signalk/ValueIn",
+            "metadata": {
+                "label": "IsStationary",
+                "x": 504,
+                "y": -360,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "StationaryAndNight": {
+            "component": "signalk/All",
+            "metadata": {
+                "label": "StationaryAndNight",
+                "x": 684,
+                "y": -360,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "SwitchConsoleLight": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "SwitchConsoleLight",
+                "x": 900,
+                "y": -360,
                 "width": 72,
                 "height": 72
             }
@@ -879,11 +909,76 @@
                 "port": "out"
             },
             "tgt": {
-                "process": "signalk/SendPut_livkh",
+                "process": "SwitchMotorLight",
                 "port": "value"
             },
             "metadata": {
                 "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "ListenNavigation",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "IsStationary",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "IsStationary",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "StationaryAndNight",
+                "port": "values"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "IsNight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "StationaryAndNight",
+                "port": "values"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "IsNight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "StationaryAndNight",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "StationaryAndNight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchConsoleLight",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 2
             }
         },
         {
@@ -1120,7 +1215,21 @@
         {
             "data": "electrical.switches.motorLight.state",
             "tgt": {
-                "process": "signalk/SendPut_livkh",
+                "process": "SwitchMotorLight",
+                "port": "path"
+            }
+        },
+        {
+            "data": "anchored,moored",
+            "tgt": {
+                "process": "IsStationary",
+                "port": "values"
+            }
+        },
+        {
+            "data": "electrical.switches.consoleLight.state",
+            "tgt": {
+                "process": "SwitchConsoleLight",
                 "port": "path"
             }
         }
