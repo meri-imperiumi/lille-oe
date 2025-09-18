@@ -8,6 +8,7 @@ signalk/applicationData/users/
 signalk/freeboard-sk-helper/course_db/
 signalk/plugin-config-data/ais-forwarder.json
 signalk/plugin-config-data/aisreporter.json
+signalk/plugin-config-data/openweather.json
 signalk/plugin-config-data/signalk-to-influxdb.json
 signalk/plugin-config-data/signalk-windy.json
 signalk/plugin-config-data/signalk-saillogger.json
@@ -25,5 +26,6 @@ signalk/plugin-config-data/signalk-triplogger/2025-*-*.json
 signalk/plugin-config-data/signalk-logbook/
 signalk/plugin-config-data/noflo-signalk.json
 signalk/plugin-config-data/signalk-to-nfl.json
+signalk/plugin-config-data/signalk-to-noforeignland.json
 signalk/plugin-config-data/signalk-autostate/persisted-state.json
 signalk/plugin-config-data/signalk-meshtastic/node-db.json
