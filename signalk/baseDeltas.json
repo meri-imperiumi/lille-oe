@@ -182,7 +182,7 @@
                 {
                   "state": "warn",
                   "lower": 0,
-                  "upper": 3,
+                  "upper": 4,
                   "message": "Not connected to device"
                 },
                 {
@@ -202,6 +202,7 @@
             "path": "electrical.batteries.2990880859.capacity.stateOfCharge",
             "value": {
               "units": "ratio",
+              "description": "Data should be of type number.",
               "zones": [
                 {
                   "upper": 0.4,
@@ -217,6 +218,25 @@
                 }
               ],
               "alertMethod": [
+                "visual"
+              ],
+              "nominalMethod": null
+            }
+          },
+          {
+            "path": "environment.inside.refrigerator.temperature",
+            "value": {
+              "units": "K",
+              "description": "Temperature",
+              "zones": [
+                {
+                  "upper": 1000,
+                  "lower": 283.15,
+                  "state": "warn",
+                  "message": "Refrigerator is too warm"
+                }
+              ],
+              "warnMethod": [
                 "visual"
               ]
             }
