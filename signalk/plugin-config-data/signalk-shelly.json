@@ -2,6 +2,26 @@
   "configuration": {
     "tempUnits": "C",
     "useCustomDiscovery": false,
+    "Device ID SHRGBW2-E8DB84811DB0": {
+      "deviceName": "Shelly RGBW2 ",
+      "enabled": true,
+      "devicePath": "saloonPortRgbw2"
+    },
+    "Device ID SHRGBW2-E8DB84811D45": {
+      "deviceName": "Shelly RGBW2 ",
+      "enabled": true,
+      "devicePath": "saloonStarboardRgbw2"
+    },
+    "Device ID Shelly Plus 1-shellyplus1-8813bf9fa37c": {
+      "deviceName": "Shelly Plus 1 ",
+      "enabled": false,
+      "devicePath": "Shelly Plus 1-shellyplus1-8813bf9fa37c"
+    },
+    "Device ID Shelly Plus 1-shellyplus1-8813bf9fbcb0": {
+      "deviceName": "Shelly Plus 1 ",
+      "enabled": false,
+      "devicePath": "Shelly Plus 1-shellyplus1-8813bf9fbcb0"
+    },
     "Device ID Shelly Plus 1-shellyplus1-e86beaedce9c": {
       "deviceName": "Shelly Plus 1 ",
       "enabled": false,
@@ -31,16 +51,6 @@
       "deviceName": "Shelly Plus 1 ",
       "enabled": false,
       "devicePath": "infoDisplay"
-    },
-    "Device ID SHRGBW2-E8DB84811DB0": {
-      "deviceName": "Shelly RGBW2 ",
-      "enabled": true,
-      "devicePath": "saloonPortRgbw2"
-    },
-    "Device ID SHRGBW2-E8DB84811D45": {
-      "deviceName": "Shelly RGBW2 ",
-      "enabled": true,
-      "devicePath": "saloonStarboardRgbw2"
     }
   },
   "enabled": true

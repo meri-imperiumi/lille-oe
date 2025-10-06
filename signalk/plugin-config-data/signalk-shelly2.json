@@ -77,6 +77,17 @@
       "enabled": true,
       "devicePath": "deckLight",
       "displayName": "Deck Light"
+    },
+    "Device ID shellyplus1-8813bf9fa37c": {
+      "deviceId": "shellyplus1-8813bf9fa37c",
+      "deviceName": "",
+      "deviceModel": "SNSW-001X15UL",
+      "deviceGeneration": "2",
+      "deviceAddress": "192.168.2.226",
+      "deviceHostname": "ShellyPlus1-8813BF9FA37C.local",
+      "enabled": true,
+      "devicePath": "electrical.switches.dodgerLight",
+      "displayName": "Dodger Lights"
     }
   },
   "enabled": true

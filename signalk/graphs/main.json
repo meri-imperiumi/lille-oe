@@ -380,6 +380,16 @@
                 "width": 72,
                 "height": 72
             }
+        },
+        "SwitchDodgerLight": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "SwitchDodgerLight",
+                "x": 900,
+                "y": -504,
+                "width": 72,
+                "height": 72
+            }
         }
     },
     "connections": [
@@ -982,6 +992,19 @@
             }
         },
         {
+            "src": {
+                "process": "StationaryAndNight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchDodgerLight",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
             "data": 0,
             "tgt": {
                 "process": "NightSailingBB",
@@ -1230,6 +1253,13 @@
             "data": "electrical.switches.consoleLight.state",
             "tgt": {
                 "process": "SwitchConsoleLight",
+                "port": "path"
+            }
+        },
+        {
+            "data": "electrical.switches.dodgerLight.state",
+            "tgt": {
+                "process": "SwitchDodgerLight",
                 "port": "path"
             }
         }
