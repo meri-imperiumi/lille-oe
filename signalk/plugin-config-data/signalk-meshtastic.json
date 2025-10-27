@@ -22,6 +22,10 @@
       {
         "node": 2990880859,
         "role": "onboard"
+      },
+      {
+        "node": 1058468433,
+        "role": "dinghy"
       }
     ],
     "communications": {
