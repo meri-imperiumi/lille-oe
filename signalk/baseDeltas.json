@@ -183,18 +183,19 @@
                   "state": "warn",
                   "lower": 0,
                   "upper": 4,
-                  "message": "Not connected to device"
+                  "message": "Not connected to Meshtastic device"
                 },
                 {
                   "state": "nominal",
                   "lower": 7,
                   "upper": 8,
-                  "message": "Connected and configured"
+                  "message": "Meshtastic connected and configured"
                 }
               ],
               "warnMethod": [
                 "visual"
               ],
+              "nominalMethod": [],
               "displayName": "Device state number"
             }
           },
@@ -231,7 +232,7 @@
               "zones": [
                 {
                   "upper": 1000,
-                  "lower": 283.15,
+                  "lower": 285.15,
                   "state": "warn",
                   "message": "Refrigerator is too warm"
                 }
