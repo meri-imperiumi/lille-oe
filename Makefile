@@ -12,7 +12,7 @@ infodisplay: roles/marinepi-provisioning
 	ansible-playbook -i hosts -l infodisplay playbooks/infodisplay.yml --vault-password-file secrets.pass --extra-vars "@secrets.yml"
 
 backup:
-	rsync -avzuh -e ssh "pi@192.168.2.105:/home/pi/.signalk/*" signalk
+	rsync -avzuh --exclude 'node_modules' --exclude 'charts' -e ssh "pi@192.168.2.105:/home/pi/.signalk/*" signalk
 #	scp "pi@192.168.2.105:/var/lib/grafana/grafana.db" .
 
 influx:
