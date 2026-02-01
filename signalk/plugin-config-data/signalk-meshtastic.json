@@ -8,24 +8,20 @@
     },
     "nodes": [
       {
-        "node": 3796358305,
-        "role": "crew"
-      },
-      {
-        "node": 2683209950,
-        "role": "crew"
-      },
-      {
-        "node": 3676916848,
-        "role": "onboard"
-      },
-      {
-        "node": 2990880859,
-        "role": "onboard"
-      },
-      {
         "node": 1058468433,
         "role": "dinghy"
+      },
+      {
+        "node": 2720634952,
+        "role": "crew"
+      },
+      {
+        "node": 1068238207,
+        "role": "crew"
+      },
+      {
+        "node": 1924052564,
+        "role": "onboard"
       }
     ],
     "communications": {

@@ -88,7 +88,89 @@
       "enabled": true,
       "devicePath": "electrical.switches.dodgerLight",
       "displayName": "Dodger Lights"
-    }
+    },
+    "deviceConfigs": [
+      {
+        "id": "shellyplus1-c82e180bca34",
+        "address": "192.168.2.107",
+        "hostname": "Nav-Light.local",
+        "name": "Nav Light",
+        "model": "SNSW-001X16EU",
+        "enabled": true,
+        "devicePath": "navLight",
+        "displayName": "Navigation Lights"
+      },
+      {
+        "id": "shellyplus1-8813bf9fbcb0",
+        "address": "192.168.2.153",
+        "hostname": "Console-Light.local",
+        "name": "Console Light",
+        "model": "SNSW-001X15UL",
+        "enabled": true,
+        "devicePath": "consoleLight",
+        "displayName": "Console Light"
+      },
+      {
+        "id": "shellyplus1-048308d5ecbc",
+        "address": "192.168.2.186",
+        "hostname": "ShellyPlus1-048308D5ECBC.local",
+        "name": "nas",
+        "model": "SNSW-001X15UL",
+        "enabled": true,
+        "devicePath": "nas",
+        "displayName": "NAS"
+      },
+      {
+        "id": "shellyplus1-e86beaedce9c",
+        "address": "192.168.2.180",
+        "hostname": "ShellyPlus1-E86BEAEDCE9C.local",
+        "name": "Anchor Light",
+        "model": "SNSW-001X16EU",
+        "enabled": true,
+        "devicePath": "anchorLight",
+        "displayName": "Anchor Light"
+      },
+      {
+        "id": "shellyplus1-048308d68714",
+        "address": "192.168.2.124",
+        "hostname": "ShellyPlus1-048308D68714.local",
+        "name": "Info Display",
+        "model": "SNSW-001X15UL",
+        "enabled": true,
+        "devicePath": "infoDisplay",
+        "displayName": "Info Display"
+      },
+      {
+        "id": "shellyplus1-c82e180bca40",
+        "address": "192.168.2.119",
+        "hostname": "Motor-Light.local",
+        "name": "Motor Light",
+        "model": "SNSW-001X16EU",
+        "enabled": true,
+        "devicePath": "motorLight",
+        "displayName": "Motor Light"
+      },
+      {
+        "id": "shellyplus1-e86beaede454",
+        "address": "192.168.2.136",
+        "hostname": "Deck-Light.local",
+        "name": "Deck Light",
+        "model": "SNSW-001X16EU",
+        "enabled": true,
+        "devicePath": "deckLight",
+        "displayName": "Deck Light"
+      },
+      {
+        "id": "shellyplus1-8813bf9fa37c",
+        "address": "192.168.2.226",
+        "hostname": "ShellyPlus1-8813BF9FA37C.local",
+        "name": null,
+        "model": "SNSW-001X15UL",
+        "enabled": true,
+        "devicePath": "electrical.switches.dodgerLight",
+        "displayName": "Dodger Lights"
+      }
+    ]
   },
   "enabled": true
 }
