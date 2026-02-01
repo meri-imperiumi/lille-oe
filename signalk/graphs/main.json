@@ -390,6 +390,26 @@
                 "width": 72,
                 "height": 72
             }
+        },
+        "ListenConsoleA": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenConsoleA",
+                "x": 360,
+                "y": 1044,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "DetectClickCA": {
+            "component": "signalk/DetectChange",
+            "metadata": {
+                "label": "DetectClickCA",
+                "x": 504,
+                "y": 1044,
+                "width": 72,
+                "height": 72
+            }
         }
     },
     "connections": [
@@ -1005,6 +1025,32 @@
             }
         },
         {
+            "src": {
+                "process": "ListenConsoleA",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "DetectClickCA",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "DetectClickCA",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SendDeckValue",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
             "data": 0,
             "tgt": {
                 "process": "NightSailingBB",
@@ -1261,6 +1307,13 @@
             "tgt": {
                 "process": "SwitchDodgerLight",
                 "port": "path"
+            }
+        },
+        {
+            "data": "electrical.switches.consoleA.state",
+            "tgt": {
+                "process": "ListenConsoleA",
+                "port": "in"
             }
         }
     ]
