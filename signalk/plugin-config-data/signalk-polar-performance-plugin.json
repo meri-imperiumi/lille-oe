@@ -1,10 +1,12 @@
 {
   "configuration": {
+    "useTWSsource": "",
     "beatAngle": true,
     "beatVMG": true,
     "targetTWA": true,
     "tackTrue": true,
     "optimumWindAngle": true,
+    "useSOGsource": "",
     "maxSpeed": true,
     "perfAdjust": 1,
     "dampingTWA": 1,

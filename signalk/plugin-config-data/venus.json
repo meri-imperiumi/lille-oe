@@ -5,10 +5,9 @@
     "MQTT": {
       "host": "192.168.2.137"
     },
-    "VRM": {},
     "pollInterval": 20,
     "useDeviceNames": false,
-    "usePosition": false,
+    "usePosition": true,
     "relayPath0": "electrical.switches.venus-0",
     "relayPath1": "electrical.switches.venus-1",
     "instanceMappings": [
@@ -103,7 +102,10 @@
         "venusId": 20,
         "signalkPath": "environment.inside.doomlocker.temperature"
       }
-    ]
+    ],
+    "blacklist": [],
+    "ignoredSenders": [],
+    "VRM": {}
   },
   "enabled": true
 }
