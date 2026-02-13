@@ -16,7 +16,7 @@
             "metadata": {
                 "label": "NightSailingBB",
                 "x": 900,
-                "y": 216,
+                "y": 180,
                 "width": 72,
                 "height": 72
             }
@@ -26,7 +26,7 @@
             "metadata": {
                 "label": "NightSailingSB",
                 "x": 900,
-                "y": 324,
+                "y": 288,
                 "width": 72,
                 "height": 72
             }
@@ -36,7 +36,7 @@
             "metadata": {
                 "label": "WorkLightBB",
                 "x": 900,
-                "y": 432,
+                "y": 504,
                 "width": 72,
                 "height": 72
             }
@@ -46,7 +46,7 @@
             "metadata": {
                 "label": "WorkLightSB",
                 "x": 900,
-                "y": 540,
+                "y": 612,
                 "width": 72,
                 "height": 72
             }
@@ -106,7 +106,7 @@
             "metadata": {
                 "label": "DetectClickA",
                 "x": 504,
-                "y": 756,
+                "y": 828,
                 "width": 72,
                 "height": 72
             }
@@ -116,7 +116,7 @@
             "metadata": {
                 "label": "SendBBValue",
                 "x": 684,
-                "y": 756,
+                "y": 828,
                 "width": 72,
                 "height": 72
             }
@@ -126,7 +126,7 @@
             "metadata": {
                 "label": "SwitchBBLight",
                 "x": 900,
-                "y": 756,
+                "y": 828,
                 "width": 72,
                 "height": 72
             }
@@ -136,7 +136,7 @@
             "metadata": {
                 "label": "InvertBBState",
                 "x": 504,
-                "y": 900,
+                "y": 936,
                 "width": 72,
                 "height": 72
             }
@@ -156,7 +156,7 @@
             "metadata": {
                 "label": "ListenBBLight",
                 "x": 360,
-                "y": 900,
+                "y": 936,
                 "width": 72,
                 "height": 72
             }
@@ -166,7 +166,7 @@
             "metadata": {
                 "label": "ListenRemoteA",
                 "x": 360,
-                "y": 756,
+                "y": 828,
                 "width": 72,
                 "height": 72
             }
@@ -206,7 +206,7 @@
             "metadata": {
                 "label": "SendSBValue",
                 "x": 684,
-                "y": 900,
+                "y": 936,
                 "width": 72,
                 "height": 72
             }
@@ -216,7 +216,7 @@
             "metadata": {
                 "label": "SwitchSBLight",
                 "x": 900,
-                "y": 900,
+                "y": 972,
                 "width": 72,
                 "height": 72
             }
@@ -251,10 +251,10 @@
                 "height": 72
             }
         },
-        "signalk/InvertBoolean_doccg": {
+        "InvertDeckState": {
             "component": "signalk/InvertBoolean",
             "metadata": {
-                "label": "InvertBoolean",
+                "label": "InvertDeckState",
                 "x": 504,
                 "y": 1296,
                 "width": 72,
@@ -407,6 +407,96 @@
                 "label": "DetectClickCA",
                 "x": 504,
                 "y": 1044,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "ListenConsoleB": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenConsoleB",
+                "x": 360,
+                "y": 1440,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "DetectClickCB": {
+            "component": "signalk/DetectChange",
+            "metadata": {
+                "label": "DetectClickCB",
+                "x": 504,
+                "y": 1440,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "CockpitLight": {
+            "component": "core/Split",
+            "metadata": {
+                "label": "CockpitLight",
+                "x": 180,
+                "y": 1584,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "ListenCockpitLight": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenCockpitLight",
+                "x": 360,
+                "y": 1584,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "InvertCockpitState": {
+            "component": "signalk/InvertBoolean",
+            "metadata": {
+                "label": "InvertCockpitState",
+                "x": 504,
+                "y": 1584,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "SendCockpitValue": {
+            "component": "core/Kick",
+            "metadata": {
+                "label": "SendCockpitValue",
+                "x": 684,
+                "y": 1512,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "SwitchCockpitLight": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "SwitchCockpitLight",
+                "x": 900,
+                "y": 1512,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "WorkLightCockpit": {
+            "component": "signalk-server-config/SetRgbW",
+            "metadata": {
+                "label": "WorkLightCockpit",
+                "x": 900,
+                "y": 720,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "NightSailingCockpit": {
+            "component": "signalk-server-config/SetRgbW",
+            "metadata": {
+                "label": "NightSailingCockpit",
+                "x": 900,
+                "y": 396,
                 "width": 72,
                 "height": 72
             }
@@ -718,7 +808,7 @@
                 "port": "out"
             },
             "tgt": {
-                "process": "signalk/InvertBoolean_doccg",
+                "process": "InvertDeckState",
                 "port": "in"
             },
             "metadata": {
@@ -740,7 +830,7 @@
         },
         {
             "src": {
-                "process": "signalk/InvertBoolean_doccg",
+                "process": "InvertDeckState",
                 "port": "out"
             },
             "tgt": {
@@ -1051,6 +1141,123 @@
             }
         },
         {
+            "src": {
+                "process": "ListenConsoleB",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "DetectClickCB",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "CockpitLight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "ListenCockpitLight",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "ListenCockpitLight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "InvertCockpitState",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "SendCockpitValue",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchCockpitLight",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "CockpitLight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchCockpitLight",
+                "port": "path"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "InvertCockpitState",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SendCockpitValue",
+                "port": "data"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "DetectClickCB",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SendCockpitValue",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "signalk/And_39va6",
+                "port": "fail"
+            },
+            "tgt": {
+                "process": "WorkLightCockpit",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "signalk/And_39va6",
+                "port": "pass"
+            },
+            "tgt": {
+                "process": "NightSailingCockpit",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
             "data": 0,
             "tgt": {
                 "process": "NightSailingBB",
@@ -1314,6 +1521,90 @@
             "tgt": {
                 "process": "ListenConsoleA",
                 "port": "in"
+            }
+        },
+        {
+            "data": "electrical.switches.consoleB.state",
+            "tgt": {
+                "process": "ListenConsoleB",
+                "port": "in"
+            }
+        },
+        {
+            "data": "electrical.switches.cockpitLight.state",
+            "tgt": {
+                "process": "CockpitLight",
+                "port": "in"
+            }
+        },
+        {
+            "data": 105,
+            "tgt": {
+                "process": "WorkLightCockpit",
+                "port": "w"
+            }
+        },
+        {
+            "data": 13,
+            "tgt": {
+                "process": "WorkLightCockpit",
+                "port": "b"
+            }
+        },
+        {
+            "data": 101,
+            "tgt": {
+                "process": "WorkLightCockpit",
+                "port": "g"
+            }
+        },
+        {
+            "data": 255,
+            "tgt": {
+                "process": "WorkLightCockpit",
+                "port": "r"
+            }
+        },
+        {
+            "data": "electrical.switches.cockpitLight",
+            "tgt": {
+                "process": "WorkLightCockpit",
+                "port": "path"
+            }
+        },
+        {
+            "data": "electrical.switches.cockpitLight",
+            "tgt": {
+                "process": "NightSailingCockpit",
+                "port": "path"
+            }
+        },
+        {
+            "data": 0,
+            "tgt": {
+                "process": "NightSailingCockpit",
+                "port": "w"
+            }
+        },
+        {
+            "data": 0,
+            "tgt": {
+                "process": "NightSailingCockpit",
+                "port": "b"
+            }
+        },
+        {
+            "data": 0,
+            "tgt": {
+                "process": "NightSailingCockpit",
+                "port": "g"
+            }
+        },
+        {
+            "data": 255,
+            "tgt": {
+                "process": "NightSailingCockpit",
+                "port": "r"
             }
         }
     ]
