@@ -29,15 +29,8 @@
         on_calendar: daily
         persistent: true
         randomized_delay_sec: 3600
-      rclone_keittokirja:
-        exec_start: /usr/local/bin/rclone sync "lilleoe-drive:meri-imperiumin Keittokirja/" /mnt/library/keittokirja --drive-export-formats pdf
-        user: pi
-        group: crew
-        on_calendar: weekly
-        persistent: true
-        randomized_delay_sec: 3600
       rclone_bookshelf:
-        exec_start: /usr/local/bin/rclone sync lilleoe-drive:Bookshelf/ /mnt/library/Bookshelf --drive-export-formats pdf
+        exec_start: /usr/local/bin/rclone sync lilleoe-drive:Bookshelf/ /mnt/library/Bookshelf-Google --drive-export-formats pdf
         user: pi
         group: crew
         on_calendar: weekly
