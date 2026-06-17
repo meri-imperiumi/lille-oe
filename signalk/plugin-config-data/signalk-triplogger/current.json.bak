@@ -1,0 +1,9 @@
+{
+  "started": "2026-05-16T02:08:30.958Z",
+  "ended": null,
+  "total": 240533,
+  "states": {
+    "sailing": 216711,
+    "motoring": 23822
+  }
+}
