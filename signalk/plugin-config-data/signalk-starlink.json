@@ -1,5 +1,6 @@
 {
   "configuration": {
+    "retrieveGps": false,
     "stowWhileMoving": false
   },
   "enabled": true

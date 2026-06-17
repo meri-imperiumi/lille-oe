@@ -1,0 +1,412 @@
+{
+  "priorityGroups": [
+    {
+      "id": "environment.wind.angleApparent|environment.wind.directionTrue|environment.wind.speedApparent|environment.wind.speedOverGround|navigation.attitude|navigation.courseOverGroundTrue|navigation.datetime|navigation.gnss.antennaAltitude|navigation.gnss.geoidalSeparation|navigation.gnss.horizontalDilution|navigation.gnss.integrity|navigation.gnss.methodQuality|navigation.gnss.positionDilution|navigation.gnss.satellites|navigation.gnss.satellitesInView|navigation.gnss.type|navigation.headingMagnetic|navigation.headingTrue|navigation.magneticVariation|navigation.position|navigation.rateOfTurn|navigation.speedOverGround",
+      "sources": [
+        "can0.c032890059a9f19e",
+        "can0.c050a0002fb32ee0",
+        "can0.c07891002fb36ee0",
+        "can0.c078af008ff9c95e",
+        "can0.c078c30039786a0f",
+        "can0.c0f082002fbe141b",
+        "can0.c0f082002fbe1422",
+        "derived-data",
+        "signalk-meshtastic.2996810856",
+        "venus.com.victronenergy.gps.0"
+      ]
+    }
+  ],
+  "priorityOverrides": {
+    "navigation.position": [
+      {
+        "sourceRef": "can0.c07891002fb36ee0",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 15000
+      },
+      {
+        "sourceRef": "can0.c078c30039786a0f",
+        "timeout": 15000
+      },
+      {
+        "sourceRef": "venus.com.victronenergy.gps.0",
+        "timeout": 15000
+      }
+    ],
+    "navigation.datetime": [
+      {
+        "sourceRef": "can0.c07891002fb36ee0",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078c30039786a0f",
+        "timeout": 5000
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 15000
+      }
+    ],
+    "navigation.headingTrue": [
+      {
+        "sourceRef": "derived-data",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078c30039786a0f",
+        "timeout": 5000
+      }
+    ],
+    "navigation.magneticVariation": [
+      {
+        "sourceRef": "can0.c07891002fb36ee0",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 15000
+      },
+      {
+        "sourceRef": "can0.c0f082002fbe141b",
+        "timeout": 15000
+      },
+      {
+        "sourceRef": "derived-data",
+        "timeout": 15000
+      }
+    ],
+    "navigation.speedOverGround": [
+      {
+        "sourceRef": "can0.1",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.31",
+        "timeout": 5000
+      },
+      {
+        "sourceRef": "venus.com.victronenergy.gps.0",
+        "timeout": 8000
+      }
+    ],
+    "navigation.gnss.antennaAltitude": [
+      {
+        "sourceRef": "can0.c07891002fb36ee0",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078c30039786a0f",
+        "timeout": 5000
+      }
+    ],
+    "navigation.gnss.satellites": [
+      {
+        "sourceRef": "can0.c07891002fb36ee0",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078c30039786a0f",
+        "timeout": 5000
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 15000
+      }
+    ],
+    "navigation.gnss.horizontalDilution": [
+      {
+        "sourceRef": "can0.c07891002fb36ee0",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078c30039786a0f",
+        "timeout": 5000
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 15000
+      }
+    ],
+    "navigation.gnss.positionDilution": [
+      {
+        "sourceRef": "can0.c07891002fb36ee0",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078c30039786a0f",
+        "timeout": 5000
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 15000
+      }
+    ],
+    "navigation.gnss.type": [
+      {
+        "sourceRef": "can0.c07891002fb36ee0",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078c30039786a0f",
+        "timeout": 5000
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 15000
+      }
+    ],
+    "navigation.gnss.integrity": [
+      {
+        "sourceRef": "can0.c07891002fb36ee0",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078c30039786a0f",
+        "timeout": 5000
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 15000
+      }
+    ],
+    "environment.outside.humidity": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": 50000
+      }
+    ],
+    "navigation.headingMagnetic": [
+      {
+        "sourceRef": "can0.c050a0002fb32ee0",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078c30039786a0f",
+        "timeout": 5000
+      }
+    ],
+    "environment.outside.pressure": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": 50000
+      },
+      {
+        "sourceRef": "can0.25",
+        "timeout": 60000
+      },
+      {
+        "sourceRef": "can0.32",
+        "timeout": 120000
+      }
+    ],
+    "navigation.courseOverGroundTrue": [
+      {
+        "sourceRef": "can0.c07891002fb36ee0",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078c30039786a0f",
+        "timeout": 4000
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 8000
+      },
+      {
+        "sourceRef": "venus.com.victronenergy.gps.0",
+        "timeout": 15000
+      }
+    ],
+    "navigation.gnss.satellitesInView": [
+      {
+        "sourceRef": "can0.c07891002fb36ee0",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078c30039786a0f",
+        "timeout": 30000
+      }
+    ],
+    "navigation.courseOverGroundMagnetic": [
+      {
+        "sourceRef": "can0.c07891002fb36ee0",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "m510.GN",
+        "timeout": 4000
+      }
+    ],
+    "steering.rudderAngle": [
+      {
+        "sourceRef": "can0.c032890059a9f19e",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "ydnr02.YD",
+        "timeout": 2000
+      }
+    ],
+    "navigation.attitude": [
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c050a0002fb32ee0",
+        "timeout": 4000
+      }
+    ],
+    "navigation.trip.log": [
+      {
+        "sourceRef": "signalk-triplogger.XX",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c032890059a9f19e",
+        "timeout": 60000
+      },
+      {
+        "sourceRef": "ydnr02.VW",
+        "timeout": 600000
+      }
+    ],
+    "navigation.log": [
+      {
+        "sourceRef": "signalk-triplogger.XX",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c032890059a9f19e",
+        "timeout": 60000
+      },
+      {
+        "sourceRef": "ydnr02.VW",
+        "timeout": 6000000
+      }
+    ],
+    "environment.wind.angleApparent": [
+      {
+        "sourceRef": "can0.c032890059a9f19e",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 8000
+      }
+    ],
+    "environment.wind.speedApparent": [
+      {
+        "sourceRef": "can0.c032890059a9f19e",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 3000
+      }
+    ],
+    "environment.wind.speedOverGround": [
+      {
+        "sourceRef": "derived-data",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 3000
+      }
+    ],
+    "environment.wind.directionTrue": [
+      {
+        "sourceRef": "derived-data",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 3000
+      }
+    ],
+    "navigation.speedThroughWater": [
+      {
+        "sourceRef": "can0.c032890059a9f19e",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "ydnr02.VW",
+        "timeout": 50000
+      }
+    ],
+    "environment.wind.angleTrueWater": [
+      {
+        "sourceRef": "derived-data",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "can0.c078af008ff9c95e",
+        "timeout": 5000
+      }
+    ],
+    "environment.outside.accelerationZ": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": 50000
+      }
+    ],
+    "environment.outside.accelerationX": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": 50000
+      }
+    ],
+    "environment.outside.accelerationY": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": 50000
+      }
+    ],
+    "environment.outside.voltage": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": 50000
+      }
+    ],
+    "environment.outside.temperature": [
+      {
+        "sourceRef": "venus.com.victronenergy.temperature.32",
+        "timeout": 0
+      },
+      {
+        "sourceRef": "bt-sensors-plugin-sk",
+        "timeout": 50000
+      }
+    ]
+  },
+  "priorityDefaults": {
+    "fallbackMs": 15000
+  }
+}
