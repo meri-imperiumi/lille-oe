@@ -17,7 +17,7 @@ backup:
 
 influx:
 	ssh pi@lille-oe-pi.local 'influxd backup -portable /home/pi/backup'
-	ssh pi@lille-oe-pi.local 'rsync -avzuh /home/pi/backup/$(shell date +"%Y%m%d")* pi@192.168.2.140:/mnt/backup/influxdb'
+	ssh pi@lille-oe-pi.local 'rsync -avzuh /home/pi/backup/$(date +"%Y%m%d")* pi@192.168.2.140:/mnt/backup/influxdb'
 
 restore:
 	rsync -avzuh -e ssh signalk/* "pi@192.168.2.105:/home/pi/.signalk/"
