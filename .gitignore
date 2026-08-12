@@ -43,3 +43,5 @@ signalk/plugin-config-data/kip/
 signalk/plugin-config-data/kip.json
 signalk/plugin-config-data/signalk-watch-schedule/
 signalk/serverState/
+roles/ansible-role-systemd/
+roles/stefangweichinger.ansible_rclone/
