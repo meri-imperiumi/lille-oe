@@ -4,8 +4,11 @@ secrets.pass
 secrets.yml.vault.bak
 secrets.*.yml.template
 roles/marinepi-provisioning
+# signalk/security.json is now encrypted as security.sops.json
 signalk/security.json
+signalk/package-lock.json
 signalk/*.log
+signalk/debug
 signalk/node_modules/
 signalk/applicationData/users/
 signalk/freeboard-sk-helper/course_db/
@@ -13,8 +16,10 @@ signalk/freeboard-sk-helper/course_db/
 signalk/plugin-config-data/ais-forwarder.json
 signalk/plugin-config-data/aisreporter.json
 signalk/plugin-config-data/openweather.json
-signalk/plugin-config-data/signalk-windy.json
+signalk/plugin-config-data/signalk-windy-apiv2.json
 signalk/plugin-config-data/signalk-postgsail.json
+signalk/plugin-config-data/@noforeignland-signalk-to-noforeignland.json
+signalk/plugin-config-data/signalk-aprsfi-ais-reporter.json
 signalk/plugin-config-data/signalk-postgsail/
 signalk/plugin-config-data/signalk-barometer-trend/
 signalk/plugin-config-data/signalk-hour-meter/
@@ -26,8 +31,15 @@ signalk/plugin-config-data/signalk-triplogger/2024-*-*.json
 signalk/plugin-config-data/signalk-triplogger/2025-*-*.json
 signalk/plugin-config-data/signalk-triplogger/2026-*-*.json
 signalk/plugin-config-data/signalk-logbook/
+signalk/plugin-config-data/signalk-saillogger/
 signalk/plugin-config-data/noflo-signalk.json
 signalk/plugin-config-data/signalk-to-nfl.json
 signalk/plugin-config-data/signalk-to-noforeignland.json
 signalk/plugin-config-data/signalk-autostate/persisted-state.json
 signalk/plugin-config-data/signalk-meshtastic/node-db.json
+signalk/plugin-config-data/signalk-windy-apiv2/state.json
+signalk/plugin-config-data/openweather/
+signalk/plugin-config-data/kip/
+signalk/plugin-config-data/kip.json
+signalk/plugin-config-data/signalk-watch-schedule/
+signalk/serverState/

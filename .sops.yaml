@@ -5,5 +5,9 @@ creation_rules:
     pgp: '39D337CCE31E2D75D6121959FF9EAEBA76E18617'
   - path_regex: signalk/plugin-config-data/.*\.sops\.json$
     pgp: '39D337CCE31E2D75D6121959FF9EAEBA76E18617'
+  - path_regex: signalk/security\.sops\.json$
+    pgp: '39D337CCE31E2D75D6121959FF9EAEBA76E18617'
   - path_regex: signalk/plugin-config-data/.*/.*$
+    pgp: '39D337CCE31E2D75D6121959FF9EAEBA76E18617'
+  - path_regex: signalk/.*$
     pgp: '39D337CCE31E2D75D6121959FF9EAEBA76E18617'
