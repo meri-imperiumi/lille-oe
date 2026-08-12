@@ -1,0 +1,8 @@
+{
+  "configuration": {
+    "host": "192.168.2.235",
+    "port": 8080,
+    "interval": 10
+  },
+  "enabled": false
+}

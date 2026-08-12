@@ -1,0 +1,28 @@
+{
+  "configuration": {
+    "beacon": {
+      "callsign": "DF4HB",
+      "ssid": 8,
+      "symbol": "/Y",
+      "note": "https://lille-oe.de",
+      "interval": 15
+    },
+    "connections": [
+      {
+        "description": "LoRa APRS iGate",
+        "host": "192.168.2.125",
+        "port": 8001,
+        "enabled": false,
+        "tx": false
+      },
+      {
+        "description": "direwolf VHF receiver",
+        "host": "192.168.2.235",
+        "port": 8001,
+        "enabled": false,
+        "tx": false
+      }
+    ]
+  },
+  "enabled": true
+}

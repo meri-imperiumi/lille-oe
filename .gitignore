@@ -1,18 +1,19 @@
 .DS_Store
 secrets.pass
+*.vault.bak
+secrets.yml.vault.bak
+secrets.*.yml.template
 roles/marinepi-provisioning
 signalk/security.json
 signalk/*.log
 signalk/node_modules/
 signalk/applicationData/users/
 signalk/freeboard-sk-helper/course_db/
+# Ignore cleartext plugin configs (encrypted .sops.json versions are tracked)
 signalk/plugin-config-data/ais-forwarder.json
 signalk/plugin-config-data/aisreporter.json
 signalk/plugin-config-data/openweather.json
-signalk/plugin-config-data/signalk-to-influxdb.json
 signalk/plugin-config-data/signalk-windy.json
-signalk/plugin-config-data/signalk-saillogger.json
-signalk/plugin-config-data/signalk-saillogger/
 signalk/plugin-config-data/signalk-postgsail.json
 signalk/plugin-config-data/signalk-postgsail/
 signalk/plugin-config-data/signalk-barometer-trend/

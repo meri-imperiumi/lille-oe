@@ -22,6 +22,14 @@
         on_calendar: '*:0/15'
         persistent: true
   pre_tasks:
+    - name: Load Lille Oe secrets
+      set_fact:
+        lille_oe_secrets: "{{ lookup('file', playbook_dir + '/secrets.lille-oe.yml') | sops_decrypt }}"
+      delegate_to: localhost
+    - name: Set Grafana secrets
+      set_fact:
+        grafana_admin_password: "{{ lille_oe_secrets.grafana_admin_password }}"
+        grafana_secret: "{{ lille_oe_secrets.grafana_secret }}"
     - name: Update apt cache
       apt:
         update_cache: yes

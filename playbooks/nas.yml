@@ -80,6 +80,13 @@
         Install_section:
           WantedBy: multi-user.target
   pre_tasks:
+    - name: Load NAS secrets
+      set_fact:
+        nas_secrets: "{{ lookup('file', playbook_dir + '/secrets.nas.yml') | sops_decrypt }}"
+      delegate_to: localhost
+    - name: Set samba_password
+      set_fact:
+        samba_password: "{{ nas_secrets.samba_password }}"
     - name: Update apt cache
       apt: null
     - name: Set timezone

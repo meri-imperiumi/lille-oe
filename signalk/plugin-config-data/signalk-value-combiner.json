@@ -1,0 +1,25 @@
+{
+  "configuration": {
+    "paths": [
+      {
+        "description": "Phoenix output Watts",
+        "input": [
+          "electrical.inverters.294.acout.current",
+          "electrical.inverters.294.acout.voltage"
+        ],
+        "output": "electrical.inverters.294.acout.power",
+        "operation": "multiplication"
+      },
+      {
+        "description": "AC Watts",
+        "input": [
+          "electrical.inverters.multiplus.acout.power",
+          "electrical.inverters.294.acout.power"
+        ],
+        "output": "electrical.venus.acPower",
+        "operation": "addition"
+      }
+    ]
+  },
+  "enabled": true
+}

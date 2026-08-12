@@ -1,0 +1,9 @@
+creation_rules:
+  - path_regex: .*secrets.*\.yml$
+    pgp: '39D337CCE31E2D75D6121959FF9EAEBA76E18617'
+  - path_regex: .*\.enc\.yml$
+    pgp: '39D337CCE31E2D75D6121959FF9EAEBA76E18617'
+  - path_regex: signalk/plugin-config-data/.*\.sops\.json$
+    pgp: '39D337CCE31E2D75D6121959FF9EAEBA76E18617'
+  - path_regex: signalk/plugin-config-data/.*/.*$
+    pgp: '39D337CCE31E2D75D6121959FF9EAEBA76E18617'

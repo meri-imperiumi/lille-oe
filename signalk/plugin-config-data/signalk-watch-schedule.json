@@ -1,0 +1,15 @@
+{
+  "configuration": {
+    "pathChecks": {
+      "communication.crewNames": null,
+      "navigation.state": null
+    },
+    "teams": [],
+    "defaultSystemId": "fixed-6-6",
+    "snapMode": "nearest",
+    "publishHorizon": 4,
+    "enableAutoWatchStart": false,
+    "enableAutoWatchStop": true
+  },
+  "enabled": true
+}

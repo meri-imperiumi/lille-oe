@@ -1,0 +1,17 @@
+{
+  "configuration": {
+    "angle": 90,
+    "distance": 4000,
+    "size": 100,
+    "path": "vhfdata.nearest",
+    "pathNr": 5,
+    "types": {
+      "territorial": true,
+      "vts": true,
+      "lock": true,
+      "bridge": true,
+      "marina": true
+    }
+  },
+  "enabled": false
+}
