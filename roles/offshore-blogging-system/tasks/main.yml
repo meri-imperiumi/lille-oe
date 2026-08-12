@@ -180,6 +180,7 @@
     version: main
     force: yes
   become_user: offshore-blog
+  notify: Restart offshore-blogging-system
 
 - name: Deploy securely templated .env file
   template:
@@ -188,6 +189,7 @@
     owner: offshore-blog
     group: offshore-blog
     mode: '0600'
+  notify: Restart offshore-blogging-system
 
 - name: Install Node.js dependencies
   npm:
@@ -195,6 +197,7 @@
     state: present
     production: yes
   become_user: offshore-blog
+  notify: Restart offshore-blogging-system
 
 - name: Register InReach device
   command:
