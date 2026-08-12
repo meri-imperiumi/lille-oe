@@ -145,6 +145,15 @@
   failed_when: false
   when: dacar_coskipper_hash != "REPLACE_WITH_COSKIPPER_IDENTITY_HASH"
 
+- name: Remember dacar identity for lille-oe
+  command: dacar identity remember bbf0ba6afee382db3c7681a4e8e74a84 --pubkey ed0a26380b1969d3b75da1babeb31757507b376b1caa81fd4c317e60b71ebea6
+  become_user: offshore-blog
+  environment:
+    HOME: /home/offshore-blog
+  register: dacar_remember_result
+  changed_when: "'remembered' in dacar_remember_result.stdout or 'already' in dacar_remember_result.stdout"
+  failed_when: false
+
 - name: Sync Dacar state with Reticulum network (one-time)
   command: dacar sync
   become_user: offshore-blog
