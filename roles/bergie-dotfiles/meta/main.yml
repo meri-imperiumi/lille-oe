@@ -1,0 +1,29 @@
+---
+galaxy_info:
+  role_name: bergie_dotfiles
+  author: bergie
+  description: Install and configure bergie's dotfiles including fish shell and neovim
+  company: ""
+  license: MIT
+  min_ansible_version: "2.9"
+
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+        - bookworm
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
+        - noble
+
+  galaxy_tags:
+    - dotfiles
+    - fish
+    - neovim
+    - development
+    - shell
+
+dependencies: []

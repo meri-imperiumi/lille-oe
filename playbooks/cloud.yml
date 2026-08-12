@@ -29,4 +29,8 @@
         break_system_packages: yes
 
   roles:
+    - role: bergie-dotfiles
+      vars:
+        dotfiles_user: bergie
+        set_default_shell: true
     - role: offshore-blogging-system

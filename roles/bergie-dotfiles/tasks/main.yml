@@ -1,0 +1,93 @@
+---
+- name: Ensure base packages are installed
+  apt:
+    name:
+      - fish
+      - neovim
+      - stow
+      - git
+      - curl
+      - build-essential
+    state: present
+    update_cache: yes
+
+- name: Get the remote user
+  set_fact:
+    dotfiles_user: "{{ ansible_user | default(lookup('env', 'USER')) }}"
+
+- name: Check if dotfiles directory exists
+  stat:
+    path: "~{{ dotfiles_user }}/dotfiles"
+  register: dotfiles_dir
+  become_user: "{{ dotfiles_user }}"
+
+- name: Clone dotfiles repository
+  git:
+    repo: "{{ dotfiles_repo | default('https://github.com/bergie/dotfiles.git') }}"
+    dest: "~{{ dotfiles_user }}/dotfiles"
+    version: master
+    force: yes
+  become_user: "{{ dotfiles_user }}"
+  when: not dotfiles_dir.stat.exists
+
+- name: Update dotfiles repository if it exists
+  git:
+    repo: "{{ dotfiles_repo | default('https://github.com/bergie/dotfiles.git') }}"
+    dest: "~{{ dotfiles_user }}/dotfiles"
+    version: master
+    update: yes
+  become_user: "{{ dotfiles_user }}"
+  when: dotfiles_dir.stat.exists
+
+- name: Initialize and update git submodules
+  command:
+    cmd: git submodule update --init --recursive
+    chdir: "~{{ dotfiles_user }}/dotfiles"
+  become_user: "{{ dotfiles_user }}"
+
+- name: Create .config directory if it doesn't exist
+  file:
+    path: "~{{ dotfiles_user }}/.config"
+    state: directory
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user }}"
+    mode: '0755'
+  become_user: "{{ dotfiles_user }}"
+
+- name: Create .local/share/nvim/site/pack/plugins/start directory
+  file:
+    path: "~{{ dotfiles_user }}/.local/share/nvim/site/pack/plugins/start"
+    state: directory
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user }}"
+    mode: '0755'
+  become_user: "{{ dotfiles_user }}"
+
+- name: Deploy fish configuration with stow
+  command:
+    cmd: stow fish
+    chdir: "~{{ dotfiles_user }}/dotfiles"
+  become_user: "{{ dotfiles_user }}"
+  register: stow_fish
+  changed_when: stow_fish.rc == 0
+  failed_when: stow_fish.rc != 0
+
+- name: Deploy nvim configuration with stow
+  command:
+    cmd: stow nvim
+    chdir: "~{{ dotfiles_user }}/dotfiles"
+  become_user: "{{ dotfiles_user }}"
+  register: stow_nvim
+  changed_when: stow_nvim.rc == 0
+  failed_when: stow_nvim.rc != 0
+
+- name: Set fish as default shell for user (requires manual logout/login)
+  user:
+    name: "{{ dotfiles_user }}"
+    shell: /usr/bin/fish
+  when: set_default_shell | default(true)
+
+- name: Display message about fish shell
+  debug:
+    msg: "Fish shell has been installed and configured. Please log out and log back in to start using fish as your default shell."
+  when: set_default_shell | default(true)

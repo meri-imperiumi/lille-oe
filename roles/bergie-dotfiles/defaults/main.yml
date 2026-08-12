@@ -1,0 +1,11 @@
+---
+# bergie-dotfiles role defaults
+
+# Repository URL for the dotfiles
+dotfiles_repo: https://github.com/bergie/dotfiles.git
+
+# Whether to set fish as the default shell (requires logout/login)
+set_default_shell: true
+
+# User to install dotfiles for (defaults to ansible_user)
+# dotfiles_user: bergie
