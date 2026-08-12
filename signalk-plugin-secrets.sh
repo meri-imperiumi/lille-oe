@@ -81,6 +81,27 @@ encrypt_configs() {
         encrypted=$(get_encrypted_path "$file")
 
         if [ -f "$cleartext" ]; then
+            if [ -f "$encrypted" ]; then
+                # Decrypt existing and compare using hash
+                if command -v md5sum &> /dev/null; then
+                    # Linux: md5sum
+                    decrypted_hash=$(sops --decrypt "$encrypted" 2>/dev/null | md5sum | cut -d' ' -f1)
+                    cleartext_hash=$(md5sum "$cleartext" 2>/dev/null | cut -d' ' -f1)
+                elif command -v md5 &> /dev/null; then
+                    # macOS: md5
+                    decrypted_hash=$(sops --decrypt "$encrypted" 2>/dev/null | md5 -q)
+                    cleartext_hash=$(md5 -q "$cleartext")
+                else
+                    # Fallback: sha256sum (common on both)
+                    decrypted_hash=$(sops --decrypt "$encrypted" 2>/dev/null | sha256sum | cut -d' ' -f1)
+                    cleartext_hash=$(sha256sum "$cleartext" 2>/dev/null | cut -d' ' -f1)
+                fi
+
+                if [ "$decrypted_hash" = "$cleartext_hash" ]; then
+                    echo "  ✓ $file (unchanged, skipping encryption)"
+                    continue
+                fi
+            fi
             echo "  Encrypting $file..."
             sops --config /dev/null --pgp "39D337CCE31E2D75D6121959FF9EAEBA76E18617" --encrypt --input-type json --output-type json --output "$encrypted" "$cleartext"
         else
