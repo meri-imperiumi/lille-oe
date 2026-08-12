@@ -87,6 +87,16 @@
     shell: /usr/bin/fish
   when: set_default_shell | default(true)
 
+- name: Remember dacar identity
+  command:
+    cmd: dacar identity remember 146a819b2158ab2dc1d4653d5a6d614c --pubkey ed0a26380b1969d3b75da1babeb31757507b376b1caa81fd4c317e60b71ebea6
+  become_user: "{{ dotfiles_user }}"
+  environment:
+    HOME: "/home/{{ dotfiles_user }}"
+  register: dacar_remember_result
+  changed_when: "'remembered' in dacar_remember_result.stdout or 'already' not in dacar_remember_result.stdout"
+  failed_when: false
+
 - name: Display message about fish shell
   debug:
     msg: "Fish shell has been installed and configured. Please log out and log back in to start using fish as your default shell."
