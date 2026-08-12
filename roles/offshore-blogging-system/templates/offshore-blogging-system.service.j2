@@ -1,0 +1,16 @@
+[Unit]
+Description=Offshore Cloud Server Bridge
+After=network.target
+
+[Service]
+Type=simple
+User=offshore-blog
+WorkingDirectory=/opt/offshore-blogging-system
+EnvironmentFile=/opt/offshore-blogging-system/.env
+ExecStart=/usr/bin/npm start
+Restart=always
+RestartSec=10
+MemoryLimit=256M
+
+[Install]
+WantedBy=multi-user.target

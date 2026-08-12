@@ -1,0 +1,195 @@
+---
+- name: Load offshore-blogging-system secrets
+  set_fact:
+    obs_secrets: "{{ lookup('file', playbook_dir + '/secrets.cloud.yml') | sops_decrypt }}"
+  delegate_to: localhost
+
+- name: Set offshore-blogging-system variables
+  set_fact:
+    imap_password: "{{ obs_secrets.imap_password }}"
+    smtp_password: "{{ obs_secrets.smtp_password }}"
+    dacar_primary_hash: "{{ obs_secrets.dacar_primary_hash }}"
+    dacar_coskipper_hash: "{{ obs_secrets.dacar_coskipper_hash }}"
+    dacar_trust_anchor: "{{ obs_secrets.dacar_trust_anchor }}"
+    dacar_salt: "{{ obs_secrets.dacar_salt }}"
+    github_deploy_key: "{{ obs_secrets.github_deploy_key }}"
+
+- name: Ensure Reticulum Network Stack (RNS) and Dacar are installed
+  pip:
+    name:
+      - RNS
+      - dacar
+    executable: pip3
+    state: present
+    break_system_packages: yes
+
+- name: Create offshore-blogging-system user
+  user:
+    name: offshore-blog
+    system: yes
+    create_home: yes
+    shell: /usr/sbin/nologin
+
+- name: Check if deployment directory is a git repository
+  stat:
+    path: /opt/offshore-blogging-system/.git
+  register: git_dir
+
+- name: Create deployment directory (only if not a git repo)
+  file:
+    path: /opt/offshore-blogging-system
+    state: directory
+    owner: offshore-blog
+    group: offshore-blog
+    mode: '0755'
+  when: not git_dir.stat.exists
+
+- name: Ensure state directory exists for SQLite
+  file:
+    path: /var/lib/offshore-blogging-system
+    state: directory
+    owner: offshore-blog
+    group: offshore-blog
+    mode: '0755'
+
+- name: Ensure log directory exists
+  file:
+    path: /var/log/offshore-blogging-system
+    state: directory
+    owner: offshore-blog
+    group: offshore-blog
+    mode: '0755'
+
+- name: Ensure .ssh directory exists for offshore-blog
+  file:
+    path: /home/offshore-blog/.ssh
+    state: directory
+    owner: offshore-blog
+    group: offshore-blog
+    mode: '0700'
+
+- name: Deploy GitHub SSH Deployment Key
+  copy:
+    content: "{{ github_deploy_key }}"
+    dest: /home/offshore-blog/.ssh/id_ed25519_github
+    owner: offshore-blog
+    group: offshore-blog
+    mode: '0600'
+
+- name: Configure SSH for GitHub
+  template:
+    src: ssh-config.j2
+    dest: /home/offshore-blog/.ssh/config
+    owner: offshore-blog
+    group: offshore-blog
+    mode: '0600'
+
+- name: Check if Dacar config exists
+  stat:
+    path: /home/offshore-blog/.dacar/config
+  register: stat_result
+
+- name: Initialize Dacar with shared salt
+  command: dacar init --salt {{ dacar_salt }}
+  become_user: offshore-blog
+  environment:
+    HOME: /home/offshore-blog
+  when: not stat_result.stat.exists
+
+- name: Add rfed configuration to Dacar config
+  lineinfile:
+    path: /home/offshore-blog/.dacar/config
+    line: "{{ item }}"
+  loop:
+    - "[rfed]"
+    - "topic = dacar.policy.v1"
+    - "node = 5f6e9b0ee5860883cf35fd2359cbd232"
+  become_user: offshore-blog
+  environment:
+    HOME: /home/offshore-blog
+
+- name: Add Dacar alias for lille-oe
+  command: dacar alias add lille-oe bbf0ba6afee382db3c7681a4e8e74a84
+  become_user: offshore-blog
+  environment:
+    HOME: /home/offshore-blog
+  register: dacar_alias_result
+  changed_when: "'added' in dacar_alias_result.stdout or 'already' not in dacar_alias_result.stdout"
+  failed_when: false
+
+- name: Trust the Dacar admin identity
+  command: dacar anchor add {{ dacar_trust_anchor }}
+  become_user: offshore-blog
+  environment:
+    HOME: /home/offshore-blog
+  register: dacar_trust_result
+  changed_when: "'added' in dacar_trust_result.stdout or 'already' not in dacar_trust_result.stdout"
+  failed_when: false
+
+- name: Grant permissions to primary node
+  command: dacar grant {{ dacar_primary_hash }} execute blog:publish,grib:request,sys:command
+  become_user: offshore-blog
+  environment:
+    HOME: /home/offshore-blog
+  register: dacar_grant_primary
+  changed_when: "'granted' in dacar_grant_primary.stdout or 'already' not in dacar_grant_primary.stdout"
+  failed_when: false
+
+- name: Grant permissions to co-skipper node
+  command: dacar grant {{ dacar_coskipper_hash }} execute blog:publish,grib:request,sys:command
+  become_user: offshore-blog
+  environment:
+    HOME: /home/offshore-blog
+  register: dacar_grant_coskipper
+  changed_when: "'granted' in dacar_grant_coskipper.stdout or 'already' not in dacar_grant_coskipper.stdout"
+  failed_when: false
+  when: dacar_coskipper_hash != "REPLACE_WITH_COSKIPPER_IDENTITY_HASH"
+
+- name: Sync Dacar state with Reticulum network (one-time)
+  command: dacar sync
+  become_user: offshore-blog
+  environment:
+    HOME: /home/offshore-blog
+  register: dacar_sync_result
+  changed_when: dacar_sync_result.rc == 0
+  failed_when: dacar_sync_result.rc != 0 and "no interface" not in dacar_sync_result.stderr | default('')
+
+- name: Set up Dacar sync timer
+  set_fact:
+    timers:
+      dacar_sync:
+        exec_start: /usr/local/bin/dacar sync
+        user: offshore-blog
+        on_calendar: daily
+        persistent: true
+        randomized_delay_sec: 3600
+
+- name: Clone offshore-blogging-system repository via rngit
+  git:
+    repo: 'rns://3ea5aad068a337670f5bb8073226adb4/public/offshore-blogging-system'
+    dest: /opt/offshore-blogging-system
+    version: main
+    force: yes
+  become_user: offshore-blog
+
+- name: Deploy securely templated .env file
+  template:
+    src: env.j2
+    dest: /opt/offshore-blogging-system/.env
+    owner: offshore-blog
+    group: offshore-blog
+    mode: '0600'
+
+- name: Install Node.js dependencies
+  npm:
+    path: /opt/offshore-blogging-system
+    state: present
+    production: yes
+  become_user: offshore-blog
+
+- name: Deploy systemd service
+  template:
+    src: offshore-blogging-system.service.j2
+    dest: /etc/systemd/system/offshore-blogging-system.service
+    mode: '0644'
+  notify: Restart offshore-blogging-system

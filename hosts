@@ -2,3 +2,6 @@
 lille-oe-pi           ansible_ssh_host=192.168.2.105
 lille-oe-nas          ansible_ssh_host=192.168.2.140
 infodisplay           ansible_ssh_host=192.168.2.235
+
+[cloud]
+cloud.lille-oe.de

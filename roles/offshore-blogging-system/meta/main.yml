@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: alphanodes.setup.systemd_timer
+    when: timers is defined

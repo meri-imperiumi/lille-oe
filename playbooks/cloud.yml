@@ -1,0 +1,32 @@
+---
+- name: S/Y Lille Oe Cloud Server
+  hosts: cloud
+  become: yes
+
+  pre_tasks:
+    - name: Load cloud server secrets
+      set_fact:
+        cloud_secrets: "{{ lookup('file', playbook_dir + '/secrets.cloud.yml') | sops_decrypt }}"
+      delegate_to: localhost
+    - name: Set cloud server variables
+      set_fact:
+        github_deploy_key: "{{ cloud_secrets.github_deploy_key }}"
+        dacar_primary_hash: "{{ cloud_secrets.dacar_primary_hash }}"
+    - name: Ensure base dependencies are installed
+      apt:
+        name:
+          - git
+          - nodejs
+          - npm
+          - python3-pip
+          - python3-venv
+        state: present
+    - name: Ensure Reticulum Network Stack (RNS) is installed
+      pip:
+        name: RNS
+        executable: pip3
+        state: present
+        break_system_packages: yes
+
+  roles:
+    - role: offshore-blogging-system
