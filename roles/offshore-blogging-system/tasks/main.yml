@@ -17,8 +17,8 @@
 - name: Ensure Reticulum Network Stack (RNS) and Dacar are installed
   pip:
     name:
-      - RNS
-      - dacar
+      - RNS==1.4.2
+      - dacar==1.2.0
     executable: pip3
     state: present
     break_system_packages: yes
