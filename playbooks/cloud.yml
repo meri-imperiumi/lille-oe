@@ -12,6 +12,10 @@
       set_fact:
         github_deploy_key: "{{ cloud_secrets.github_deploy_key }}"
         dacar_primary_hash: "{{ cloud_secrets.dacar_primary_hash }}"
+        inreach_device_id: "2565887"
+        inreach_imei: "301434032508920"
+        inreach_reticulum_identity: "bbf0ba6afee382db3c7681a4e8e74a84"
+        inreach_device_name: "Lille Oe InReach Mini 2"
     - name: Ensure base dependencies are installed
       apt:
         name:

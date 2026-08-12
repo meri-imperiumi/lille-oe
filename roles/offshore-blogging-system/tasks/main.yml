@@ -187,6 +187,20 @@
     production: yes
   become_user: offshore-blog
 
+- name: Register InReach device
+  command:
+    cmd: >
+      CLOUD_DB_PATH=/var/lib/offshore-blogging-system/state.db
+      node scripts/register-device.js
+      {{ inreach_device_id }}
+      {{ inreach_imei }}
+      {{ inreach_reticulum_identity }}
+      "{{ inreach_device_name }}"
+    chdir: /opt/offshore-blogging-system
+  register: register_device_result
+  changed_when: "'registered' in register_device_result.stdout or 'already' in register_device_result.stdout"
+  failed_when: false
+
 - name: Deploy systemd service
   template:
     src: offshore-blogging-system.service.j2
