@@ -1,10 +1,15 @@
 {
   "configuration": {
     "crewNames": [
-      "ihmis-suski",
-      "bergie"
+      "bergie",
+      "ihmis-suski"
     ],
-    "displayTimeZone": "UTC"
+    "displayTimeZone": "UTC",
+    "logNotifications": true,
+    "notificationMinLevel": "alarm",
+    "notificationDebounceMinutes": 5,
+    "notificationExcludePaths": [],
+    "logNotificationClears": true
   },
   "enabled": true
 }

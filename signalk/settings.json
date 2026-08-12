@@ -116,7 +116,8 @@
       "tracks": "resources-provider",
       "infolayers": "resources-provider",
       "groups": "resources-provider",
-      "dsc-calls": "signalk-dsc"
+      "dsc-calls": "signalk-dsc",
+      "dsc-call-markers": "signalk-dsc"
     }
   },
   "courseApi": {

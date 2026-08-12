@@ -241,6 +241,46 @@
                 "visual"
               ]
             }
+          },
+          {
+            "path": "electrical.venus-input.1.stateNumber",
+            "value": {
+              "zones": [
+                {
+                  "upper": 8,
+                  "lower": 0,
+                  "state": "nominal",
+                  "message": "Bilge water level ok"
+                },
+                {
+                  "upper": 10,
+                  "lower": 9,
+                  "state": "alarm",
+                  "message": "Water in the bilge"
+                }
+              ],
+              "alarmMethod": [
+                "sound",
+                "visual"
+              ]
+            }
+          },
+          {
+            "path": "navigation.gnss.geoidalSeparation",
+            "value": {
+              "description": "Difference between WGS84 earth ellipsoid and mean sea level",
+              "zones": [
+                {
+                  "upper": 1000,
+                  "lower": 400,
+                  "state": "warn",
+                  "message": "GPS geoidal separation is high"
+                }
+              ],
+              "warnMethod": [
+                "visual"
+              ]
+            }
           }
         ]
       }
