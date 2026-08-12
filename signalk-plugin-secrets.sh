@@ -82,19 +82,23 @@ encrypt_configs() {
 
         if [ -f "$cleartext" ]; then
             if [ -f "$encrypted" ]; then
-                # Decrypt existing and compare using hash
+                # Normalize JSON (jq sorts keys and standardizes formatting)
+                decrypted_normalized=$(sops --decrypt "$encrypted" 2>/dev/null | jq .)
+                cleartext_normalized=$(jq . "$cleartext")
+
+                # Compare using hash
                 if command -v md5sum &> /dev/null; then
                     # Linux: md5sum
-                    decrypted_hash=$(sops --decrypt "$encrypted" 2>/dev/null | md5sum | cut -d' ' -f1)
-                    cleartext_hash=$(md5sum "$cleartext" 2>/dev/null | cut -d' ' -f1)
+                    decrypted_hash=$(echo "$decrypted_normalized" | md5sum | cut -d' ' -f1)
+                    cleartext_hash=$(echo "$cleartext_normalized" | md5sum | cut -d' ' -f1)
                 elif command -v md5 &> /dev/null; then
                     # macOS: md5
-                    decrypted_hash=$(sops --decrypt "$encrypted" 2>/dev/null | md5 -q)
-                    cleartext_hash=$(md5 -q "$cleartext")
+                    decrypted_hash=$(echo "$decrypted_normalized" | md5 -q)
+                    cleartext_hash=$(echo "$cleartext_normalized" | md5 -q)
                 else
                     # Fallback: sha256sum (common on both)
-                    decrypted_hash=$(sops --decrypt "$encrypted" 2>/dev/null | sha256sum | cut -d' ' -f1)
-                    cleartext_hash=$(sha256sum "$cleartext" 2>/dev/null | cut -d' ' -f1)
+                    decrypted_hash=$(echo "$decrypted_normalized" | sha256sum | cut -d' ' -f1)
+                    cleartext_hash=$(echo "$cleartext_normalized" | sha256sum | cut -d' ' -f1)
                 fi
 
                 if [ "$decrypted_hash" = "$cleartext_hash" ]; then
