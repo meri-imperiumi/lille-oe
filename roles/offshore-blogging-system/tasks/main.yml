@@ -70,15 +70,21 @@
 
 - name: Deploy GitHub SSH Deployment Key
   copy:
-    content: "{{ github_deploy_key }}"
-    dest: /home/offshore-blog/.ssh/id_ed25519_github
+    content: "{{ github_deploy_key }}\n"
+    dest: /home/offshore-blog/.ssh/github_deploy_key
     owner: offshore-blog
     group: offshore-blog
     mode: '0600'
 
 - name: Configure SSH for GitHub
-  template:
-    src: ssh-config.j2
+  copy:
+    content: |
+      Host github.com
+          HostName github.com
+          User git
+          IdentityFile ~/.ssh/github_deploy_key
+          StrictHostKeyChecking accept-new
+          IdentitiesOnly yes
     dest: /home/offshore-blog/.ssh/config
     owner: offshore-blog
     group: offshore-blog
@@ -180,6 +186,31 @@
     version: main
     force: yes
   become_user: offshore-blog
+  notify: Restart offshore-blogging-system
+
+- name: Check if blog repo directory is a git repository
+  stat:
+    path: /var/lib/offshore-blogging-system/blog/.git
+  register: blog_git_dir
+
+- name: Create blog repo directory (only if not a git repo)
+  file:
+    path: /var/lib/offshore-blogging-system/blog
+    state: directory
+    owner: offshore-blog
+    group: offshore-blog
+    mode: '0755'
+  when: not blog_git_dir.stat.exists
+
+- name: Clone blog repository from GitHub
+  git:
+    repo: 'git@github.com:meri-imperiumi/log.git'
+    dest: /var/lib/offshore-blogging-system/blog
+    version: main
+    force: yes
+  become_user: offshore-blog
+  environment:
+    HOME: /home/offshore-blog
   notify: Restart offshore-blogging-system
 
 - name: Deploy securely templated .env file
