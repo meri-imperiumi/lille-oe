@@ -30,6 +30,22 @@
     create_home: yes
     shell: /usr/sbin/nologin
 
+- name: Configure git user name for offshore-blog
+  git_config:
+    repo: ~
+    scope: global
+    name: user.name
+    value: "Lille Oe (offshore)"
+  become_user: offshore-blog
+
+- name: Configure git user email for offshore-blog
+  git_config:
+    repo: ~
+    scope: global
+    name: user.email
+    value: "boat@lille-oe.de"
+  become_user: offshore-blog
+
 - name: Check if deployment directory is a git repository
   stat:
     path: /opt/offshore-blogging-system/.git
