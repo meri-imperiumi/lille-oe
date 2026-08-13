@@ -1,0 +1,85 @@
+---
+- name: Ensure user is in the dialout group for serial access
+  become: true
+  ansible.builtin.user:
+    name: "{{ vara_user }}"
+    groups: dialout
+    append: true
+
+- name: Install dependencies for headless Wine/VB6 installation
+  become: true
+  ansible.builtin.apt:
+    name:
+      - xvfb
+      - cabextract
+      - libgl1-mesa-dri
+    state: present
+    update_cache: true
+
+- name: Check if Pi-Apps is already installed
+  become: false
+  stat:
+    path: "/home/{{ vara_user }}/pi-apps/manage"
+  register: pi_apps_installed
+
+- name: Install Pi-Apps dependency tool
+  become: false
+  ansible.builtin.shell: |
+    wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bash
+  args:
+    creates: "/home/{{ vara_user }}/pi-apps/manage"
+  when: not pi_apps_installed.stat.exists
+  async: 1800
+  poll: 30
+
+- name: Check if VARA HF is already installed via Pi-Apps
+  become: false
+  stat:
+    path: "/home/{{ vara_user }}/.wine/drive_c/VARA/VARA.exe"
+  register: vara_hf_installed
+- name: Install VARA HF via Pi-Apps (Using active Kiosk display)
+  become: false
+  ansible.builtin.shell: |
+    export XDG_RUNTIME_DIR=/run/user/$(id -u {{ vara_user }})
+    export WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-wayland-1}
+    export DISPLAY=${DISPLAY:-:0}
+    export WINEDLLOVERRIDES="mscoree,mshtml="
+    /home/{{ vara_user }}/pi-apps/manage install "VARA HF"
+  args:
+    creates: "/home/{{ vara_user }}/.wine/drive_c/VARA/VARA.exe"
+  when: not vara_hf_installed.stat.exists
+  async: 7200
+  poll: 60
+- name: Ensure Wine dosdevices directory exists
+  become: false
+  ansible.builtin.file:
+    path: "/home/{{ vara_user }}/.wine/dosdevices"
+    state: directory
+    owner: "{{ vara_user }}"
+    group: "{{ vara_user }}"
+    mode: '0755'
+
+- name: Map radio serial cable to Windows COM1
+  become: true
+  ansible.builtin.file:
+    src: "{{ serial_port_device }}"
+    dest: "/home/{{ vara_user }}/.wine/dosdevices/com1"
+    state: link
+
+- name: Deploy VARA wrapper script template
+  become: false
+  ansible.builtin.template:
+    src: "vara_wrapper.sh.j2"
+    dest: "/home/{{ vara_user }}/vara_wrapper.sh"
+    owner: "{{ vara_user }}"
+    group: "{{ vara_user }}"
+    mode: '0755'
+
+- name: Deploy varanny.json configuration template
+  become: false
+  ansible.builtin.template:
+    src: "varanny.json.j2"
+    dest: "/home/{{ vara_user }}/varanny.json"
+    owner: "{{ vara_user }}"
+    group: "{{ vara_user }}"
+    mode: '0644'

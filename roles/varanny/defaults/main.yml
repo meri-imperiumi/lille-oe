@@ -1,0 +1,8 @@
+---
+# Default variables for varanny role
+vara_user: "{{ ansible_user }}"
+serial_port_device: /dev/ttyUSB0
+varanny_port: 8273
+vara_name: "VARA HF"
+vara_type: "hf"
+vara_cat_port: 4532

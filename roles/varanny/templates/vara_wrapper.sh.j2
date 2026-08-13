@@ -1,0 +1,53 @@
+#!/bin/bash
+# VARA wrapper script that stops the kiosk browser, runs VARA, and restarts the browser
+
+KIOSK_URL="{{ kiosk_url }}"
+VARA_EXE="/home/{{ vara_user }}/.wine/drive_c/VARA/VARA.exe"
+VARA_PID=""
+
+# Ensure environment variables are set so Chromium can attach to the Wayland display
+export XDG_RUNTIME_DIR=/run/user/$(id -u {{ vara_user }})
+export WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-wayland-1}
+export DISPLAY=${DISPLAY:-:0}
+
+cleanup() {
+    echo "Client disconnected. Stopping VARA and restarting Kiosk..."
+
+    # Kill the VARA process if it is still running
+    if [ -n "$VARA_PID" ]; then
+        kill -TERM "$VARA_PID" 2>/dev/null
+    fi
+
+    # Relaunch Chromium with the exact labwc parameters
+    chromium-browser "$KIOSK_URL" \
+      --kiosk \
+      --noerrdialogs \
+      --disable-infobars \
+      --no-first-run \
+      --ozone-platform=wayland \
+      --enable-features=OverlayScrollbar \
+      --start-maximized &
+
+    exit 0
+}
+
+# Intercept termination signals sent by varanny
+trap 'cleanup' SIGINT SIGTERM
+
+# 1. Stop the Kiosk browser
+echo "Stopping Chromium kiosk browser..."
+pkill -TERM -f "chromium-browser"
+
+# Give the OS a couple of seconds to reclaim the RAM
+sleep 2
+
+# 2. Start VARA in the background
+echo "Starting VARA HF..."
+wine "$VARA_EXE" &
+VARA_PID=$!
+
+# 3. Wait for the VARA process to exit naturally, or be interrupted by varanny
+wait $VARA_PID
+
+# 4. Cleanup and restart browser
+cleanup

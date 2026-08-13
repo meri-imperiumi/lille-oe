@@ -1,0 +1,14 @@
+{
+  "Port": {{ varanny_port }},
+  "Modems": [
+    {
+      "Name": "{{ vara_name }}",
+      "Type": "{{ vara_type }}",
+      "Cmd": "/home/{{ vara_user }}/vara_wrapper.sh",
+      "Args": "",
+      "Port": 8300,
+      "CatPort": {{ vara_cat_port }},
+      "CatDialect": "hamlib"
+    }
+  ]
+}
