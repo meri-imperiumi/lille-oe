@@ -1,0 +1,166 @@
+---
+- name: S/Y Lille Oe Development VPS
+  hosts: development
+  become: yes
+
+  vars:
+    lxmf_owner: "f9477df559d5231760c8f2202c30a3c1"
+    pi_lxmf_name: "pi on development"
+    pi_workdir: /home/bergie/workspace
+    pi_model: "anthropic/claude-sonnet-4-5"
+    lxmf_propagation_node: ""
+    pi_lxmf_config:
+      name: "{{ pi_lxmf_name }}"
+      workdir: "{{ pi_workdir }}"
+      model: "{{ pi_model }}"
+      owner: "{{ lxmf_owner }}"
+    nodejs_major_version: 22
+
+  pre_tasks:
+    - name: Load development server secrets
+      set_fact:
+        development_secrets: "{{ lookup('file', playbook_dir + '/secrets.development.yml') | sops_decrypt }}"
+      delegate_to: localhost
+    - name: Set Pi provider credentials
+      set_fact:
+        pi_api_key: "{{ development_secrets.anthropic_api_key | default('') }}"
+    - name: Ensure base dependencies are installed
+      apt:
+        name:
+          - git
+          - curl
+          - python3-pip
+          - python3-venv
+        state: present
+    - name: Ensure Reticulum Network Stack (RNS) is installed
+      pip:
+        name: RNS
+        executable: pip3
+        state: present
+        break_system_packages: yes
+    - name: Create bergie user
+      user:
+        name: bergie
+        comment: Henri Bergius
+        groups: sudo
+        append: yes
+        state: present
+    - name: Deploy SSH keys for bergie
+      authorized_key:
+        user: bergie
+        state: present
+        key: https://github.com/bergie.keys
+
+  roles:
+    - role: bergie-dotfiles
+      vars:
+        dotfiles_user: bergie
+        set_default_shell: true
+
+  tasks:
+    - name: Download NodeSource setup script
+      get_url:
+        url: "https://deb.nodesource.com/setup_{{ nodejs_major_version }}.x"
+        dest: /tmp/nodesource-setup.sh
+        mode: '0700'
+    - name: Add NodeSource apt repository
+      command: /tmp/nodesource-setup.sh
+      args:
+        creates: /etc/apt/sources.list.d/nodesource.list
+    - name: Install Node.js
+      apt:
+        name: nodejs
+        state: present
+        update_cache: yes
+    - name: Install Pi coding agent
+      command: npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+      args:
+        creates: /usr/bin/pi
+    - name: Install pi-lxmf bridge
+      command: npm install -g pi-lxmf
+      args:
+        creates: /usr/bin/pi-lxmf
+    - name: Create Pi workspace directory
+      file:
+        path: "{{ pi_workdir }}"
+        state: directory
+        owner: bergie
+        group: bergie
+        mode: '0755'
+    - name: Deploy rnsd systemd service
+      copy:
+        dest: /etc/systemd/system/rnsd.service
+        mode: '0644'
+        content: |
+          [Unit]
+          Description=Reticulum Network Stack daemon
+          After=network-online.target
+          Wants=network-online.target
+
+          [Service]
+          User=bergie
+          ExecStart=/usr/local/bin/rnsd
+          Restart=on-failure
+
+          [Install]
+          WantedBy=multi-user.target
+      notify: Restart rnsd
+    - name: Deploy pi-lxmf configuration
+      copy:
+        dest: /home/bergie/.config/pi-lxmf/config.json
+        owner: bergie
+        group: bergie
+        mode: '0600'
+        content: "{{ (pi_lxmf_config if not lxmf_propagation_node else (pi_lxmf_config | combine({'propagationNode': lxmf_propagation_node}))) | to_nice_json }}"
+      notify: Restart pi-lxmf
+    - name: Deploy pi-lxmf systemd service
+      copy:
+        dest: /etc/systemd/system/pi-lxmf.service
+        mode: '0644'
+        content: |
+          [Unit]
+          Description=pi-lxmf bridge
+          After=network-online.target rnsd.service
+          Wants=network-online.target
+          Requires=rnsd.service
+
+          [Service]
+          User=bergie
+          {% if pi_api_key %}
+          Environment=ANTHROPIC_API_KEY={{ pi_api_key }}
+          {% endif %}
+          ExecStart=/usr/bin/pi-lxmf
+          Restart=on-failure
+
+          [Install]
+          WantedBy=multi-user.target
+      notify: Restart pi-lxmf
+    - name: Enable and start rnsd
+      systemd:
+        name: rnsd
+        enabled: yes
+        daemon_reload: yes
+        state: started
+    - name: Enable and start pi-lxmf
+      systemd:
+        name: pi-lxmf
+        enabled: yes
+        daemon_reload: yes
+        state: started
+    - name: Show where to find the LXMF address
+      debug:
+        msg: >-
+          pi-lxmf is running. Find its identity and LXMF address in the
+          service banner: journalctl -u pi-lxmf | grep -E 'identity|lxmf'.
+          Send it a message from Sideband or Nomad Network as the owner to
+          start using the agent.
+
+  handlers:
+    - name: Restart rnsd
+      service:
+        name: rnsd
+        state: restarted
+    - name: Restart pi-lxmf
+      service:
+        name: pi-lxmf
+        state: restarted

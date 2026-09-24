@@ -5,3 +5,7 @@ infodisplay           ansible_ssh_host=192.168.2.235
 
 [cloud]
 cloud.lille-oe.de
+
+[development]
+# add the VPS hostname here, e.g.:
+# development.lille-oe.de

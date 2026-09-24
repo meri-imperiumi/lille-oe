@@ -14,6 +14,9 @@ infodisplay: roles/marinepi-provisioning
 cloud: roles/marinepi-provisioning
 	ansible-playbook -i hosts -l cloud playbooks/cloud.yml
 
+development: roles/marinepi-provisioning
+	ansible-playbook -i hosts -l development playbooks/development.yml
+
 backup:
 	rsync -avzuh --exclude 'node_modules' --exclude 'charts' -e ssh "pi@192.168.2.105:/home/pi/.signalk/*" signalk
 	./signalk-plugin-secrets.sh encrypt
@@ -41,4 +44,4 @@ plugin-secrets-clean:
 plugin-secrets-check:
 	./signalk-plugin-secrets.sh check
 
-.PHONY: backup influx restore signalk nas infodisplay cloud plugin-secrets-encrypt plugin-secrets-decrypt plugin-secrets-clean plugin-secrets-check
+.PHONY: backup influx restore signalk nas infodisplay cloud development plugin-secrets-encrypt plugin-secrets-decrypt plugin-secrets-clean plugin-secrets-check
