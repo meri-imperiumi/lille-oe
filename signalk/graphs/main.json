@@ -301,12 +301,12 @@
                 "height": 72
             }
         },
-        "SwitchNavLights": {
+        "SwitchAftNavLight": {
             "component": "signalk/SendPut",
             "metadata": {
-                "label": "SwitchNavLights",
+                "label": "SwitchAftNavLight",
                 "x": 900,
-                "y": -72,
+                "y": -144,
                 "width": 72,
                 "height": 72
             }
@@ -346,7 +346,7 @@
             "metadata": {
                 "label": "SwitchMotorLight",
                 "x": 900,
-                "y": -216,
+                "y": -252,
                 "width": 72,
                 "height": 72
             }
@@ -497,6 +497,16 @@
                 "label": "NightSailingCockpit",
                 "x": 900,
                 "y": 396,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "SwitchBowNavLight": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "SwitchBowNavLight",
+                "x": 900,
+                "y": -36,
                 "width": 72,
                 "height": 72
             }
@@ -925,7 +935,7 @@
                 "port": "out"
             },
             "tgt": {
-                "process": "SwitchNavLights",
+                "process": "SwitchAftNavLight",
                 "port": "value"
             },
             "metadata": {
@@ -1258,6 +1268,19 @@
             }
         },
         {
+            "src": {
+                "process": "UnderwayAndNight",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchBowNavLight",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
             "data": 0,
             "tgt": {
                 "process": "NightSailingBB",
@@ -1475,13 +1498,6 @@
             }
         },
         {
-            "data": "electrical.switches.navLight.state",
-            "tgt": {
-                "process": "SwitchNavLights",
-                "port": "path"
-            }
-        },
-        {
             "data": "motoring",
             "tgt": {
                 "process": "IsMotoring",
@@ -1606,7 +1622,20 @@
                 "process": "NightSailingCockpit",
                 "port": "r"
             }
+        },
+        {
+            "data": "electrical.switches.aftNavLight.state",
+            "tgt": {
+                "process": "SwitchAftNavLight",
+                "port": "path"
+            }
+        },
+        {
+            "data": "electrical.switches.dodgerNavLight.state",
+            "tgt": {
+                "process": "SwitchBowNavLight",
+                "port": "path"
+            }
         }
     ]
 }
-
