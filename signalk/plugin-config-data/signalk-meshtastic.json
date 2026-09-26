@@ -29,7 +29,8 @@
       "send_alerts": true,
       "send_environment_metrics": true,
       "digital_switching": true,
-      "populate_vessels": true
+      "populate_vessels": false,
+      "populate_delta_sources": true
     }
   },
   "enabled": true

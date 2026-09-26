@@ -108,7 +108,7 @@
   "logCountToKeep": 24,
   "resourcesApi": {
     "defaultProviders": {
-      "charts": "charts",
+      "charts": "resources-provider",
       "routes": "resources-provider",
       "waypoints": "resources-provider",
       "notes": "resources-provider",
@@ -117,10 +117,57 @@
       "infolayers": "resources-provider",
       "groups": "resources-provider",
       "dsc-calls": "signalk-dsc",
-      "dsc-call-markers": "signalk-dsc"
+      "dsc-call-markers": "signalk-dsc",
+      "tides": "tides",
+      "statusTileExamples": "signalk-internet",
+      "polars": "signalk-polar-management",
+      "plotterExtensions": "signalk-dead-reckoning"
     }
   },
   "courseApi": {
     "apiOnly": false
-  }
+  },
+  "bleApi": {
+    "localBluetoothManaged": false,
+    "localAdapters": [],
+    "localMaxGATTSlots": 3
+  },
+  "gnssSensors": [
+    {
+      "sensorId": "gnss1",
+      "$source": "can0.c07891002fb36ee0",
+      "fromBow": 9,
+      "fromCenter": 0
+    },
+    {
+      "sensorId": "gnss2",
+      "$source": "can0.c078af008ff9c95e",
+      "fromBow": 4,
+      "fromCenter": 0.5
+    },
+    {
+      "sensorId": "gnss3",
+      "$source": "can0.c078c30039786a0f",
+      "fromBow": 7,
+      "fromCenter": -1
+    },
+    {
+      "sensorId": "gnss4",
+      "$source": "venus.com.victronenergy.gps.0",
+      "fromBow": 7,
+      "fromCenter": -1.2
+    },
+    {
+      "sensorId": "gnss5",
+      "$source": "signalk-meshtastic.2996810856",
+      "fromBow": 9,
+      "fromCenter": 0
+    },
+    {
+      "sensorId": "gnss6",
+      "$source": "signalk-teltonika-rutx11.XX",
+      "fromBow": 7,
+      "fromCenter": -1
+    }
+  ]
 }

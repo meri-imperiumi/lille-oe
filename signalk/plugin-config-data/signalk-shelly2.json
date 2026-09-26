@@ -169,6 +169,36 @@
         "enabled": true,
         "devicePath": "electrical.switches.dodgerLight",
         "displayName": "Dodger Lights"
+      },
+      {
+        "id": "shelly1g4-7c2c677db050",
+        "address": "192.168.2.101",
+        "hostname": "Shelly1G4-7C2C677DB050.local",
+        "name": null,
+        "model": "S4SW-001X16EU",
+        "devicePath": "electrical.switches.dodgerNavLight",
+        "enabled": true,
+        "displayName": "Dodger Nav Lights"
+      },
+      {
+        "id": "shelly1g4-a085e3c0d888",
+        "address": "192.168.2.210",
+        "hostname": "Shelly1G4-A085E3C0D888.local",
+        "name": null,
+        "model": "S4SW-001X16EU",
+        "devicePath": "electrical.switches.aftNavLight",
+        "enabled": true,
+        "displayName": "Aft Nav Light"
+      },
+      {
+        "id": "shelly1g4-a085e3c0cee0",
+        "address": "192.168.2.108",
+        "hostname": "Shelly1G4-A085E3C0CEE0.local",
+        "name": null,
+        "model": "S4SW-001X16EU",
+        "devicePath": "electrical.switches.starlink",
+        "enabled": true,
+        "displayName": "Starlink"
       }
     ]
   },

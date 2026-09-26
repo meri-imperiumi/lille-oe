@@ -15,7 +15,10 @@
         "courseApi",
         "signalk-meshtastic.2996810856",
         "can0.c08cbe002760110f",
-        "ydnr02.ST"
+        "ydnr02.ST",
+        "signalk-teltonika-rutx11.XX",
+        "signalk-meshtastic.XX",
+        "signalk-dead-reckoning.dr"
       ]
     }
   ],
@@ -27,7 +30,7 @@
       },
       {
         "sourceRef": "can0.c078af008ff9c95e",
-        "timeout": 15000
+        "timeout": 150000
       }
     ],
     "environment.wind.speedApparent": [
@@ -37,7 +40,7 @@
       },
       {
         "sourceRef": "can0.c078af008ff9c95e",
-        "timeout": 15000
+        "timeout": 150000
       }
     ],
     "navigation.headingMagnetic": [

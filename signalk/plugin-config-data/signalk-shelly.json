@@ -7,19 +7,36 @@
       "deviceName": "Shelly RGBW2 ",
       "enabled": true,
       "devicePath": "saloonStarboardRgbw2",
-      "presets": []
-    },
-    "Device ID SHRGBW2-E8DB84811DB0": {
-      "deviceName": "Shelly RGBW2 ",
-      "enabled": true,
-      "devicePath": "saloonPortRgbw2",
+      "displayName": "Saloon Starboard RGBW2",
       "presets": []
     },
     "Device ID SHRGBW2-A803E8": {
       "deviceName": "Shelly RGBW2 ",
       "enabled": true,
       "devicePath": "cockpitLight",
+      "displayName": "Cockpit RGBW2",
       "presets": []
+    },
+    "Device ID SHRGBW2-E8DB84811DB0": {
+      "deviceName": "Shelly RGBW2 ",
+      "enabled": true,
+      "devicePath": "saloonPortRgbw2",
+      "displayName": "Saloon Port RGBW2",
+      "presets": []
+    },
+    "Device ID SHUNI-1-C8C9A31ACAE2": {
+      "deviceName": "Shelly Uni ",
+      "enabled": true,
+      "devicePath": "bilgeCurrentSensor",
+      "displayName": "Bilge Current Sensor",
+      "relay0": {
+        "switchPath": "0",
+        "enabled": true
+      },
+      "relay1": {
+        "switchPath": "1",
+        "enabled": true
+      }
     },
     "nextGenPassswords": [],
     "Device ID Shelly Plus 1-shellyplus1-8813bf9fa37c": {

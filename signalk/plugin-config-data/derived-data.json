@@ -17,14 +17,14 @@
       "batterPower0": false
     },
     "course data": {
-      "dtg": false,
       "cog_magnetic": false,
       "eta_waypoint": false,
-      "setDrift": true,
+      "setDrift": false,
       "steer_error": false,
-      "vmg_Course": false,
-      "vmg_Wind": true,
-      "vmg_Wind_STW": false
+      "vmg_Wind": false,
+      "vmg_Wind_STW": false,
+      "dtg": false,
+      "vmg_Course": false
     },
     "heading": {
       "cog_true": false,
@@ -36,10 +36,12 @@
     },
     "traffic": {
       "CPA": false,
+      "distanceToSelf": false,
       "range": 1852,
-      "distanceToSelf": true,
       "timelimit": 30,
-      "sendNotifications": false
+      "distanceToSelfTimelimit": 3600,
+      "sendNotifications": false,
+      "notificationZones": []
     },
     "depth": {
       "belowKeel": false,
@@ -56,27 +58,21 @@
       "propslipport": false,
       "propslipstarboard": false
     },
-    "wind": {
-      "groundWind": true,
-      "groundWindDirection": false,
-      "groundWindDirection2": true,
-      "trueWind": true,
-      "directionTrue": true,
-      "directionMagnetic2": true,
-      "directionMagnetic": false,
-      "windShift": false
-    },
     "moon": {
-      "Moon": false
+      "Moon": false,
+      "forecastDays": 1
     },
     "sun": {
       "Sun": true,
-      "Sun Time": true
+      "Sun Time": true,
+      "forecastDays": 1
     },
     "tanks": {
       "tankVolume_fuel.diesel": false,
       "volume_unit": "litres",
+      "calibrations.fuel.diesel": [],
       "tankVolume_freshWater.water": false,
+      "calibrations.freshWater.water": [],
       "tankVolume2_fuel.diesel": false,
       "tankVolume2_freshWater.water": false,
       "tankVolume_diesel": false,
@@ -85,6 +81,17 @@
       "tankVolume_fuel.1": false,
       "tankVolume2_fuel.0": false,
       "tankVolume2_fuel.1": false
+    },
+    "wind": {
+      "directionMagnetic2": true,
+      "directionMagnetic": false,
+      "angleTrueWater": false,
+      "directionTrue": true,
+      "groundWind": true,
+      "groundWindDirection": false,
+      "windShift": false,
+      "groundWindDirection2": true,
+      "trueWind": true
     }
   },
   "enabled": true,
