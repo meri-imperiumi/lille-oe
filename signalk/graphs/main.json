@@ -510,6 +510,106 @@
                 "width": 72,
                 "height": 72
             }
+        },
+        "ListenDatetime": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenDatetime",
+                "x": 360,
+                "y": 1700,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "ListenTimezone": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenTimezone",
+                "x": 360,
+                "y": 1808,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "RunDailyAt": {
+            "component": "signalk-server-config/RunDailyAt",
+            "metadata": {
+                "label": "RunDailyAt",
+                "x": 684,
+                "y": 1700,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "ListenBilgeAlarm": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenBilgeAlarm",
+                "x": 360,
+                "y": 1916,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "DetectBilgeAlarm": {
+            "component": "signalk/DetectChange",
+            "metadata": {
+                "label": "DetectBilgeAlarm",
+                "x": 504,
+                "y": 1916,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "InvertBilgeAlarm": {
+            "component": "signalk/InvertBoolean",
+            "metadata": {
+                "label": "InvertBilgeAlarm",
+                "x": 684,
+                "y": 1916,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "BilgeAlarmGate": {
+            "component": "signalk/And",
+            "metadata": {
+                "label": "BilgeAlarmGate",
+                "x": 684,
+                "y": 2024,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "EmptyBilge": {
+            "component": "signalk-server-config/EmptyBilge",
+            "metadata": {
+                "label": "EmptyBilge",
+                "x": 900,
+                "y": 1808,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "ListenBilgeCurrent": {
+            "component": "signalk/GetSelfStream",
+            "metadata": {
+                "label": "ListenBilgeCurrent",
+                "x": 360,
+                "y": 2132,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "SwitchBilgePump": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "SwitchBilgePump",
+                "x": 1080,
+                "y": 1808,
+                "width": 72,
+                "height": 72
+            }
         }
     },
     "connections": [
@@ -1635,6 +1735,178 @@
             "tgt": {
                 "process": "SwitchBowNavLight",
                 "port": "path"
+            }
+        },
+        {
+            "data": "navigation.datetime",
+            "tgt": {
+                "process": "ListenDatetime",
+                "port": "in"
+            }
+        },
+        {
+            "data": "environment.time.timezoneOffset",
+            "tgt": {
+                "process": "ListenTimezone",
+                "port": "in"
+            }
+        },
+        {
+            "data": "14:00",
+            "tgt": {
+                "process": "RunDailyAt",
+                "port": "time"
+            }
+        },
+        {
+            "src": {
+                "process": "ListenDatetime",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "RunDailyAt",
+                "port": "datetime"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "ListenTimezone",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "RunDailyAt",
+                "port": "timezone"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "RunDailyAt",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "EmptyBilge",
+                "port": "trigger"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "data": "electrical.venus-input.1.inputState",
+            "tgt": {
+                "process": "ListenBilgeAlarm",
+                "port": "in"
+            }
+        },
+        {
+            "src": {
+                "process": "ListenBilgeAlarm",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "DetectBilgeAlarm",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "DetectBilgeAlarm",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "InvertBilgeAlarm",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "InvertBilgeAlarm",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "BilgeAlarmGate",
+                "port": "values"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "InvertBilgeAlarm",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "BilgeAlarmGate",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "BilgeAlarmGate",
+                "port": "pass"
+            },
+            "tgt": {
+                "process": "EmptyBilge",
+                "port": "trigger"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "data": "electrical.switches.bilgeCurrentSensor.voltage0",
+            "tgt": {
+                "process": "ListenBilgeCurrent",
+                "port": "in"
+            }
+        },
+        {
+            "src": {
+                "process": "ListenBilgeCurrent",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "EmptyBilge",
+                "port": "current"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "data": "electrical.switches.gx.gxInternalRelay1.state",
+            "tgt": {
+                "process": "SwitchBilgePump",
+                "port": "path"
+            }
+        },
+        {
+            "src": {
+                "process": "EmptyBilge",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchBilgePump",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 1
             }
         }
     ]
