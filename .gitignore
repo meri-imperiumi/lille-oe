@@ -46,3 +46,45 @@ signalk/serverState/
 signalk/resources/
 roles/ansible-role-systemd/
 roles/stefangweichinger.ansible_rclone/
+
+# Cleartext plugin configs with tokens (encrypted .sops.json versions are tracked)
+signalk/plugin-config-data/signalk-aiscast.json
+signalk/plugin-config-data/signalk-windy.json
+
+# Plugin-managed key material
+signalk/plugin-config-data/signalk-dsc/dscwatch-receiver-key
+signalk/plugin-config-data/crowd-depth/
+
+# Heavy caches and runtime state (not config)
+signalk/charts-simple/
+signalk/gribs/
+signalk/appstore-cache/
+signalk/sources-cache.json
+signalk/canboatjs-data.json
+signalk/package.json.bak
+signalk/plugin-config-data/signalk-aiscast/
+signalk/plugin-config-data/signalk-reticulum/
+signalk/plugin-config-data/signalk-grib-weather-provider/cache/
+signalk/plugin-config-data/signalk-corridor-tile-downloader/
+signalk/plugin-config-data/signalk-charts-provider-simple/
+signalk/plugin-config-data/signalk-noaa-space-weather/aurora-grid.json
+signalk/plugin-config-data/signalk-offshore-blogging/*/gribs/
+signalk/plugin-config-data/signalk-energy-predictor/recordings/
+signalk/plugin-config-data/signalk-energy-predictor/recordings-ndjson/
+signalk/plugin-config-data/signalk-energy-predictor/weather/
+signalk/plugin-config-data/signalk-performance-monitor/
+signalk/plugin-config-data/anchoralarm/state.json
+signalk/plugin-config-data/hoekens-anchor-alarm/anchor-sessions.json
+signalk/**/*.sqlite
+signalk/**/*.sqlite-wal
+signalk/**/*.sqlite-shm
+signalk/**/*.db
+signalk/**/*.db-wal
+signalk/**/*.db-shm
+signalk/plugin-config-data/*.backup-*
+signalk/plugin-config-data/signalk-triplogger?/
+
+# Retired plugins
+signalk/applicationData/global/kip/
+
+__pycache__/

@@ -16,6 +16,8 @@ SECRET_FILES=(
     "plugin-config-data/@noforeignland-signalk-to-noforeignland.json"  # NoForeignLand boat API key
     "plugin-config-data/signalk-aprsfi-ais-reporter.json"  # APRS.fi API key
     "plugin-config-data/noflo-signalk.json"        # NoFlo secret and UUID
+    "plugin-config-data/signalk-aiscast.json"      # AISHub sharing token
+    "plugin-config-data/signalk-windy.json"        # Windy API key
     "security.json"                                 # Signal K security (users, devices, secretKey)
 )
 

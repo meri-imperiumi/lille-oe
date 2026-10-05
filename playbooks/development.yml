@@ -9,6 +9,7 @@
     pi_workdir: /home/bergie/workspace
     pi_model: "anthropic/claude-sonnet-4-5"
     lxmf_propagation_node: ""
+    pi_api_key: ""
     pi_lxmf_config:
       name: "{{ pi_lxmf_name }}"
       workdir: "{{ pi_workdir }}"
@@ -32,6 +33,8 @@
           - python3-pip
           - python3-venv
         state: present
+        update_cache: yes
+        cache_valid_time: 3600
     - name: Ensure Reticulum Network Stack (RNS) is installed
       pip:
         name: RNS
@@ -45,11 +48,77 @@
         groups: sudo
         append: yes
         state: present
+        generate_ssh_key: yes
+        ssh_key_type: ed25519
+        ssh_key_comment: bergie@development.lille-oe.de
+    - name: Fetch GitHub keys on the controller
+      # github.com has no AAAA record and this host is IPv6-only, so the
+      # keys must be fetched where IPv4 works. Uses the uri module because
+      # lookup('url') crashes workers on ansible-core 2.21 / macOS
+      uri:
+        url: https://github.com/bergie.keys
+        return_content: yes
+      register: github_keys
+      delegate_to: localhost
+      become: false
+
     - name: Deploy SSH keys for bergie
+      # exclusive must stay off: the personal-cloud key is the jump host's
+      # key into this box and must never be removed by the GitHub key sync
       authorized_key:
         user: bergie
         state: present
-        key: https://github.com/bergie.keys
+        exclusive: no
+        key: "{{ item }}"
+      loop:
+        - "{{ github_keys.content }}"
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRXIrZCVxEna+GU4Qe7WziaAM0AR6+W66H/QxxZx0Nw bergie@personal-cloud
+
+    # github.com is IPv4-only and this host is IPv6-only: route GitHub
+    # traffic through a SOCKS tunnel to the dual-stack cloud jump host
+    - name: Read bergie public key from development
+      slurp:
+        src: /home/bergie/.ssh/id_ed25519.pub
+      register: bergie_dev_pubkey
+
+    - name: Authorize development key on the cloud jump host
+      authorized_key:
+        user: bergie
+        state: present
+        key: "{{ bergie_dev_pubkey['content'] | b64decode }}"
+      delegate_to: cloud.lille-oe.de
+      become: false
+
+    - name: Deploy cloud SOCKS proxy service
+      copy:
+        dest: /etc/systemd/system/cloud-socks-proxy.service
+        mode: '0644'
+        content: |
+          [Unit]
+          Description=SOCKS5 proxy to cloud.lille-oe.de for IPv4-only egress (GitHub)
+          After=network-online.target
+          Wants=network-online.target
+
+          [Service]
+          User=bergie
+          ExecStart=/usr/bin/ssh -N -D 127.0.0.1:1080 -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o StrictHostKeyChecking=accept-new bergie@cloud.lille-oe.de
+          Restart=on-failure
+          RestartSec=5
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Enable and start cloud SOCKS proxy
+      systemd:
+        name: cloud-socks-proxy
+        enabled: yes
+        daemon_reload: yes
+        state: started
+
+    - name: Route GitHub git traffic through the cloud SOCKS proxy
+      command: git config --global http.https://github.com/.proxy socks5h://127.0.0.1:1080
+      become_user: bergie
+      changed_when: false
 
   roles:
     - role: bergie-dotfiles
@@ -105,6 +174,13 @@
           [Install]
           WantedBy=multi-user.target
       notify: Restart rnsd
+    - name: Create pi-lxmf config directory
+      file:
+        path: /home/bergie/.config/pi-lxmf
+        state: directory
+        owner: bergie
+        group: bergie
+        mode: '0700'
     - name: Deploy pi-lxmf configuration
       copy:
         dest: /home/bergie/.config/pi-lxmf/config.json
