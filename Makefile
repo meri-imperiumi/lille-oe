@@ -1,20 +1,20 @@
 # vim: set noexpandtab:
-roles/marinepi-provisioning:
+deps:
 	ansible-galaxy install -r requirements.yml
 
-signalk: roles/marinepi-provisioning
+signalk: deps
 	ansible-playbook -i hosts -l lille-oe-pi playbooks/lille-oe.yml
 
-nas: roles/marinepi-provisioning
+nas: deps
 	ansible-playbook -i hosts -l lille-oe-nas playbooks/nas.yml
 
-infodisplay: roles/marinepi-provisioning
+infodisplay: deps
 	ansible-playbook -i hosts -l infodisplay playbooks/infodisplay.yml
 
-cloud: roles/marinepi-provisioning
+cloud: deps
 	ansible-playbook -i hosts -l cloud playbooks/cloud.yml
 
-development: roles/marinepi-provisioning
+development: deps
 	ansible-playbook -i hosts -l development playbooks/development.yml
 
 backup:
@@ -44,4 +44,4 @@ plugin-secrets-clean:
 plugin-secrets-check:
 	./signalk-plugin-secrets.sh check
 
-.PHONY: backup influx restore signalk nas infodisplay cloud development plugin-secrets-encrypt plugin-secrets-decrypt plugin-secrets-clean plugin-secrets-check
+.PHONY: deps backup influx restore signalk nas infodisplay cloud development plugin-secrets-encrypt plugin-secrets-decrypt plugin-secrets-clean plugin-secrets-check

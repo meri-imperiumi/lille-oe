@@ -1,0 +1,37 @@
+name: ansible checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ansible
+        run: pip install ansible-core
+      - name: Install roles and collections
+        run: |
+          ansible-galaxy install -r requirements.yml
+          ansible-galaxy collection install community.general ansible.posix
+      # SOPS-encrypted secrets are not decrypted here: syntax-check only
+      # parses playbooks and never evaluates the sops_decrypt lookups.
+      - name: Syntax-check playbooks
+        run: |
+          for pb in cloud development infodisplay lille-oe nas; do
+            ansible-playbook --syntax-check -i hosts "playbooks/$pb.yml"
+          done
+      - name: SOPS hygiene (no decryption)
+        run: |
+          for f in $(sed -n '/^SECRET_FILES=(/,/^)/p' signalk-plugin-secrets.sh | grep -oE '"[^"]+\.json"' | tr -d '"'); do
+            if [ -f "signalk/$f" ]; then
+              test -f "signalk/${f%.json}.sops.json" || { echo "missing sops counterpart for $f"; exit 1; }
+              git check-ignore -q "signalk/$f" || { echo "$f is cleartext but not gitignored"; exit 1; }
+            fi
+          done
+          echo "sops hygiene OK"

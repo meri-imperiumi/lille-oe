@@ -1,0 +1,21 @@
+---
+# Ported from tkurki/marinepi-provisioning (Apache-2.0, © Harri Kapanen)
+- name: Download canboat
+  git: repo=https://github.com/canboat/canboat.git dest={{ canboat_path }} clone=yes force=yes
+  become: no
+  register: canboat_sources
+
+- name: Install xsltproc needed for canboat compiling
+  apt: pkg=xsltproc state=latest
+
+- command: make
+  args:
+    chdir: "{{ canboat_path }}"
+  become: no
+  when: canboat_sources.changed
+
+- command: make install
+  args:
+    chdir: "{{ canboat_path }}"
+  ignore_errors: yes  # can't help the way Makefile is written...
+  when: canboat_sources.changed

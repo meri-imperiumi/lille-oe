@@ -1,0 +1,13 @@
+---
+- name: restart-rsyslog
+  service: name=rsyslog state=restarted
+
+# Keep this at the end to run the reboot handler after all other handlers
+- name: reboot
+  reboot:
+    msg: "Reboot initiated by Ansible"
+    connect_timeout: 5
+    reboot_timeout: 120
+    pre_reboot_delay: 0
+    post_reboot_delay: 30
+    test_command: whoami

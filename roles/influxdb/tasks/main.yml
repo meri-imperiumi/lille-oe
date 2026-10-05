@@ -1,0 +1,26 @@
+---
+# Ported from tkurki/marinepi-provisioning (Apache-2.0, © Teppo Kurki)
+- name: Add InfluxDb APT key
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+  become: true
+
+- name: Add InfluxDb APT repository
+  apt_repository:
+    repo: "deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable"
+    update_cache: yes
+  become: true
+
+- name: Install InfluxDb
+  apt: pkg=influxdb state=latest
+  become: true
+
+#1/10th or normal cache snaphot memory to ward off kernel killing influxdb
+- name: Custom configuration for RPi
+  lineinfile: dest=/etc/influxdb/influxdb.conf line="  cache-snapshot-memory-size = 2621440" insertafter="  \# cache-snapshot-memory-size.*"
+  become: true
+  when: ansible_lsb.id == "Raspbian"
+
+- name: Enable & start InfluxDB
+  systemd: name=influxdb state=started enabled=yes daemon_reload=yes
+  become: true

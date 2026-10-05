@@ -1,0 +1,87 @@
+---
+# Ported from tkurki/marinepi-provisioning (Apache-2.0, © Harri Kapanen)
+# Assuming fresh Raspberry Pi OS
+
+- name: Set hostname
+  hostname: name={{ hostname }}
+
+- name: New hostname also to /etc/hosts file
+  lineinfile: dest=/etc/hosts regexp='^127\.0\.1\.1' line='127.0.1.1 {{ hostname }}'
+
+- name: Set timezone
+  timezone:
+    name: "{{ timezone }}"
+
+- name: Update the apt cache
+  apt: update_cache=yes cache_valid_time=7200
+  failed_when: False
+
+- name: Update the Raspberry Pi OS distribution
+  apt: upgrade=yes
+  when: apt_upgrade == true
+  notify: reboot
+
+- name: Install/update some basic tools
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - build-essential
+    - git
+    - curl
+    - htop
+    - nmap
+    - tmux
+    - zsh
+    - nmon
+    - dstat
+    - rpi-update
+    - haveged
+    - avahi-daemon
+    - rng-tools
+    - netatalk
+    - screen
+    - dnsutils
+    - wavemon
+    - telnet
+    - speedtest-cli
+    - sysstat
+  notify: reboot
+
+- name: Autoremove any unused packages
+  apt:
+    autoremove: yes
+
+- name: Autoclean the system
+  apt:
+    autoclean: yes
+
+- name: Some shell aliases for the user
+  lineinfile: dest=~{{ user }}/.bashrc line="{{ item }}"
+  with_items:
+  - "alias ll='ls -l'"
+  - "alias la='ls -la'"
+  - "alias lt='ls -lat'"
+
+- name: Disable logging to /dev/xconsole   # By default nobody reads from /dev/xconsole and thus it overflows causing "action 'action 17' suspended" errors to syslog
+  replace:
+    dest=/etc/rsyslog.conf
+    regexp='^daemon.*mail(.|\n)*?/dev/xconsole'
+    replace='# Removed by Ansible'
+  notify: restart-rsyslog
+
+- name: Enable SPI
+  lineinfile: dest=/boot/config.txt regexp='^#(dtparam=spi=on)$' line='\1' backrefs=yes
+  notify: reboot
+
+- name: Enable I2C
+  lineinfile: dest=/boot/config.txt regexp='^#(dtparam=i2c_arm=on)$' line='\1' backrefs=yes
+  notify: reboot
+
+- name: Use minimum amount of memory for GPU
+  lineinfile: dest=/boot/config.txt regexp='^gpu_mem=' line='gpu_mem=16'
+  notify: reboot
+
+# Reboot due to possible changes now
+- meta: flush_handlers

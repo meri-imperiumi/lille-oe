@@ -15,7 +15,7 @@
       workdir: "{{ pi_workdir }}"
       model: "{{ pi_model }}"
       owner: "{{ lxmf_owner }}"
-    nodejs_major_version: 22
+    nodejs_major_version: 24
 
   pre_tasks:
     - name: Ensure base dependencies are installed

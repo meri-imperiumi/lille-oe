@@ -1,0 +1,6 @@
+---
+# Ported from tkurki/marinepi-provisioning (Apache-2.0, © Harri Kapanen)
+user: pi
+hostname: raspberrypi
+timezone: Etc/UTC
+apt_upgrade: true

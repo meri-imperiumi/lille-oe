@@ -3,7 +3,6 @@ secrets.pass
 *.vault.bak
 secrets.yml.vault.bak
 secrets.*.yml.template
-roles/marinepi-provisioning
 # signalk/security.json is now encrypted as security.sops.json
 signalk/security.json
 signalk/package-lock.json

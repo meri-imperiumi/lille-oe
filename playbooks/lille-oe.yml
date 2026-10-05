@@ -39,14 +39,14 @@
         state: present
 
   roles:
-    - role: marinepi-provisioning/roles/common
+    - role: common
     - role: node-ble
-    - role: marinepi-provisioning/roles/signalk-npm
+    - role: signalk-npm
       signalk_settings_file: "{{ inventory_dir }}/signalk/settings.json"
-    - role: marinepi-provisioning/roles/influxdb
-    - role: marinepi-provisioning/roles/grafana
+    - role: influxdb
+    - role: grafana
       grafana_port: 3000
-    - role: marinepi-provisioning/roles/canboat
+    - role: canboat
     - alphanodes.setup.systemd_timer
 
   tasks:
@@ -82,5 +82,4 @@
       ansible.builtin.git:
         repo: 'https://github.com/meri-imperiumi/logbook-printer.git'
         dest: /home/pi/logbook-printer
-  handlers:
-    - include: ../roles/marinepi-provisioning/handlers/handlers.yml
+
