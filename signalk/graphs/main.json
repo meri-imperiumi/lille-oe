@@ -1908,6 +1908,34 @@
                 "process": "SwitchBilgePump",
                 "port": "path"
             }
+        },
+        {
+            "data": 120,
+            "tgt": {
+                "process": "EmptyBilge",
+                "port": "minruntime"
+            }
+        },
+        {
+            "data": 0.8,
+            "tgt": {
+                "process": "EmptyBilge",
+                "port": "drycurrent"
+            }
+        },
+        {
+            "data": 1.48,
+            "tgt": {
+                "process": "EmptyBilge",
+                "port": "currentoffset"
+            }
+        },
+        {
+            "data": 0.0596,
+            "tgt": {
+                "process": "EmptyBilge",
+                "port": "currentscale"
+            }
         }
     ]
 }

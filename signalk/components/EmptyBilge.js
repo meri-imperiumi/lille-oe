@@ -4,11 +4,14 @@
  * On trigger, starts the bilge pump and keeps it running until the bilge
  * is empty, i.e. all of the following hold:
  *
- * - pump has run for at least `MIN_RUN_MS`
- * - pump is running dry (current below `DRY_CURRENT_A`)
+ * - pump has run for at least `minruntime` seconds
+ * - pump is running dry (current below `drycurrent` amps)
  *
  * The current sensor reports voltage; amps are derived with:
- * `(voltage - CURRENT_OFFSET_V) / CURRENT_SCALE_V_PER_A`
+ * `(voltage - currentOffset) / currentScale`
+ *
+ * The thresholds and sensor calibration are configurable via control
+ * ports, typically wired as IIPs in the graph.
  *
  * This is a generator-style component: it keeps itself activated between
  * the trigger and the stop decision, polling the control ports.
@@ -17,20 +20,34 @@
  */
 const noflo = require('noflo');
 
-/** Minimum time the pump is kept running after trigger, in milliseconds */
-const MIN_RUN_MS = 30 * 1000;
+/** Default minimum time the pump is kept running after trigger, in seconds */
+const DEFAULT_MIN_RUNTIME_S = 120;
 
 /** How often stop conditions are evaluated while pump is running */
 const POLL_INTERVAL_MS = 1000;
 
-/** Current sensor output at 0 A, in volts */
-const CURRENT_OFFSET_V = 1.48;
+/** Default current sensor output at 0 A, in volts */
+const DEFAULT_CURRENT_OFFSET_V = 1.48;
 
-/** Current sensor scale, volts per amp */
-const CURRENT_SCALE_V_PER_A = 0.0596;
+/** Default current sensor scale, volts per amp */
+const DEFAULT_CURRENT_SCALE_V_PER_A = 0.0596;
 
-/** Pump current below this means no water is being pumped, in amps */
-const DRY_CURRENT_A = 0.8;
+/** Default pump current below which no water is being pumped, in amps */
+const DEFAULT_DRY_CURRENT_A = 0.8;
+
+/**
+ * Coerce a control port value to a finite number, falling back to the
+ * port default when it is missing or unusable. NoFlo delivers port
+ * defaults via the network layer, so bare instances read undefined.
+ *
+ * @param {any} value - Raw control port value
+ * @param {number} fallback - Default to use when value is not finite
+ * @returns {number} Numeric configuration value
+ */
+function toNumber(value, fallback) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
 
 /**
  * Runs the bilge pump until the bilge is empty.
@@ -43,8 +60,8 @@ class EmptyBilge extends noflo.Component {
     super();
 
     this.description = 'Runs bilge pump on trigger until bilge is empty. '
-      + 'Stops when pump has run at least 30sec and pump current is '
-      + 'below dry threshold';
+      + 'Stops when pump has run at least minruntime seconds and pump '
+      + 'current is below drycurrent amps. Tunable via control ports';
     this.icon = 'tint';
 
     this.inPorts.add('trigger', {
@@ -56,6 +73,32 @@ class EmptyBilge extends noflo.Component {
       datatype: 'number',
       description: 'Bilge pump current sensor voltage reading',
       control: true,
+    });
+    this.inPorts.add('minruntime', {
+      datatype: 'number',
+      description: 'Minimum time to run the pump before evaluating stop '
+        + 'conditions, in seconds',
+      control: true,
+      default: DEFAULT_MIN_RUNTIME_S,
+    });
+    this.inPorts.add('drycurrent', {
+      datatype: 'number',
+      description: 'Pump current below which no water is being pumped, '
+        + 'in amps',
+      control: true,
+      default: DEFAULT_DRY_CURRENT_A,
+    });
+    this.inPorts.add('currentoffset', {
+      datatype: 'number',
+      description: 'Current sensor output at 0 A, in volts',
+      control: true,
+      default: DEFAULT_CURRENT_OFFSET_V,
+    });
+    this.inPorts.add('currentscale', {
+      datatype: 'number',
+      description: 'Current sensor scale, volts per amp',
+      control: true,
+      default: DEFAULT_CURRENT_SCALE_V_PER_A,
     });
     this.outPorts.add('out', {
       datatype: 'boolean',
@@ -97,8 +140,8 @@ class EmptyBilge extends noflo.Component {
    * Evaluate stop conditions; stop the pump and finish the cycle when met.
    *
    * Control port values are read without consuming them, so we always see
-   * the latest sensor readings. Missing or non-numeric readings cause the
-   * conditions to fail, keeping the pump running.
+   * the latest sensor readings and tuning. Missing or non-numeric readings
+   * cause the conditions to fail, keeping the pump running.
    *
    * @param {noflo.ProcessInput} input - Process input context
    * @param {noflo.ProcessOutput} output - Process output context
@@ -108,15 +151,30 @@ class EmptyBilge extends noflo.Component {
       return;
     }
 
+    const minRunMs = toNumber(input.getData('minruntime'), DEFAULT_MIN_RUNTIME_S)
+      * 1000;
     const elapsed = Date.now() - this.startedAt;
-    if (elapsed < MIN_RUN_MS) {
+    if (elapsed < minRunMs) {
       return;
     }
 
+    const dryCurrentA = toNumber(
+      input.getData('drycurrent'),
+      DEFAULT_DRY_CURRENT_A,
+    );
+    const offsetV = toNumber(
+      input.getData('currentoffset'),
+      DEFAULT_CURRENT_OFFSET_V,
+    );
+    const scaleVPerA = toNumber(
+      input.getData('currentscale'),
+      DEFAULT_CURRENT_SCALE_V_PER_A,
+    );
+
     const voltage = Number(input.getData('current'));
-    const amps = (voltage - CURRENT_OFFSET_V) / CURRENT_SCALE_V_PER_A;
+    const amps = (voltage - offsetV) / scaleVPerA;
     // NaN (no reading) fails the comparison, keeping the pump running
-    if (!(amps < DRY_CURRENT_A)) {
+    if (!(amps < dryCurrentA)) {
       return;
     }
 

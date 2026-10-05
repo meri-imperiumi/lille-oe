@@ -35,10 +35,11 @@ const PUMP_PATH = 'electrical.switches.gx.gxInternalRelay1.state';
 /**
  * Build and start a network with the bilge wiring of graphs/main.json.
  *
+ * @param {Object} [tuning] - IIP values for EmptyBilge tuning ports
  * @returns {Promise<Object>} Network, value feed sockets, and the puts
  *   array collecting the PUT requests captured by test/CapturePut
  */
-async function buildNetwork() {
+async function buildNetwork(tuning = {}) {
   const puts = [];
   const graph = new noflo.Graph('BilgeIntegration');
   graph.addNode('feedDatetime', 'test/Feed');
@@ -65,6 +66,26 @@ async function buildNetwork() {
   // Same IIPs as graphs/main.json
   graph.addInitial('14:00', 'timer', 'time');
   graph.addInitial(PUMP_PATH, 'put', 'path');
+  graph.addInitial(
+    tuning.minruntime === undefined ? 120 : tuning.minruntime,
+    'emptybilge',
+    'minruntime',
+  );
+  graph.addInitial(
+    tuning.drycurrent === undefined ? 0.8 : tuning.drycurrent,
+    'emptybilge',
+    'drycurrent',
+  );
+  graph.addInitial(
+    tuning.currentoffset === undefined ? 1.48 : tuning.currentoffset,
+    'emptybilge',
+    'currentoffset',
+  );
+  graph.addInitial(
+    tuning.currentscale === undefined ? 0.0596 : tuning.currentscale,
+    'emptybilge',
+    'currentscale',
+  );
 
   const loader = new noflo.ComponentLoader(os.tmpdir());
   await loader.listComponents();
@@ -147,7 +168,7 @@ test('daily timer starts a pump cycle at 14:00 local and runs it until dry', asy
 
   // Pumping water: stays running past the 30s minimum
   feed('feedCurrent')(WET_V);
-  t.mock.timers.tick(31000);
+  t.mock.timers.tick(121000);
   assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
 
   // Running dry: pump stops
@@ -168,7 +189,7 @@ test('timer fires once per local day through the graph', async (t) => {
   feed('feedTimezone')(200);
   feed('feedDatetime')('2025-11-07T12:00:00Z'); // fires
   feed('feedCurrent')(DRY_V);
-  t.mock.timers.tick(31000); // run past minimum time: cycle completes dry
+  t.mock.timers.tick(121000); // run past minimum time: cycle completes dry
   feed('feedDatetime')('2025-11-07T12:05:00Z'); // same local day: no start
   assert.deepStrictEqual(puts, [
     { path: PUMP_PATH, value: true },
@@ -178,7 +199,7 @@ test('timer fires once per local day through the graph', async (t) => {
   feed('feedDatetime')('2025-11-08T12:00:00Z'); // next local day: starts
   assert.deepStrictEqual(puts[2], { path: PUMP_PATH, value: true });
   feed('feedCurrent')(DRY_V);
-  t.mock.timers.tick(31000);
+  t.mock.timers.tick(121000);
   assert.deepStrictEqual(puts, [
     { path: PUMP_PATH, value: true },
     { path: PUMP_PATH, value: false },
@@ -197,7 +218,7 @@ test('negative timezone offset fires at 14:00 local through the graph', async (t
   feed('feedDatetime')('2025-11-07T23:30:00Z'); // 14:00 local (UTC-9:30)
   assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
   feed('feedCurrent')(DRY_V);
-  t.mock.timers.tick(31000);
+  t.mock.timers.tick(121000);
   assert.deepStrictEqual(puts, [
     { path: PUMP_PATH, value: true },
     { path: PUMP_PATH, value: false },
@@ -220,7 +241,7 @@ test('bilge alarm transition starts the pump and it runs until dry', async (t) =
   // Alarm clears mid-cycle: pump keeps running (run until dry)
   feed('feedAlarm')(1);
   feed('feedCurrent')(WET_V);
-  t.mock.timers.tick(31000);
+  t.mock.timers.tick(121000);
   assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
 
   // Alarm re-activates while running: no duplicate start
@@ -260,7 +281,32 @@ test('start-up race: datetime before timezone does not misfire the catch-up', as
   feed('feedDatetime')('2026-01-15T01:00:00Z'); // 14:00 local Jan 15: fires
   assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
   feed('feedCurrent')(DRY_V);
-  t.mock.timers.tick(31000);
+  t.mock.timers.tick(121000);
+
+  await network.stop();
+});
+
+test('pump tuning IIPs configure the cycle end-to-end', async (t) => {
+  t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
+  // 2s minimum runtime and a 0.2 A dry threshold: the default dry voltage
+  // (~0.34 A) then counts as still wet, and ~0.17 A as dry
+  const { network, feed, puts } = await buildNetwork({
+    minruntime: 2,
+    drycurrent: 0.2,
+  });
+
+  feed('feedAlarm')(1);
+  feed('feedAlarm')(0); // alarm activates: pump starts
+  feed('feedCurrent')(DRY_V);
+  t.mock.timers.tick(5000); // past the 2s minimum, but above 0.2 A
+  assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
+
+  feed('feedCurrent')(1.49); // ~0.17 A: below the custom threshold
+  t.mock.timers.tick(2000);
+  assert.deepStrictEqual(puts, [
+    { path: PUMP_PATH, value: true },
+    { path: PUMP_PATH, value: false },
+  ]);
 
   await network.stop();
 });

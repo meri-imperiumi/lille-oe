@@ -16,13 +16,15 @@ const getComponent = require('../components/EmptyBilge.js').getComponent;
 /** Same conversion constants as the component */
 const CURRENT_OFFSET_V = 1.48;
 const CURRENT_SCALE_V_PER_A = 0.0596;
-const MIN_RUN_MS = 30 * 1000;
+
+/** The component's default minimum run time, in milliseconds */
+const MIN_RUN_MS = 120 * 1000;
 
 /** ~8.7 A: pumping water */
 const WET_V = 2.0;
-/** ~0.34 A: pumping air, well below the 0.8 A dry threshold */
+/** ~0.34 A: pumping air, well below the default 0.8 A dry threshold */
 const DRY_V = 1.5;
-/** ~0.9 A: still above the dry threshold */
+/** ~0.9 A: still above the default dry threshold */
 const NEARLY_DRY_V = CURRENT_OFFSET_V + 0.9 * CURRENT_SCALE_V_PER_A;
 
 /**
@@ -38,6 +40,13 @@ function setup(t) {
   const trigger = noflo.internalSocket.createSocket();
   const current = noflo.internalSocket.createSocket();
   const out = noflo.internalSocket.createSocket();
+  const config = {};
+  ['minruntime', 'drycurrent', 'currentoffset', 'currentscale'].forEach(
+    (port) => {
+      config[port] = noflo.internalSocket.createSocket();
+      c.inPorts[port].attach(config[port]);
+    },
+  );
   c.inPorts.trigger.attach(trigger);
   c.inPorts.current.attach(current);
   c.outPorts.out.attach(out);
@@ -47,6 +56,12 @@ function setup(t) {
     socket.send(value);
     socket.disconnect();
   };
+  /** Configure tuning via the control ports */
+  const configure = (values) => {
+    for (const [port, value] of Object.entries(values)) {
+      send(config[port], value);
+    }
+  };
   const tickMs = (ms) => t.mock.timers.tick(ms);
   // Synchronous teardown: the poll interval is a mocked timer discarded
   // with the mock, and awaiting component shutdown would hang while a
@@ -55,7 +70,7 @@ function setup(t) {
     c.clearPollTimer();
     c.running = false;
   };
-  return { states, trigger, current, send, tickMs, teardown };
+  return { states, trigger, current, send, configure, tickMs, teardown };
 }
 
 test('starts the pump and reports true on trigger', async (t) => {
@@ -136,5 +151,53 @@ test('stops on the next poll tick after the minimum run time has passed', async 
   send(current, DRY_V);
   tickMs(2000); // next poll sees dry
   assert.deepStrictEqual(states, [true, false]);
+  await teardown();
+});
+
+test('honors a custom minimum runtime', async (t) => {
+  const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
+  configure({ minruntime: 2 });
+  send(trigger, true);
+  send(current, DRY_V);
+  // With the 30s default the pump would still be running here
+  tickMs(3000);
+  assert.deepStrictEqual(states, [true, false]);
+  await teardown();
+});
+
+test('honors a custom dry current threshold', async (t) => {
+  const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
+  configure({ drycurrent: 0.2 });
+  send(trigger, true);
+  // ~0.34 A: dry under the default 0.8 A threshold, wet under 0.2 A
+  send(current, DRY_V);
+  tickMs(MIN_RUN_MS + 2000);
+  assert.deepStrictEqual(states, [true], 'above the custom threshold');
+  // ~0.17 A: now below the custom threshold
+  send(current, 1.49);
+  tickMs(2000);
+  assert.deepStrictEqual(states, [true, false]);
+  await teardown();
+});
+
+test('honors custom sensor calibration', async (t) => {
+  const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
+  // Custom calibration: 1.55 V reads as (1.55 - 1.5) / 0.1 = 0.5 A, dry.
+  // With the default calibration it would read ~1.17 A and keep running.
+  configure({ currentoffset: 1.5, currentscale: 0.1, minruntime: 1 });
+  send(trigger, true);
+  send(current, 1.55);
+  tickMs(2000);
+  assert.deepStrictEqual(states, [true, false]);
+  await teardown();
+});
+
+test('unusable tuning values fall back to defaults', async (t) => {
+  const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
+  configure({ minruntime: 'garbage', drycurrent: 'garbage' });
+  send(trigger, true);
+  send(current, DRY_V);
+  tickMs(MIN_RUN_MS + 2000);
+  assert.deepStrictEqual(states, [true, false], '30s default and 0.8 A default apply');
   await teardown();
 });
