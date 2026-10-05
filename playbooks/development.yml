@@ -18,13 +18,6 @@
     nodejs_major_version: 22
 
   pre_tasks:
-    - name: Load development server secrets
-      set_fact:
-        development_secrets: "{{ lookup('file', playbook_dir + '/secrets.development.yml') | sops_decrypt }}"
-      delegate_to: localhost
-    - name: Set Pi provider credentials
-      set_fact:
-        pi_api_key: "{{ development_secrets.anthropic_api_key | default('') }}"
     - name: Ensure base dependencies are installed
       apt:
         name:
