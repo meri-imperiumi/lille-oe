@@ -238,6 +238,33 @@ test('bilge alarm transition starts the pump and it runs until dry', async (t) =
   await network.stop();
 });
 
+test('start-up race: datetime before timezone does not misfire the catch-up', async (t) => {
+  // Regression for the UTC+13 incident: at graph start the first
+  // navigation.datetime update was evaluated with the timezone default
+  // (UTC), so 22:00 UTC read as 22:00 local and started the pump at 11:00
+  // local time. The component now waits for the timezone offset.
+  t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
+  const { network, feed, puts } = await buildNetwork();
+
+  feed('feedDatetime')('2026-01-14T22:00:00Z'); // 11:00 local next day; no offset yet
+  feed('feedDatetime')('2026-01-14T22:01:00Z');
+  t.mock.timers.tick(60000);
+  assert.deepStrictEqual(puts, [], 'no evaluation before timezone is known');
+
+  feed('feedTimezone')(1300); // offset arrives: now 11:01 local
+  feed('feedDatetime')('2026-01-14T22:02:00Z');
+  t.mock.timers.tick(60000);
+  assert.deepStrictEqual(puts, [], '11:00 local is before 14:00');
+
+  feed('feedDatetime')('2026-01-14T23:30:00Z'); // 12:30 local: still before
+  feed('feedDatetime')('2026-01-15T01:00:00Z'); // 14:00 local Jan 15: fires
+  assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
+  feed('feedCurrent')(DRY_V);
+  t.mock.timers.tick(31000);
+
+  await network.stop();
+});
+
 test('datetime updates alone never start the pump before 14:00 local', async (t) => {
   t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
   const { network, feed, puts } = await buildNetwork();

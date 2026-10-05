@@ -8,6 +8,10 @@
  * 200 for UTC+02:00 or -930 for UTC-09:30). Onboard local time is
  * computed as UTC + offset.
  *
+ * Evaluation only starts once a timezone offset has been received:
+ * evaluating in UTC before the offset is known could misfire the daily
+ * catch-up when the graph starts.
+ *
  * Fires `out` at most once per local calendar day: the first datetime
  * update at or after the configured local time sends the trigger. This
  * also acts as catch-up when the network starts after the configured
@@ -75,9 +79,10 @@ class RunDailyAt extends noflo.Component {
     this.inPorts.add('timezone', {
       datatype: 'number',
       description: 'Onboard timezone offset from UTC in (-)hhmm encoding '
-        + '(environment.time.timezoneOffset)',
+        + '(environment.time.timezoneOffset). Evaluation waits until '
+        + 'this is received: without it, UTC would be read as local time '
+        + 'and the daily catch-up could misfire at start-up',
       control: true,
-      default: 0,
     });
     this.inPorts.add('time', {
       datatype: 'string',
@@ -101,9 +106,19 @@ class RunDailyAt extends noflo.Component {
       if (!input.hasData('datetime')) {
         return;
       }
+      // Always consume the triggering packet, also when the timezone is
+      // not yet known. Returning without consuming it would leave the
+      // port buffer one packet behind: each new update would evaluate
+      // the previous one and the newest would sit unconsumed forever.
       const datetime = input.getData('datetime');
+      // Without a received timezone offset the onboard local time is
+      // unknown; evaluating in UTC could misfire the daily catch-up
+      if (!input.hasData('timezone')) {
+        output.done();
+        return;
+      }
       const timezone = input.getData('timezone');
-      // Fall back to the port defaults also in code: NoFlo delivers port
+      // Fall back to the port default also in code: NoFlo delivers port
       // defaults via the network layer, so bare instances read undefined
       const time = input.getData('time') || DEFAULT_TIME;
 

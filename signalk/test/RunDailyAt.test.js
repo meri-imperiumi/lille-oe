@@ -99,11 +99,40 @@ test('explicit zero offset fires at 14:00 UTC', () => {
   assert.deepStrictEqual(fired, [true]);
 });
 
-test('falls back to defaults when control ports get no data', () => {
+test('falls back to the default time when the time port gets no data', () => {
   const { fired, errors, tick } = setup();
-  tick('2025-11-07T14:00:00Z'); // 14:00 UTC, default offset 0, time 14:00
+  tick('2025-11-07T14:00:00Z', 0); // 14:00 UTC, default time 14:00
   assert.deepStrictEqual(fired, [true]);
   assert.deepStrictEqual(errors, []);
+});
+
+test('does not evaluate until a timezone offset has been received', () => {
+  const { fired, errors, tick } = setup();
+  // 22:00 UTC: in UTC this is past 14:00 and would misfire the catch-up
+  tick('2025-11-07T22:00:00Z');
+  tick('2025-11-07T22:01:00Z');
+  assert.deepStrictEqual(fired, []);
+  assert.deepStrictEqual(errors, []);
+});
+
+test('start-up race regression: UTC+13 incident', () => {
+  // 2026-01-14 22:00 UTC = 2026-01-15 11:00 local at UTC+13: a datetime
+  // update evaluated with the default offset 0 read 22:00 as local and
+  // misfired the daily catch-up at graph start-up
+  const { fired, errors, tick } = setup();
+  tick('2026-01-14T22:00:00Z'); // timezone not received yet
+  tick('2026-01-14T22:01:00Z', 1300); // now 11:01 local Jan 15
+  tick('2026-01-14T22:02:00Z', 1300);
+  assert.deepStrictEqual(fired, []);
+  assert.deepStrictEqual(errors, []);
+});
+
+test('evaluates normally once the timezone offset arrives', () => {
+  const { fired, tick } = setup();
+  tick('2025-11-07T11:00:00Z'); // no timezone yet: skipped
+  tick('2025-11-07T11:30:00Z', 200); // 13:30 local: not yet
+  tick('2025-11-07T12:00:00Z', 200); // 14:00 local: fires
+  assert.deepStrictEqual(fired, [true]);
 });
 
 test('honors a custom configured time', () => {
