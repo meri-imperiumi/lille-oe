@@ -1,0 +1,6 @@
+{
+  "configuration": {
+    "pathPrefix": "electrical.halpi"
+  },
+  "enabled": true
+}

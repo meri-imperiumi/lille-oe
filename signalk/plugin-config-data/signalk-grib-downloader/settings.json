@@ -1,0 +1,17 @@
+{
+  "bbox": {
+    "latMin": -32,
+    "lonMin": -176,
+    "latMax": 0,
+    "lonMax": -136
+  },
+  "sources": [
+    {
+      "model": "gfs",
+      "resolution": "0p25",
+      "hours": 384,
+      "autoDownload": true
+    }
+  ],
+  "checkIntervalMinutes": 60
+}

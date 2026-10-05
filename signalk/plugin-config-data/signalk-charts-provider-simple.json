@@ -1,0 +1,9 @@
+{
+  "configuration": {
+    "chartPath": "/home/pi/.signalk/charts-simple",
+    "cpuBudget": "half",
+    "_notificationsHeader": null,
+    "disableUpdateNotifications": false
+  },
+  "enabled": true
+}

@@ -1,0 +1,15 @@
+{
+  "configuration": {
+    "sendAdvisoryOutlook": false,
+    "sendAlertsWatchesWarnings": true,
+    "notificationVisual": false,
+    "notificationSound": false,
+    "minScaleAlert": 4,
+    "zoneAlertThreshold": 3,
+    "auroraEnabled": true,
+    "auroraInterval": 60,
+    "observationsInterval": 60,
+    "notificationsInterval": 60
+  },
+  "enabled": false
+}

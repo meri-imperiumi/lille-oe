@@ -1,0 +1,27 @@
+{
+  "configuration": {
+    "pathChecks": {
+      "environment.depth.belowKeel": null,
+      "environment.wind.directionTrue": null,
+      "environment.wind.speedApparent": null,
+      "environment.tide": null,
+      "propulsion": null,
+      "sensors.gps.fromBow": null,
+      "sensors.gps.fromCenter": null
+    },
+    "state": "emergency",
+    "enableNormalNotifications": false,
+    "enableEngineCheck": false,
+    "allowZoneOutsideVessel": false,
+    "anchorAlarmInterval": 60,
+    "noPositionAlarmTime": 60,
+    "glitchFilterSpeed": 0,
+    "bowAnchorRollerHeight": 1,
+    "totalAnchorChainLength": 100,
+    "enableTimeZeroSync": false,
+    "timeZeroHostName": "SignalK",
+    "timeZeroUserId": "",
+    "zone": "{\"type\":\"circle\",\"radius\":56,\"position\":{\"latitude\":-18.658331763224567,\"longitude\":-173.98183107376101}}"
+  },
+  "enabled": true
+}

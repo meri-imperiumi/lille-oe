@@ -1,0 +1,27 @@
+{
+  "configuration": {
+    "standard": {
+      "routes": true,
+      "waypoints": true,
+      "notes": true,
+      "regions": true,
+      "charts": true
+    },
+    "custom": [
+      {
+        "name": "tracks",
+        "description": "Freeboard GPX track imports."
+      },
+      {
+        "name": "infolayers",
+        "description": "Freeboard map overlays."
+      },
+      {
+        "name": "groups",
+        "description": "Freeboard resource groups."
+      }
+    ],
+    "path": "./resources"
+  },
+  "enabled": true
+}

@@ -1,0 +1,9 @@
+{
+  "configuration": {
+    "notifications": {},
+    "calculations": {
+      "method": "GreatCircle"
+    }
+  },
+  "enabled": true
+}

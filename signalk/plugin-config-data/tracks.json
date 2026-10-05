@@ -1,0 +1,12 @@
+{
+  "configuration": {
+    "resolution": 60000,
+    "pointsToKeep": 1440,
+    "maxAge": 600,
+    "maxRadius": 5000,
+    "bootstrapFromHistory": true
+  },
+  "enabled": true,
+  "enableLogging": false,
+  "enableDebug": false
+}

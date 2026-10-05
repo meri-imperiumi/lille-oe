@@ -1,0 +1,229 @@
+{
+  "configuration": {
+    "updateIntervalMinutes": 15,
+    "battery": {
+      "capacityAh": 400,
+      "systemVoltage": 12,
+      "minSafeSoC": 0.2,
+      "chemistry": "lifepo4",
+      "socPath": "electrical.batteries.house.capacity.stateOfCharge",
+      "engineAlternatorWatts": 100
+    },
+    "acPowerPaths": [
+      "electrical.venus.acPower"
+    ],
+    "engines": [
+      {
+        "id": "main",
+        "name": "Engine",
+        "alternatorWatts": 400,
+        "alternatorPowerPath": "electrical.chargers.alternator.power",
+        "alternatorModePath": "electrical.chargers.alternator.chargingMode",
+        "enabled": true
+      }
+    ],
+    "gensets": [],
+    "combustion": {
+      "genset": {
+        "sustainedHours": 2,
+        "minRunMinutes": 45,
+        "cooldownHours": 2,
+        "socMargin": 0.05,
+        "nightHold": false
+      },
+      "engine": {
+        "sustainedHours": 3,
+        "minRunMinutes": 60,
+        "cooldownHours": 6,
+        "socMargin": 0.1,
+        "nightHold": true
+      }
+    },
+    "solarArrays": [
+      {
+        "id": "flinsail",
+        "name": "FLINsail",
+        "type": "deployable",
+        "powerPath": "electrical.solar.flinsail.panelPower",
+        "controllerModePath": "electrical.solar.flinsail.operationMode",
+        "gustLimitKnots": 20,
+        "gustHysteresisKnots": 2,
+        "hardwareEpochs": [],
+        "capacityWp": 300,
+        "enabled": true
+      },
+      {
+        "id": "bow",
+        "name": "Bow panels",
+        "type": "fixed",
+        "powerPath": "electrical.solar.bowpanel.panelPower",
+        "controllerModePath": "electrical.solar.bowpanel.controllerMode",
+        "gustLimitKnots": 20,
+        "gustHysteresisKnots": 2,
+        "hardwareEpochs": [],
+        "capacityWp": 200,
+        "enabled": true
+      },
+      {
+        "id": "dodger-starboard",
+        "name": "Dodger Starboard",
+        "type": "fixed",
+        "powerPath": "electrical.solar.dodgerstarboard.panelPower",
+        "controllerModePath": "electrical.solar.dodgerstarboard.controllerMode",
+        "gustLimitKnots": 20,
+        "gustHysteresisKnots": 2,
+        "hardwareEpochs": [],
+        "capacityWp": 120,
+        "enabled": true
+      },
+      {
+        "id": "dodger-port",
+        "name": "Dodger Port",
+        "type": "fixed",
+        "powerPath": "electrical.solar.dodgerport.panelPower",
+        "controllerModePath": "electrical.solar.dodgerport.controllerMode",
+        "gustLimitKnots": 20,
+        "gustHysteresisKnots": 2,
+        "hardwareEpochs": [],
+        "capacityWp": 120,
+        "enabled": true
+      },
+      {
+        "id": "aft-arch",
+        "name": "Aft arch",
+        "type": "fixed",
+        "powerPath": "electrical.solar.aftarch.panelPower",
+        "controllerModePath": "electrical.solar.aftarch.operationMode",
+        "gustLimitKnots": 20,
+        "gustHysteresisKnots": 2,
+        "hardwareEpochs": [],
+        "capacityWp": 300,
+        "enabled": true
+      }
+    ],
+    "mechanicalGenerators": [
+      {
+        "id": "sailinggen",
+        "name": "SailinGen Hydrogenerator",
+        "type": "hydro",
+        "deployable": true,
+        "deployableAtMoored": false,
+        "maxWindKnots": 30,
+        "startupSpeedKnots": 5,
+        "minSpeedKnots": 3,
+        "maxSpeedKnots": 12,
+        "powerPath": "electrical.chargers.hydrogenerator.power",
+        "manufacturerCurve": "4,24,5,48,6,67",
+        "enabled": true
+      },
+      {
+        "id": "superwind",
+        "name": "Superwind 350",
+        "type": "wind",
+        "deployable": true,
+        "deployableAtMoored": false,
+        "maxWindKnots": 50,
+        "startupSpeedKnots": 5,
+        "minSpeedKnots": 3,
+        "maxSpeedKnots": 12,
+        "powerPath": "electrical.chargers.wind.power",
+        "manufacturerCurve": "5,5,10,15,15,55,20,140,25,250,28,350,30,300",
+        "enabled": true
+      }
+    ],
+    "learning": {
+      "enabled": true,
+      "saveIntervalMinutes": 15,
+      "minIntervalSeconds": 15,
+      "averageWindowSeconds": 300,
+      "emaAlpha": 0.05,
+      "defaultEfficiency": 0.7
+    },
+    "weather": {
+      "preferredProvider": "",
+      "openMeteoEnabled": true,
+      "useLogbook": true,
+      "forecastHours": 48,
+      "forecastCacheHours": 24
+    },
+    "recording": {
+      "enabled": true,
+      "retentionDays": 180
+    },
+    "windProtection": {
+      "enabled": true,
+      "learnGusts": true,
+      "emaAlpha": 0.05,
+      "minForecastWindKnots": 5,
+      "dwellMinutes": 15,
+      "cellSizeM": 500,
+      "maxPlaces": 100,
+      "anemometerHeightM": 0,
+      "deviceHeightM": 5,
+      "roughnessLength": 0.0002,
+      "crossBinGustFallback": false
+    },
+    "loadProfile": {
+      "enabled": true,
+      "alpha": 0.05,
+      "minDaysPerBin": 3,
+      "outlierFactor": 3
+    },
+    "surplus": {
+      "enabled": true,
+      "fullThreshold": 0.95,
+      "minSurplusWh": 300,
+      "maxLeadHours": 36,
+      "opportunisticLoads": [
+        {
+          "name": "Watermaker",
+          "watts": 31,
+          "statePath": "",
+          "onValues": "started,on,online,running,active"
+        },
+        {
+          "name": "Starlink",
+          "watts": 20,
+          "statePath": "",
+          "onValues": "online"
+        },
+        {
+          "name": "ePropulsion Charger",
+          "watts": 70,
+          "statePath": "",
+          "onValues": "started,on,online,running,active"
+        }
+      ]
+    },
+    "notification": {
+      "urgency": {
+        "weights": {
+          "intensity": 0.4,
+          "time": 0.6
+        },
+        "thresholds": {
+          "normal": 0.1,
+          "info": 0.3,
+          "low": 0.5,
+          "medium": 0.7,
+          "high": 0.85
+        },
+        "batterySoCTiers": {
+          "alarm": 0.1,
+          "high": 0.2,
+          "medium": 0.35,
+          "low": 0.5,
+          "info": 0.65
+        },
+        "minGoodOutputHoursByType": {
+          "hydro": 1,
+          "solar-deployable": 2,
+          "wind": 8
+        }
+      }
+    }
+  },
+  "enabled": true,
+  "enableLogging": false,
+  "enableDebug": false
+}

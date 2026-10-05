@@ -1,0 +1,14 @@
+{
+  "configuration": {
+    "default_socket": "/var/run/shrpid.sock",
+    "path_mcu_temp": "environment.sailorhat.mcu.temperature",
+    "path_input_voltage": "environment.sailorhat.input.voltage",
+    "path_input_amps": "environment.sailorhat.input.amps",
+    "path_caps_voltage": "environment.sailorhat.capacitor.voltage",
+    "path_shrpi_state": "environment.sailorhat.state",
+    "path_output_enabled": "environment.sailorhat.5v_output",
+    "path_watchdog_enabled": "environment.sailorhat.watchdog_enabled",
+    "rate": 30
+  },
+  "enabled": true
+}

@@ -1,0 +1,48 @@
+{
+  "configuration": {
+    "style": "BandG",
+    "sources": [
+      {
+        "displayType": "number",
+        "key": "SOG",
+        "path": "navigation.speedOverGround",
+        "unit": "kn",
+        "decimals": 1,
+        "url": "http://localhost:3000/@signalk/freeboard-sk/"
+      },
+      {
+        "displayType": "number",
+        "key": "SOG",
+        "path": "environment.wind.speedOverGround",
+        "unit": "kn",
+        "decimals": 1,
+        "url": "http://localhost:3000/@signalk/freeboard-sk/"
+      }
+    ],
+    "displays": [
+      {
+        "name": "mobile",
+        "pages": [
+          {
+            "layout": "4_2+1",
+            "sources": [
+              {
+                "source": 0
+              },
+              {
+                "source": 2
+              },
+              {
+                "source": 1
+              },
+              {
+                "source": 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "enabled": true
+}

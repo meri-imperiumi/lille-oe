@@ -1,0 +1,248 @@
+{
+  "enabled": true,
+  "configuration": {
+    "position": "bottom",
+    "iframeMode": "keep-alive",
+    "iconSize": 56,
+    "magnification": true,
+    "magnificationScale": 1.7,
+    "showNightModeButton": false,
+    "showFullscreenButton": false,
+    "showExitButton": false,
+    "tourDismissed": true,
+    "apps": [
+      {
+        "enabled": true,
+        "autostart": true,
+        "url": "/@signalk/freeboard-sk/",
+        "label": "Freeboard-SK",
+        "icon": "/@signalk/freeboard-sk/assets/icons/icon-72x72.png",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/@mxtommy/kip/",
+        "label": "KIP",
+        "icon": "/@mxtommy/kip/assets/icon-72x72.png",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/admin/",
+        "label": "Settings",
+        "icon": "/@signalk/app-dock/icon-settings.svg",
+        "color": "#78788c"
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/@signalk/instrumentpanel/",
+        "label": "Instrumentpanel",
+        "icon": "/@signalk/instrumentpanel/./icons/instrumentpanel-72x72.png",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/@signalk/sailsconfiguration/",
+        "label": "@signalk/sailsconfiguration",
+        "icon": "",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/@signalk/signalk-autopilot/",
+        "label": "Signal K autopilot",
+        "icon": "/@signalk/signalk-autopilot/./appIcon-72x72.png",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/@halos-org/skip/",
+        "label": "Skip",
+        "icon": "/@halos-org/skip/assets/icon-72x72.png",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/@meri-imperiumi/signalk-corridor-tile-downloader/",
+        "label": "Corridor Tile Downloader",
+        "icon": "/@meri-imperiumi/signalk-corridor-tile-downloader/./icon.png",
+        "color": ""
+      },
+      {
+        "enabled": true,
+        "autostart": false,
+        "url": "/@meri-imperiumi/signalk-dead-reckoning/",
+        "label": "Dead Reckoning",
+        "icon": "/@meri-imperiumi/signalk-dead-reckoning/./icon.png",
+        "color": ""
+      },
+      {
+        "enabled": true,
+        "autostart": false,
+        "url": "/@meri-imperiumi/signalk-energy-predictor/",
+        "label": "Energy Predictor",
+        "icon": "/@meri-imperiumi/signalk-energy-predictor/./icon.png",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/@meri-imperiumi/signalk-infodisplay/",
+        "label": "Contextual Dashboard Loader",
+        "icon": "/@meri-imperiumi/signalk-infodisplay/./icon.png",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/@meri-imperiumi/signalk-internet/",
+        "label": "Internet Connectivity Monitor",
+        "icon": "/@meri-imperiumi/signalk-internet/./icon.png",
+        "color": ""
+      },
+      {
+        "enabled": true,
+        "autostart": false,
+        "url": "/@meri-imperiumi/signalk-offshore-blogging/",
+        "label": "Offshore Blogging",
+        "icon": "/@meri-imperiumi/signalk-offshore-blogging/./icon.png",
+        "color": ""
+      },
+      {
+        "enabled": true,
+        "autostart": false,
+        "url": "/@meri-imperiumi/signalk-status-tiles/",
+        "label": "Status Tiles",
+        "icon": "/@meri-imperiumi/signalk-status-tiles/./icon.png",
+        "color": ""
+      },
+      {
+        "enabled": true,
+        "autostart": false,
+        "url": "/hoekens-anchor-alarm/",
+        "label": "Hoeken's Anchor Alarm",
+        "icon": "/hoekens-anchor-alarm/anchoralarm.png",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/noflo-signalk/",
+        "label": "NoFlo Editor",
+        "icon": "/noflo-signalk/./noflo-72.png",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/signalk-charts-provider-simple/",
+        "label": "Charts Provider Simple",
+        "icon": "/signalk-charts-provider-simple/assets/charts_logo.png",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/signalk-grib-downloader/",
+        "label": "GRIB Downloader",
+        "icon": "/signalk-grib-downloader/./icon.svg",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/signalk-hour-meter/",
+        "label": "signalk-hour-meter",
+        "icon": "",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/signalk-instrument-display-plugin/",
+        "label": "Instrument display",
+        "icon": "/signalk-instrument-display-plugin/./signalk-logo.png",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/signalk-performance-monitor/",
+        "label": "Performance Monitor",
+        "icon": "/signalk-performance-monitor/icon.png",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/signalk-polar-performance-plugin/",
+        "label": "Polar Performance",
+        "icon": "/signalk-polar-performance-plugin/./icon.png",
+        "color": ""
+      },
+      {
+        "enabled": true,
+        "autostart": false,
+        "url": "/signalk-stowage-mgmt/",
+        "label": "Stowage Management",
+        "icon": "/signalk-stowage-mgmt/./assets/icons/icon-512.png",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/signalk-tides/",
+        "label": "Tides",
+        "icon": "/signalk-tides/icon.svg",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/signalk-to-influxdb/",
+        "label": "Signal K to InfluxDb 1.x",
+        "icon": "/signalk-to-influxdb/./doc/icon.png",
+        "color": ""
+      },
+      {
+        "enabled": true,
+        "autostart": false,
+        "url": "/signalk-watch-schedule/",
+        "label": "Watch Schedule",
+        "icon": "/signalk-watch-schedule/icon-512.png",
+        "color": ""
+      },
+      {
+        "enabled": true,
+        "autostart": false,
+        "url": "/signalk-weather-map/",
+        "label": "Weather Map",
+        "icon": "/signalk-weather-map/./icon.svg",
+        "color": ""
+      },
+      {
+        "enabled": false,
+        "autostart": false,
+        "url": "/@signalk/vesselpositions/",
+        "label": "@signalk/vesselpositions",
+        "icon": "",
+        "color": ""
+      },
+      {
+        "enabled": true,
+        "autostart": false,
+        "url": "/@meri-imperiumi/signalk-logbook/",
+        "label": "Logbook",
+        "icon": "/@meri-imperiumi/signalk-logbook/./logbook.png",
+        "color": ""
+      }
+    ]
+  }
+}

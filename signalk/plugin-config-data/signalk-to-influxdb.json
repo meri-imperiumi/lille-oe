@@ -1,0 +1,17 @@
+{
+  "configuration": {
+    "protocol": "http",
+    "host": "127.0.0.1",
+    "port": 8086,
+    "database": "lille-oe",
+    "batchWriteInterval": 10,
+    "resolution": 10000,
+    "recordTrack": true,
+    "separateLatLon": false,
+    "overrideTimeWithNow": false,
+    "storeOthers": false,
+    "blackOrWhite": "Black",
+    "blackOrWhitelist": []
+  },
+  "enabled": true
+}

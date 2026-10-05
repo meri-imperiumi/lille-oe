@@ -1,0 +1,10 @@
+{
+  "configuration": {
+    "enableBlogEncoding": true,
+    "blogSyncPath": "/home/pi/log-sync",
+    "defaultImageBudget": 5,
+    "reticulumIdentityPath": "",
+    "gribStoragePath": "/home/pi/.signalk/gribs"
+  },
+  "enabled": true
+}

@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "config": {
+    "defaultBasemap": "Satellite",
+    "defaultShape": "circle",
+    "fleetFilterRadius": 10000,
+    "enableTidePanel": true,
+    "enableWindPanel": true,
+    "enableScopePanel": true,
+    "enableBoatLabels": true,
+    "enableChartLayers": true,
+    "enableSeascape": false,
+    "scopes": "5,4"
+  }
+}

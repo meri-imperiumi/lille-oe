@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "config": {
+    "charts": {
+      "passage_cache-elevation": false,
+      "passage_cache-coverage": false,
+      "passage_cache-dem": false,
+      "passage_cache-bathy": false,
+      "passage_cache-base": false
+    }
+  }
+}

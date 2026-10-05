@@ -1,0 +1,28 @@
+{
+  "configuration": {
+    "updateIntervalMinutes": 15,
+    "saveIntervalMinutes": 15,
+    "learning": {
+      "emaAlpha": 0.05,
+      "minSamples": 3
+    },
+    "notification": {
+      "enabled": true,
+      "factor": 2,
+      "minCycles": 4
+    },
+    "tanks": [
+      {
+        "id": "freshWater",
+        "name": "Fresh water",
+        "levelPath": "tanks.freshWater.water.currentLevel",
+        "remainingPath": "tanks.freshWater.water.remaining",
+        "predictionBase": "tanks.freshWater.water.prediction",
+        "defaultPerCrewLitersPerDay": 3,
+        "defaultCrewCount": 2,
+        "capacity": 200
+      }
+    ]
+  },
+  "enabled": true
+}

@@ -1,0 +1,12 @@
+{
+  "configuration": {
+    "batchSize": 500,
+    "batchWriteInterval": 1,
+    "resolution": 10000,
+    "recordTrack": true,
+    "storeOthers": false,
+    "allowOrDeny": "Deny",
+    "allowOrDenylist": []
+  },
+  "enabled": false
+}

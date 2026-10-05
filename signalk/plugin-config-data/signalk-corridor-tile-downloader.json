@@ -1,0 +1,16 @@
+{
+  "configuration": {
+    "outputPath": "/home/pi/.signalk/charts-simple/passage_cache.mbtiles",
+    "strategicMarginNM": 50,
+    "tacticalMarginNM": 15,
+    "approachRadiusNM": 3,
+    "minZoom": 8,
+    "maxZoom": 14,
+    "throttleMs": 500,
+    "tileProvider": "Open Waters Seamap",
+    "tileServerUrl": "",
+    "userAgent": "SignalK-Corridor-Downloader/1.0",
+    "allowRecoveryOnMetered": true
+  },
+  "enabled": true
+}

@@ -1,0 +1,120 @@
+{
+  "configuration": {
+    "log_level": "warning",
+    "use_shared_instance": false,
+    "auto_interfaces": [],
+    "http_clients": [],
+    "http_servers": [],
+    "local_clients": [],
+    "rnode_serial_interfaces": [],
+    "tcp_clients": [
+      {
+        "name": "Lille Oe NAS",
+        "ifacSize": 0,
+        "gravity": 0,
+        "host": "192.168.2.138",
+        "port": 4242,
+        "i2pTunneled": false,
+        "framing": "hdlc",
+        "autoReconnect": true,
+        "reconnectWait": 5,
+        "connectTimeout": 5
+      }
+    ],
+    "tcp_servers": [],
+    "udp_interfaces": [],
+    "ws_clients": [],
+    "announce": {
+      "reannounce_interval_minutes": 30,
+      "connectivity_paths": [
+        "network.providers.starlink.status",
+        "networking.lte.registerNetworkDisplay"
+      ]
+    },
+    "identity": {
+      "publicKey": "88ea880bbc3c258937468cbf904b222ffa3ac01a4b2b558e1880ec17e3c7281af60b042505b9301fc1f50729709e4c60adf215c5767ab103db2853a5447e8c13",
+      "privateKey": "c8b49f0c109f085043e53c305ed678742b899bc80697afb7c0811ed4862ed17988ea880bbc3c258937468cbf904b222ffa3ac01a4b2b558e1880ec17e3c7281a0eb9622ccf41a4da738ccf5ca0b6751dede0d4bf8724b8b4c98e560e3ee5ac01f60b042505b9301fc1f50729709e4c60adf215c5767ab103db2853a5447e8c13"
+    },
+    "messaging": {
+      "send_alerts": true,
+      "digital_switching": true,
+      "display_name": ""
+    },
+    "crew": [
+      {
+        "name": "Bergie Columba",
+        "identity": "f9477df559d5231760c8f2202c30a3c1",
+        "destination": "ac880aeabfa2f2e70dc57a44aaf9f370"
+      }
+    ],
+    "propagation": {
+      "enabled": true,
+      "node": "",
+      "sync_interval_minutes": 5
+    },
+    "nomadnet": {
+      "enabled": true,
+      "display_name": "",
+      "banner": "`Ffff`B00a Sailing Vessel `!Lille Ø`!`b`f",
+      "footer": "-∿\nSee our sailing logs in `_`[lille-oe.de`https://lille-oe.de]``"
+    },
+    "telemetry": {
+      "enabled": true,
+      "interval_seconds": 300,
+      "populate_crew_telemetry": true
+    },
+    "rfed": {
+      "enabled": true,
+      "node": "",
+      "channel": "public.signalk.vessels",
+      "transmit_telemetry": true,
+      "receive_telemetry": true,
+      "interval_seconds": 300
+    },
+    "appearance": {
+      "icon": "",
+      "fg_color": "#e8e8e4",
+      "bg_color": "#003247"
+    },
+    "embedded_nodes": {
+      "propagation": {
+        "enabled": true,
+        "name": "",
+        "stamp_cost": 8,
+        "peering_cost": 18,
+        "autopeer": false,
+        "autopeer_max_cost": 18,
+        "storage_limit_mb": 500,
+        "peers": []
+      },
+      "rfed": {
+        "enabled": true,
+        "name": "rfed",
+        "stamp_cost": 16,
+        "stamp_flexibility": 3,
+        "storage_limit_mb": 500,
+        "blob_ttl_days": 30,
+        "deferred_ttl_days": 7,
+        "maintenance_interval_seconds": 3600,
+        "backup_interval_seconds": 30,
+        "sync_peers": [],
+        "from_static_only": false
+      }
+    },
+    "interfaces": [
+      {
+        "type": "auto",
+        "ifacSize": 0,
+        "groupId": "reticulum",
+        "discoveryScope": "link",
+        "discoveryPort": 29716,
+        "dataPort": 42671,
+        "multicastAddressType": "temporary",
+        "devices": [],
+        "ignoredDevices": []
+      }
+    ]
+  },
+  "enabled": true,
+  "enableLogging": true
+}

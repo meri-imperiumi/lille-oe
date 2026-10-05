@@ -1,0 +1,16 @@
+{
+  "configuration": {
+    "uuid": "710bfdc8-7fe0-4623",
+    "depthKey": "environment.depth.belowSurface",
+    "waterTemperatureKey": "environment.water.temperature",
+    "windSpeedKey": "environment.wind.speedOverGround",
+    "windDirectionKey": "environment.wind.directionGround",
+    "pressureKey": "environment.outside.pressure",
+    "insideTemperatureKey": "environment.inside.temperature",
+    "outsideTemperatureKey": "environment.outside.temperature",
+    "insideHumidityKey": "environment.inside.humidity",
+    "outsideHumidityKey": "environment.outside.humidity",
+    "battery": "house"
+  },
+  "enabled": true
+}

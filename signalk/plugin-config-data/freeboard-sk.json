@@ -1,0 +1,18 @@
+{
+  "configuration": {
+    "alarms": {
+      "enable": true
+    },
+    "weather": {
+      "enable": false,
+      "apiKey": "",
+      "service": "openweather"
+    },
+    "pypilot": {
+      "enable": false,
+      "host": "localhost",
+      "port": 8000
+    }
+  },
+  "enabled": true
+}

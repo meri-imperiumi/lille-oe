@@ -1,0 +1,10 @@
+{
+  "configuration": {
+    "ipaddress": "144.76.105.244",
+    "port": 2860,
+    "event": "nmea0183,nmea0183out",
+    "aivdo": true,
+    "aivdm": true
+  },
+  "enabled": false
+}

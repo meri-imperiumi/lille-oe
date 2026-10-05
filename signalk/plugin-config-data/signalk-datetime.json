@@ -1,0 +1,8 @@
+{
+  "configuration": {
+    "path": "navigation.datetime",
+    "format": "+%Y-%m-%dT%H:%M:%SZ",
+    "rate": 1
+  },
+  "enabled": false
+}

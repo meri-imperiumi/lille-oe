@@ -1,0 +1,10 @@
+{
+  "configuration": {
+    "maxEvents": 1000,
+    "logbookEnabled": true,
+    "logbookRoutine": true,
+    "logbookUrl": "http://localhost:3000/plugins/signalk-logbook/logs",
+    "logbookToken": ""
+  },
+  "enabled": true
+}

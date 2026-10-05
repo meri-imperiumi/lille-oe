@@ -1,0 +1,30 @@
+{
+  "configuration": {
+    "chartPaths": [],
+    "onlineChartProviders": [
+      {
+        "name": "OSM",
+        "minzoom": 1,
+        "maxzoom": 15,
+        "serverType": "tilelayer",
+        "format": "png",
+        "url": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        "proxy": false,
+        "headers": [],
+        "layers": []
+      },
+      {
+        "name": "ARCGIS Satellite",
+        "minzoom": 1,
+        "maxzoom": 15,
+        "serverType": "tilelayer",
+        "format": "png",
+        "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        "proxy": false,
+        "headers": [],
+        "layers": []
+      }
+    ]
+  },
+  "enabled": false
+}

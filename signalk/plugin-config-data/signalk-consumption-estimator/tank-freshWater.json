@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "id": "freshWater",
+  "pathCapacity": 200,
+  "capacityEstimate": 202.49756780191538,
+  "capacitySamples": 2767,
+  "lastSeen": {
+    "remaining": 42.819,
+    "level": 0.21,
+    "time": 1790208137704
+  },
+  "anchor": {
+    "liters": 46.235,
+    "time": 1790110318277,
+    "source": "remaining"
+  },
+  "pending": null,
+  "shortRate": 0.009046406350591745,
+  "learner": {
+    "version": 1,
+    "emaAlpha": 0.05,
+    "minSamples": 3,
+    "bins": {
+      "2": {
+        "rate": 9.402084616792028,
+        "samples": 15.42730418981482,
+        "lastUpdate": 1790110318277
+      }
+    }
+  }
+}

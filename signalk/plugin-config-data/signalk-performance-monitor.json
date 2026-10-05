@@ -1,0 +1,16 @@
+{
+  "configuration": {
+    "publishIntervalSeconds": 5,
+    "publishDeltas": true,
+    "defaultProfileDurationSeconds": 30,
+    "maxProfileDurationSeconds": 120,
+    "samplingIntervalUs": 1000,
+    "samplingIntervalBytes": 32768,
+    "filesSampleIntervalSeconds": 0.1,
+    "maxStoredProfiles": 5,
+    "httpRequestsEnabled": true,
+    "httpLatestRequestsLimit": 200,
+    "httpAggregateRequestsLimit": 1000
+  },
+  "enabled": true
+}

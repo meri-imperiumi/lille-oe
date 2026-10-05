@@ -1,0 +1,10 @@
+{
+  "configuration": {
+    "rootDirectory": "/home/pi/.signalk/gribs",
+    "scanIntervalMinutes": 5,
+    "maxConcurrentIngests": 2
+  },
+  "enabled": true,
+  "enableLogging": true,
+  "enableDebug": true
+}

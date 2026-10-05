@@ -1,0 +1,7 @@
+{
+  "configuration": {
+    "checkIntervalMinutes": 60,
+    "gribsRoot": "/home/pi/.signalk/gribs"
+  },
+  "enabled": true
+}

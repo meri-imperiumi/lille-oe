@@ -1,0 +1,18 @@
+{
+  "configuration": {
+    "activePolar": "0aec92e6-453c-4eca-a426-f972f460fb69",
+    "entered": [],
+    "updateTables": false,
+    "engine": "propulsion.*.state",
+    "additional_info": "main",
+    "sqliteFile": "polarDatabase.db",
+    "angleResolution": 1,
+    "twsInterval": 4,
+    "maxWind": 15,
+    "rateOfTurnLimit": 5,
+    "polarName": "jibAndParasailor",
+    "polarDescription": "Dynamic polar diagram from actual sailing",
+    "mainPolarUuid": "f7fe1f11-9692-4eb6-bbfc-1e2f786df89e"
+  },
+  "enabled": true
+}

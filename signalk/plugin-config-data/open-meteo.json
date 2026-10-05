@@ -1,0 +1,10 @@
+{
+  "configuration": {
+    "weather": {
+      "apiKey": ""
+    }
+  },
+  "enabled": false,
+  "enableLogging": true,
+  "enableDebug": true
+}

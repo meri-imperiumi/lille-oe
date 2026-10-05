@@ -1,0 +1,961 @@
+{
+  "configuration": {
+    "staleMs": 60000,
+    "contexts": [
+      {
+        "id": "moored",
+        "label": "Moored",
+        "predicate": {
+          "path": "navigation.state",
+          "compare": "equals",
+          "value": "moored",
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        }
+      },
+      {
+        "id": "anchored",
+        "label": "Anchored",
+        "predicate": {
+          "path": "navigation.state",
+          "compare": "equals",
+          "value": "anchored",
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        }
+      },
+      {
+        "id": "sailing",
+        "label": "Sailing",
+        "predicate": {
+          "path": "navigation.state",
+          "compare": "equals",
+          "value": "sailing",
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        }
+      },
+      {
+        "id": "motoring",
+        "label": "Motoring",
+        "predicate": {
+          "path": "navigation.state",
+          "compare": "equals",
+          "value": "motoring",
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        }
+      },
+      {
+        "id": "at-rest",
+        "label": "At rest",
+        "predicate": {
+          "path": "navigation.state",
+          "compare": "equals",
+          "value": "moored",
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [
+            {
+              "path": "navigation.state",
+              "compare": "equals",
+              "value": "anchored",
+              "whenMissing": "false"
+            }
+          ],
+          "not": {
+            "whenMissing": "false"
+          }
+        }
+      },
+      {
+        "id": "underway",
+        "label": "Underway",
+        "predicate": {
+          "path": "navigation.state",
+          "compare": "equals",
+          "value": "sailing",
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [
+            {
+              "path": "navigation.state",
+              "compare": "equals",
+              "value": "motoring",
+              "whenMissing": "false"
+            }
+          ],
+          "not": {
+            "whenMissing": "false"
+          }
+        }
+      }
+    ],
+    "tiles": [
+      {
+        "id": "energy",
+        "label": "Energy",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "stateMatch",
+            "path": "electrical.energy.prediction.status",
+            "map": [
+              {
+                "value": "surplus",
+                "state": "opportunity"
+              },
+              {
+                "value": "deficit",
+                "state": "amber"
+              },
+              {
+                "value": "critical",
+                "state": "red"
+              },
+              {
+                "value": "rising",
+                "state": "green"
+              },
+              {
+                "value": "stable",
+                "state": "green"
+              }
+            ],
+            "default": "neutral",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [
+          {
+            "path": "electrical.batteries.house.capacity.stateOfCharge"
+          }
+        ],
+        "footer": [
+          {
+            "label": "Valid",
+            "path": "electrical.energy.prediction.weather.validHours"
+          },
+          {
+            "label": "Source",
+            "path": "electrical.energy.prediction.weather.source"
+          }
+        ]
+      },
+      {
+        "id": "flinsail",
+        "label": "FLINsail",
+        "context": "at-rest",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "agreement",
+            "path": "electrical.energy.prediction.deployment.flinsail.detectedState",
+            "path2": "electrical.energy.prediction.deployment.flinsail.recommendedState",
+            "mismatchState": "amber",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [
+          {
+            "path": "electrical.energy.prediction.deployment.flinsail.recommendedSide"
+          }
+        ],
+        "footer": [
+          {
+            "label": "Mode",
+            "path": "electrical.solar.flinsail.controllerMode"
+          },
+          {
+            "label": "Power",
+            "path": "electrical.solar.flinsail.panelPower"
+          }
+        ]
+      },
+      {
+        "id": "superwind",
+        "label": "Superwind",
+        "context": "anchored",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "agreement",
+            "path": "electrical.energy.prediction.deployment.superwind.recommendedState",
+            "path2": "electrical.energy.prediction.deployment.superwind.detectedState",
+            "mismatchState": "amber",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "Power",
+            "path": "electrical.chargers.wind.power"
+          }
+        ]
+      },
+      {
+        "id": "hydrogenerator",
+        "label": "Hydrogenerator",
+        "context": "sailing",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "agreement",
+            "path": "electrical.energy.prediction.deployment.sailinggen.recommendedState",
+            "path2": "electrical.energy.prediction.deployment.superwind.detectedState",
+            "mismatchState": "amber",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "Power",
+            "path": "electrical.chargers.hydrogenerator.power"
+          }
+        ]
+      },
+      {
+        "id": "solar",
+        "label": "Solar",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "banded",
+            "path": "electrical.venus.totalPanelPower",
+            "low": {
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "high": {
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "unit": "",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "24h est",
+            "path": "electrical.energy.prediction.forecast.solar"
+          },
+          {
+            "label": "Mode",
+            "path": "electrical.solar.aftarch.controllerMode"
+          }
+        ]
+      },
+      {
+        "id": "dcpower",
+        "label": "DC power",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "banded",
+            "path": "electrical.venus.dcPower",
+            "low": {
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "high": {
+              "warn": 150,
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "unit": "",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "24h est",
+            "path": "electrical.energy.prediction.forecast.consumption"
+          }
+        ]
+      },
+      {
+        "id": "acpower",
+        "label": "AC power",
+        "active": {
+          "path": "electrical.inverters.294.mode",
+          "compare": "equals",
+          "value": "on",
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "banded",
+            "path": "electrical.venus.acPower",
+            "low": {
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "high": {
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "unit": "",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          },
+          {
+            "type": "compound",
+            "state": "amber",
+            "predicate": {
+              "path": "electrical.venus.acPower",
+              "compare": "lte",
+              "value": "0",
+              "whenMissing": "false",
+              "allOf": [
+                {
+                  "path": "electrical.inverters.294.mode",
+                  "compare": "equals",
+                  "value": "on",
+                  "whenMissing": "false"
+                }
+              ],
+              "anyOf": [],
+              "not": {
+                "whenMissing": "false",
+                "between": {}
+              },
+              "between": {}
+            },
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "Inverter",
+            "path": "electrical.inverters.294.mode"
+          }
+        ]
+      },
+      {
+        "id": "shore-power",
+        "label": "Shore power",
+        "context": "moored",
+        "active": {
+          "path": "electrical.chargers.multiplus.chargingMode",
+          "compare": "notEquals",
+          "value": "off",
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "banded",
+            "path": "electrical.inverters.multiplus.acin.power",
+            "low": {
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "high": {
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "unit": "",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "Freq",
+            "path": "electrical.inverters.multiplus.acin.frequency"
+          },
+          {
+            "label": "Mode",
+            "path": "electrical.chargers.multiplus.chargingMode"
+          }
+        ]
+      },
+      {
+        "id": "freshwater",
+        "label": "Fresh water",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "zone",
+            "path": "tanks.freshWater.water.currentLevel",
+            "severityMap": {
+              "nominal": "green",
+              "alert": "green",
+              "warn": "amber",
+              "alarm": "red",
+              "emergency": "red"
+            },
+            "zones": [],
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "Remaining",
+            "path": "tanks.freshWater.water.remaining"
+          },
+          {
+            "label": "Consumption",
+            "path": "tanks.freshWater.water.prediction.consumption24h"
+          }
+        ]
+      },
+      {
+        "id": "anchor",
+        "label": "Anchor",
+        "context": "anchored",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "differential",
+            "path": "navigation.anchor.currentRadius",
+            "path2": "navigation.anchor.maxRadius",
+            "warn": 20,
+            "crit": 30,
+            "direction": "above",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "Bearing",
+            "path": "navigation.anchor.apparentBearing"
+          }
+        ]
+      },
+      {
+        "id": "wind",
+        "label": "Wind forecast",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "banded",
+            "path": "electrical.energy.prediction.windProtection.correctedSpeed",
+            "low": {
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "high": {
+              "warn": 10,
+              "crit": 20,
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "unit": "",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "Current",
+            "path": "environment.wind.speedOverGround"
+          },
+          {
+            "label": "Gusts",
+            "path": "electrical.energy.prediction.windProtection.correctedGust"
+          },
+          {
+            "label": "WPF",
+            "path": "electrical.energy.prediction.windProtection.speedFactor"
+          }
+        ]
+      },
+      {
+        "id": "bilge",
+        "label": "Bilge",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "boolean",
+            "path": "electrical.venus-input.1.inputState",
+            "badWhen": false,
+            "okLabel": "OK",
+            "notOkLabel": "NOT OK",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": []
+      },
+      {
+        "id": "fridge",
+        "label": "Fridge",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "zone",
+            "path": "environment.inside.refrigerator.temperature",
+            "severityMap": {
+              "nominal": "green",
+              "alert": "green",
+              "warn": "amber",
+              "alarm": "red",
+              "emergency": "red"
+            },
+            "zones": [],
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "Humidity",
+            "path": "environment.inside.refrigerator.humidity"
+          }
+        ]
+      },
+      {
+        "id": "temperature",
+        "label": "Outside",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "banded",
+            "path": "environment.outside.temperature",
+            "low": {
+              "warn": 241.15,
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "high": {
+              "warn": 347.15,
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "unit": "",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "Humidity",
+            "path": "environment.outside.relativeHumidity"
+          },
+          {
+            "label": "Water",
+            "path": "environment.water.temperature"
+          }
+        ]
+      },
+      {
+        "id": "navigation",
+        "label": "Position",
+        "context": "underway",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "notification",
+            "path": "notifications.navigation.deadReckoning.status",
+            "severityMap": {
+              "normal": "green",
+              "alert": "red",
+              "warn": "amber",
+              "alarm": "red",
+              "emergency": "red"
+            },
+            "staleState": "neutral",
+            "staleMs": 0
+          },
+          {
+            "type": "notification",
+            "path": "notifications.navigation.deadReckoning.divergenceAdvisory",
+            "severityMap": {
+              "normal": "green",
+              "alert": "amber",
+              "warn": "amber",
+              "alarm": "red",
+              "emergency": "red"
+            },
+            "staleState": "neutral",
+            "staleMs": 0
+          },
+          {
+            "type": "stateMatch",
+            "path": "navigation.deadReckoning.active",
+            "map": [
+              {
+                "value": "true",
+                "state": "amber"
+              }
+            ],
+            "default": "green",
+            "display": false,
+            "reason": "DR override — GPS untrusted",
+            "staleState": "neutral",
+            "staleMs": 0
+          },
+          {
+            "type": "banded",
+            "path": "navigation.deadReckoning.uncertainty.radius",
+            "low": {
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "high": {
+              "warn": 1852,
+              "crit": 5556,
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "unit": "",
+            "display": false,
+            "reason": "DR uncertainty above band",
+            "staleState": "neutral",
+            "staleMs": 70000
+          },
+          {
+            "type": "banded",
+            "path": "navigation.deadReckoning.elapsedSinceFix",
+            "low": {
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "high": {
+              "warn": 10800,
+              "crit": 21600,
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "unit": "",
+            "display": true,
+            "reason": "fix overdue — confirm position",
+            "staleState": "amber",
+            "staleMs": 70000
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "Unc",
+            "path": "navigation.deadReckoning.uncertainty.radius"
+          },
+          {
+            "label": "DR–GPS",
+            "path": "navigation.deadReckoning.divergence.distance"
+          },
+          {
+            "label": "Method",
+            "path": "navigation.deadReckoning.method"
+          }
+        ]
+      },
+      {
+        "id": "depth",
+        "label": "depth",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "banded",
+            "path": "environment.depth.belowSurface",
+            "low": {
+              "warn": 2,
+              "crit": 1.7,
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "high": {
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "unit": "",
+            "display": true,
+            "reason": "Calculated",
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "Below keel",
+            "path": "environment.depth.belowKeel"
+          },
+          {
+            "label": "Tide",
+            "path": "environment.tide.state"
+          }
+        ]
+      },
+      {
+        "id": "trip",
+        "label": "Trip log",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "banded",
+            "path": "navigation.trip.log",
+            "low": {
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "high": {
+              "warnState": "amber",
+              "critState": "red"
+            },
+            "unit": "",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": []
+      },
+      {
+        "id": "internet",
+        "label": "Internet",
+        "active": {
+          "whenMissing": "false",
+          "allOf": [],
+          "anyOf": [],
+          "not": {
+            "whenMissing": "false"
+          }
+        },
+        "size": "1x1",
+        "checks": [
+          {
+            "type": "stateMatch",
+            "path": "network.internet.state",
+            "map": [
+              {
+                "value": "offline",
+                "state": "neutral"
+              },
+              {
+                "value": "online",
+                "state": "green"
+              },
+              {
+                "value": "metered",
+                "state": "amber"
+              },
+              {
+                "value": "captive",
+                "state": "red"
+              }
+            ],
+            "default": "neutral",
+            "display": true,
+            "staleState": "neutral",
+            "staleMs": 0
+          }
+        ],
+        "displayParts": [],
+        "footer": [
+          {
+            "label": "Ping",
+            "path": "network.internet.ping"
+          },
+          {
+            "label": "Starlink",
+            "path": "network.providers.starlink.status"
+          },
+          {
+            "label": "LTE",
+            "path": "networking.lte.connectionText"
+          }
+        ]
+      }
+    ],
+    "coverage": {
+      "candidates": [],
+      "slots": 1,
+      "surfaceMs": 10000,
+      "clearMs": 30000,
+      "staleMs": 0,
+      "severityMap": {
+        "nominal": "green",
+        "alert": "green",
+        "warn": "amber",
+        "alarm": "red",
+        "emergency": "red"
+      }
+    }
+  },
+  "enabled": true
+}

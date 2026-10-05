@@ -1,0 +1,141 @@
+{
+  "categories": {
+    "speed": {
+      "targetUnit": "kn",
+      "displayFormat": "0.0"
+    },
+    "temperature": {
+      "targetUnit": "F",
+      "displayFormat": "0.0"
+    },
+    "pressure": {
+      "targetUnit": "psi",
+      "displayFormat": "0.0"
+    },
+    "distance": {
+      "targetUnit": "naut-mile",
+      "displayFormat": "0.0"
+    },
+    "depth": {
+      "targetUnit": "foot",
+      "displayFormat": "0.0"
+    },
+    "angle": {
+      "targetUnit": "degree",
+      "displayFormat": "0.0"
+    },
+    "percentage": {
+      "targetUnit": "percent",
+      "displayFormat": "0"
+    },
+    "dateTime": {
+      "targetUnit": "time-am/pm-local",
+      "displayFormat": "time-am/pm"
+    },
+    "epoch": {
+      "targetUnit": "time-am/pm-local",
+      "displayFormat": "time-am/pm"
+    },
+    "volume": {
+      "targetUnit": "gallon",
+      "displayFormat": "0.0"
+    },
+    "length": {
+      "targetUnit": "foot",
+      "displayFormat": "0.0"
+    },
+    "angularVelocity": {
+      "targetUnit": "deg/s",
+      "displayFormat": "0.0"
+    },
+    "voltage": {
+      "targetUnit": "V",
+      "displayFormat": "0.00"
+    },
+    "current": {
+      "targetUnit": "A",
+      "displayFormat": "0.00"
+    },
+    "power": {
+      "targetUnit": "W",
+      "displayFormat": "0.00"
+    },
+    "frequency": {
+      "targetUnit": "rpm",
+      "displayFormat": "0.0"
+    },
+    "time": {
+      "targetUnit": "second",
+      "displayFormat": "0.0"
+    },
+    "charge": {
+      "targetUnit": "Ah",
+      "displayFormat": "0.0"
+    },
+    "volumeRate": {
+      "targetUnit": "gal/h",
+      "displayFormat": "0.0"
+    },
+    "unitless": {
+      "targetUnit": "tr",
+      "displayFormat": "0.0"
+    },
+    "energy": {
+      "targetUnit": "btu",
+      "displayFormat": "0.00"
+    },
+    "mass": {
+      "targetUnit": "pound",
+      "displayFormat": "0.0"
+    },
+    "area": {
+      "targetUnit": "sqft",
+      "displayFormat": "0.0"
+    },
+    "angleDegrees": {
+      "targetUnit": "deg",
+      "displayFormat": "0.0"
+    },
+    "boolean": {
+      "targetUnit": "bool",
+      "displayFormat": "boolean"
+    }
+  },
+  "pathOverrides": {},
+  "pathPatterns": [
+    {
+      "pattern": "*.temperature",
+      "category": "temperature",
+      "targetUnit": "°C",
+      "displayFormat": "0",
+      "priority": 100
+    },
+    {
+      "pattern": "*.pressure",
+      "category": "pressure",
+      "targetUnit": "hPa",
+      "displayFormat": "0",
+      "priority": 100
+    },
+    {
+      "pattern": "*.speed*",
+      "category": "speed",
+      "targetUnit": "kn",
+      "displayFormat": "0.0",
+      "priority": 90
+    },
+    {
+      "pattern": "**.timeEpoch",
+      "category": "epoch",
+      "targetUnit": "time-am/pm-local",
+      "priority": 100,
+      "baseUnit": "Epoch Seconds"
+    }
+  ],
+  "currentPreset": {
+    "type": "imperial-us",
+    "name": "Imperial (US)",
+    "version": "1.0.0",
+    "appliedDate": "2025-12-08T16:17:09.956Z"
+  }
+}

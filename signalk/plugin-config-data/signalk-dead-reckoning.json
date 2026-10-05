@@ -1,0 +1,20 @@
+{
+  "configuration": {
+    "tickIntervalMs": 1000,
+    "saveIntervalMs": 60000,
+    "groundTrackHours": 36,
+    "positionFormat": "dms",
+    "logbook.enabled": false,
+    "logbook.url": "http://192.168.2.105/plugins/signalk-logbook/logs",
+    "logbook.token": "",
+    "logbook.retryBackoffMs": 30000,
+    "weatherCurrent.enabled": true,
+    "weatherCurrent.intervalMs": 1800000,
+    "polar.enabled": true,
+    "polar.windowS": 60,
+    "polar.staleS": 30,
+    "shadowVessel.enabled": true,
+    "shadowVessel.name": "Shadow Lille Ø"
+  },
+  "enabled": true
+}

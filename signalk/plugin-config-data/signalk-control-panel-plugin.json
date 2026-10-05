@@ -1,0 +1,67 @@
+{
+  "configuration": {
+    "buttons": [
+      {
+        "mode": "switch",
+        "label": "Deck light",
+        "path": "electrical.switches.deckLight.state",
+        "slider": false
+      },
+      {
+        "mode": "switch",
+        "label": "Cockpit light",
+        "path": "electrical.switches.cockpitLight.state",
+        "slider": false
+      },
+      {
+        "mode": "switch",
+        "label": "Anchor light",
+        "path": "electrical.switches.anchorLight.state",
+        "slider": false
+      },
+      {
+        "mode": "switch",
+        "label": "Bow nav light",
+        "path": "electrical.switches.navLight.state",
+        "slider": false
+      },
+      {
+        "mode": "switch",
+        "label": "Dodger nav light",
+        "path": "electrical.switches.dodgerNavLight.state",
+        "slider": false
+      },
+      {
+        "mode": "switch",
+        "label": "Aft nav light",
+        "path": "electrical.switches.aftNavLight.state",
+        "slider": false
+      },
+      {
+        "mode": "switch",
+        "label": "NAS",
+        "path": "electrical.switches.nas.state",
+        "slider": false
+      },
+      {
+        "mode": "switch",
+        "label": "Info display",
+        "path": "electrical.switches.infoDisplay.state",
+        "slider": false
+      },
+      {
+        "mode": "switch",
+        "label": "Starlink",
+        "path": "electrical.switches.starlink.state",
+        "slider": false
+      },
+      {
+        "mode": "switch",
+        "label": "Bilge pump",
+        "path": "electrical.switches.gx.gxInternalRelay1.state",
+        "slider": false
+      }
+    ]
+  },
+  "enabled": true
+}
