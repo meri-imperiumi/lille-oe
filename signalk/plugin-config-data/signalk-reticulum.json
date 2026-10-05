@@ -3,6 +3,8 @@
     "log_level": "warning",
     "use_shared_instance": false,
     "auto_interfaces": [],
+    "backbone_interfaces": [],
+    "backbone_clients": [],
     "http_clients": [],
     "http_servers": [],
     "local_clients": [],
@@ -80,12 +82,15 @@
       "propagation": {
         "enabled": true,
         "name": "",
-        "stamp_cost": 8,
+        "stamp_cost": 16,
         "peering_cost": 18,
-        "autopeer": false,
+        "autopeer": true,
         "autopeer_max_cost": 18,
         "storage_limit_mb": 500,
-        "peers": []
+        "message_ttl_days": 30,
+        "peers": [
+          "4cce8a55cc0f232fb0946b392a73fa92"
+        ]
       },
       "rfed": {
         "enabled": true,
@@ -116,5 +121,5 @@
     ]
   },
   "enabled": true,
-  "enableLogging": true
+  "enableLogging": false
 }

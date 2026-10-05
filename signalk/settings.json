@@ -121,7 +121,8 @@
       "tides": "tides",
       "statusTileExamples": "signalk-internet",
       "polars": "signalk-polar-management",
-      "plotterExtensions": "signalk-dead-reckoning"
+      "plotterExtensions": "signalk-dead-reckoning",
+      "logentries": "signalk-logbook"
     }
   },
   "courseApi": {

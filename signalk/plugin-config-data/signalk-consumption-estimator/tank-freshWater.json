@@ -2,29 +2,29 @@
   "version": 1,
   "id": "freshWater",
   "pathCapacity": 200,
-  "capacityEstimate": 202.49756780191538,
-  "capacitySamples": 2767,
+  "capacityEstimate": 204.4322360854336,
+  "capacitySamples": 3841,
   "lastSeen": {
-    "remaining": 42.819,
-    "level": 0.21,
-    "time": 1790208137704
+    "remaining": 55.054,
+    "level": 0.27,
+    "time": 1791168713916
   },
   "anchor": {
-    "liters": 46.235,
-    "time": 1790110318277,
+    "liters": 60.874,
+    "time": 1791061595577,
     "source": "remaining"
   },
   "pending": null,
-  "shortRate": 0.009046406350591745,
+  "shortRate": 0.0005247296808706301,
   "learner": {
     "version": 1,
     "emaAlpha": 0.05,
     "minSamples": 3,
     "bins": {
       "2": {
-        "rate": 9.402084616792028,
-        "samples": 15.42730418981482,
-        "lastUpdate": 1790110318277
+        "rate": 8.540679121966777,
+        "samples": 19.842771678240744,
+        "lastUpdate": 1791061595577
       }
     }
   }

@@ -65,6 +65,9 @@ signalk/package.json.bak
 signalk/plugin-config-data/signalk-aiscast/
 signalk/plugin-config-data/signalk-reticulum/
 signalk/plugin-config-data/signalk-grib-weather-provider/cache/
+signalk/plugin-config-data/signalk-passage-briefing/
+signalk/plugin-config-data/signalk-weather-router-plus/
+signalk/plugin-config-data/resources-provider/resources/routes/
 signalk/plugin-config-data/signalk-corridor-tile-downloader/
 signalk/plugin-config-data/signalk-charts-provider-simple/
 signalk/plugin-config-data/signalk-noaa-space-weather/aurora-grid.json
@@ -83,6 +86,7 @@ signalk/**/*.db-wal
 signalk/**/*.db-shm
 signalk/plugin-config-data/*.backup-*
 signalk/plugin-config-data/signalk-triplogger?/
+signalk/plugin-config-data/signalk-triplogger/1980*
 
 # Retired plugins
 signalk/applicationData/global/kip/

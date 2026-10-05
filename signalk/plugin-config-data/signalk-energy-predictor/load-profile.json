@@ -1,19 +1,19 @@
 {
   "bins": {
     "at-rest:day": {
-      "dcEma": 80.53450006535542,
-      "acEma": 1.57475925052545e-11
+      "dcEma": 128.26031318818616,
+      "acEma": 0.000001025174246073002
     },
     "at-rest:dusk": {
-      "dcEma": 95.03782164032144,
+      "dcEma": 127.85577479113282,
       "acEma": 0
     },
     "at-rest:night": {
-      "dcEma": 79.70937323944912,
+      "dcEma": 100.82230266060162,
       "acEma": 0
     },
     "at-rest:dawn": {
-      "dcEma": 76.84519844170744,
+      "dcEma": 79.62425261354565,
       "acEma": 0
     },
     "underway:day": {
@@ -163,6 +163,50 @@
     "at-rest:dusk:2026-09-23",
     "at-rest:night:2026-09-23",
     "at-rest:dawn:2026-09-23",
-    "at-rest:day:2026-09-24"
+    "at-rest:day:2026-09-24",
+    "at-rest:dusk:2026-09-24",
+    "at-rest:night:2026-09-24",
+    "at-rest:dawn:2026-09-24",
+    "at-rest:day:2026-09-25",
+    "at-rest:dusk:2026-09-25",
+    "at-rest:night:2026-09-25",
+    "at-rest:dawn:2026-09-25",
+    "at-rest:day:2026-09-26",
+    "at-rest:dusk:2026-09-26",
+    "at-rest:night:2026-09-26",
+    "at-rest:dawn:2026-09-26",
+    "at-rest:day:2026-09-27",
+    "at-rest:dusk:2026-09-27",
+    "at-rest:night:2026-09-27",
+    "at-rest:dawn:2026-09-27",
+    "at-rest:day:2026-09-28",
+    "at-rest:dusk:2026-09-28",
+    "at-rest:night:2026-09-28",
+    "at-rest:dawn:2026-09-28",
+    "at-rest:day:2026-09-29",
+    "at-rest:dusk:2026-09-29",
+    "at-rest:night:2026-09-29",
+    "at-rest:dawn:2026-09-29",
+    "at-rest:day:2026-09-30",
+    "at-rest:dusk:2026-09-30",
+    "at-rest:night:2026-09-30",
+    "at-rest:dawn:2026-09-30",
+    "at-rest:day:2026-10-01",
+    "at-rest:dusk:2026-10-01",
+    "at-rest:night:2026-10-01",
+    "at-rest:dawn:2026-10-01",
+    "at-rest:day:2026-10-02",
+    "at-rest:dusk:2026-10-02",
+    "at-rest:night:2026-10-02",
+    "at-rest:dawn:2026-10-02",
+    "at-rest:day:2026-10-03",
+    "at-rest:dusk:2026-10-03",
+    "at-rest:night:2026-10-03",
+    "at-rest:dawn:2026-10-03",
+    "at-rest:day:2026-10-04",
+    "at-rest:dusk:2026-10-04",
+    "at-rest:night:2026-10-04",
+    "at-rest:dawn:2026-10-04",
+    "at-rest:day:2026-10-05"
   ]
 }

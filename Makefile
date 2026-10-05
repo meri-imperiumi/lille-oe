@@ -18,7 +18,7 @@ development: roles/marinepi-provisioning
 	ansible-playbook -i hosts -l development playbooks/development.yml
 
 backup:
-	rsync -avzuh --exclude 'node_modules' --exclude 'charts' --exclude 'charts-simple' --exclude 'gribs' --exclude 'plugin-config-data/signalk-aiscast/queue' --exclude 'plugin-config-data/signalk-reticulum/rfed/blobs' -e ssh "pi@192.168.2.105:/home/pi/.signalk/*" signalk
+	rsync -avzuh --exclude 'node_modules' --exclude 'charts' --exclude 'charts-simple' --exclude 'gribs' --exclude 'plugin-config-data/signalk-aiscast/queue' --exclude 'plugin-config-data/signalk-reticulum/rfed/blobs' --exclude 'plugin-config-data/signalk-weather-router-plus' -e ssh "pi@192.168.2.105:/home/pi/.signalk/*" signalk
 	./signalk-plugin-secrets.sh encrypt
 #	scp "pi@192.168.2.105:/var/lib/grafana/grafana.db" .
 

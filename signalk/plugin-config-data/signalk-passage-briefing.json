@@ -1,0 +1,24 @@
+{
+  "configuration": {
+    "motoring_tws_threshold": 1.5,
+    "drift_mode_enabled": true,
+    "waterline_length_m": 8,
+    "spool_directory": "/home/pi/.signalk/spool/passage-outlook",
+    "k_heel": 0.35,
+    "k_pitch": 0.4,
+    "bulletin_urls": [
+      "https://api.weather.gov/products/types/HSF/locations/NP",
+      "https://api.weather.gov/products/types/HSF/locations/EP1",
+      "https://api.weather.gov/products/types/HSF/locations/EP2"
+    ],
+    "bulletin_stations": [
+      {
+        "zone": 14,
+        "header": "FQPS01",
+        "station": "NFFN"
+      }
+    ],
+    "publish_metarea_notes": true
+  },
+  "enabled": true
+}

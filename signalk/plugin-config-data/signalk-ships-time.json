@@ -1,0 +1,8 @@
+{
+  "configuration": {
+    "mode": "auto",
+    "utcOffset": 0,
+    "recheckInterval": 600
+  },
+  "enabled": true
+}
