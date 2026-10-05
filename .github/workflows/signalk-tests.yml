@@ -22,10 +22,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Install test dependencies (versions locked for the boat)
-        run: |
-          NOFLO_VER=$(node -p "require('./package-lock.json').packages['node_modules/noflo'].version")
-          NOFLO_SIGNALK_VER=$(node -p "require('./package-lock.json').packages['node_modules/noflo-signalk'].version")
-          npm install --no-save --ignore-scripts --no-audit --no-fund "noflo@${NOFLO_VER}" "noflo-signalk@${NOFLO_SIGNALK_VER}"
+      - name: Install test dependencies
+        run: npm install --ignore-scripts --no-audit --no-fund
       - name: Run tests
         run: node --test test/*.test.js

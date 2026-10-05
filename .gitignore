@@ -66,6 +66,7 @@ signalk/plugin-config-data/signalk-aiscast/
 signalk/plugin-config-data/signalk-reticulum/
 signalk/plugin-config-data/signalk-grib-weather-provider/cache/
 signalk/plugin-config-data/signalk-passage-briefing/
+signalk/plugin-config-data/tides/
 signalk/plugin-config-data/signalk-weather-router-plus/
 signalk/plugin-config-data/resources-provider/resources/routes/
 signalk/plugin-config-data/signalk-corridor-tile-downloader/

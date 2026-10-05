@@ -1381,6 +1381,136 @@
             }
         },
         {
+            "src": {
+                "process": "ListenDatetime",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "RunDailyAt",
+                "port": "datetime"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "ListenTimezone",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "RunDailyAt",
+                "port": "timezone"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "RunDailyAt",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "EmptyBilge",
+                "port": "trigger"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "ListenBilgeAlarm",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "DetectBilgeAlarm",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "DetectBilgeAlarm",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "InvertBilgeAlarm",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "InvertBilgeAlarm",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "BilgeAlarmGate",
+                "port": "values"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "InvertBilgeAlarm",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "BilgeAlarmGate",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "BilgeAlarmGate",
+                "port": "pass"
+            },
+            "tgt": {
+                "process": "EmptyBilge",
+                "port": "trigger"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "ListenBilgeCurrent",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "EmptyBilge",
+                "port": "current"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "EmptyBilge",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SwitchBilgePump",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
             "data": 0,
             "tgt": {
                 "process": "NightSailingBB",
@@ -1759,114 +1889,10 @@
             }
         },
         {
-            "src": {
-                "process": "ListenDatetime",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "RunDailyAt",
-                "port": "datetime"
-            },
-            "metadata": {
-                "route": 7
-            }
-        },
-        {
-            "src": {
-                "process": "ListenTimezone",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "RunDailyAt",
-                "port": "timezone"
-            },
-            "metadata": {
-                "route": 7
-            }
-        },
-        {
-            "src": {
-                "process": "RunDailyAt",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "EmptyBilge",
-                "port": "trigger"
-            },
-            "metadata": {
-                "route": 7
-            }
-        },
-        {
             "data": "electrical.venus-input.1.inputState",
             "tgt": {
                 "process": "ListenBilgeAlarm",
                 "port": "in"
-            }
-        },
-        {
-            "src": {
-                "process": "ListenBilgeAlarm",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "DetectBilgeAlarm",
-                "port": "in"
-            },
-            "metadata": {
-                "route": 10
-            }
-        },
-        {
-            "src": {
-                "process": "DetectBilgeAlarm",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "InvertBilgeAlarm",
-                "port": "in"
-            },
-            "metadata": {
-                "route": 10
-            }
-        },
-        {
-            "src": {
-                "process": "InvertBilgeAlarm",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "BilgeAlarmGate",
-                "port": "values"
-            },
-            "metadata": {
-                "route": 10
-            }
-        },
-        {
-            "src": {
-                "process": "InvertBilgeAlarm",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "BilgeAlarmGate",
-                "port": "in"
-            },
-            "metadata": {
-                "route": 10
-            }
-        },
-        {
-            "src": {
-                "process": "BilgeAlarmGate",
-                "port": "pass"
-            },
-            "tgt": {
-                "process": "EmptyBilge",
-                "port": "trigger"
-            },
-            "metadata": {
-                "route": 10
             }
         },
         {
@@ -1877,36 +1903,10 @@
             }
         },
         {
-            "src": {
-                "process": "ListenBilgeCurrent",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "EmptyBilge",
-                "port": "current"
-            },
-            "metadata": {
-                "route": 2
-            }
-        },
-        {
             "data": "electrical.switches.gx.gxInternalRelay1.state",
             "tgt": {
                 "process": "SwitchBilgePump",
                 "port": "path"
-            }
-        },
-        {
-            "src": {
-                "process": "EmptyBilge",
-                "port": "out"
-            },
-            "tgt": {
-                "process": "SwitchBilgePump",
-                "port": "value"
-            },
-            "metadata": {
-                "route": 1
             }
         }
     ]
