@@ -27,7 +27,7 @@ const DEFAULT_MIN_RUNTIME_S = 120;
 const POLL_INTERVAL_MS = 1000;
 
 /** Default current sensor output at 0 A, in volts */
-const DEFAULT_CURRENT_OFFSET_V = 1.48;
+const DEFAULT_CURRENT_OFFSET_V = 1.46;
 
 /** Default current sensor scale, volts per amp */
 const DEFAULT_CURRENT_SCALE_V_PER_A = 0.0596;

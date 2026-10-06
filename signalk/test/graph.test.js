@@ -129,7 +129,7 @@ test('pump tuning is pinned via IIPs', () => {
   const tuningIips = {
     120: 'EmptyBilge.minruntime',
     0.8: 'EmptyBilge.drycurrent',
-    1.48: 'EmptyBilge.currentoffset',
+    1.46: 'EmptyBilge.currentoffset',
     0.0596: 'EmptyBilge.currentscale',
   };
   for (const [value, tgt] of Object.entries(tuningIips)) {

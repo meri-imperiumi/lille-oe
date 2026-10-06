@@ -27,7 +27,7 @@ const signalKComponent = (name) => require(`noflo-signalk/components/${name}`);
 
 /** Sensor voltage while pumping water, ~8.7 A through the current sensor */
 const WET_V = 2.0;
-/** Sensor voltage while pumping air, ~0.34 A: below the dry threshold */
+/** Sensor voltage while pumping air, ~0.67 A: below the dry threshold */
 const DRY_V = 1.5;
 /** PUT target path of the pump switch, from graphs/main.json */
 const PUMP_PATH = 'electrical.switches.gx.gxInternalRelay1.state';
@@ -77,7 +77,7 @@ async function buildNetwork(tuning = {}) {
     'drycurrent',
   );
   graph.addInitial(
-    tuning.currentoffset === undefined ? 1.48 : tuning.currentoffset,
+    tuning.currentoffset === undefined ? 1.46 : tuning.currentoffset,
     'emptybilge',
     'currentoffset',
   );
@@ -289,7 +289,7 @@ test('start-up race: datetime before timezone does not misfire the catch-up', as
 test('pump tuning IIPs configure the cycle end-to-end', async (t) => {
   t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
   // 2s minimum runtime and a 0.2 A dry threshold: the default dry voltage
-  // (~0.34 A) then counts as still wet, and ~0.17 A as dry
+  // (~0.67 A) then counts as still wet, and ~0.17 A as dry
   const { network, feed, puts } = await buildNetwork({
     minruntime: 2,
     drycurrent: 0.2,
@@ -301,7 +301,7 @@ test('pump tuning IIPs configure the cycle end-to-end', async (t) => {
   t.mock.timers.tick(5000); // past the 2s minimum, but above 0.2 A
   assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
 
-  feed('feedCurrent')(1.49); // ~0.17 A: below the custom threshold
+  feed('feedCurrent')(1.47); // ~0.17 A: below the custom threshold
   t.mock.timers.tick(2000);
   assert.deepStrictEqual(puts, [
     { path: PUMP_PATH, value: true },

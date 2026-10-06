@@ -1924,7 +1924,7 @@
             }
         },
         {
-            "data": 1.48,
+            "data": 1.46,
             "tgt": {
                 "process": "EmptyBilge",
                 "port": "currentoffset"

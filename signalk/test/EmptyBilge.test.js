@@ -14,7 +14,7 @@ const noflo = require('noflo');
 const getComponent = require('../components/EmptyBilge.js').getComponent;
 
 /** Same conversion constants as the component */
-const CURRENT_OFFSET_V = 1.48;
+const CURRENT_OFFSET_V = 1.46;
 const CURRENT_SCALE_V_PER_A = 0.0596;
 
 /** The component's default minimum run time, in milliseconds */
@@ -22,7 +22,7 @@ const MIN_RUN_MS = 120 * 1000;
 
 /** ~8.7 A: pumping water */
 const WET_V = 2.0;
-/** ~0.34 A: pumping air, well below the default 0.8 A dry threshold */
+/** ~0.67 A: pumping air, below the default 0.8 A dry threshold */
 const DRY_V = 1.5;
 /** ~0.9 A: still above the default dry threshold */
 const NEARLY_DRY_V = CURRENT_OFFSET_V + 0.9 * CURRENT_SCALE_V_PER_A;
@@ -169,12 +169,12 @@ test('honors a custom dry current threshold', async (t) => {
   const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
   configure({ drycurrent: 0.2 });
   send(trigger, true);
-  // ~0.34 A: dry under the default 0.8 A threshold, wet under 0.2 A
+  // ~0.67 A: dry under the default 0.8 A threshold, wet under 0.2 A
   send(current, DRY_V);
   tickMs(MIN_RUN_MS + 2000);
   assert.deepStrictEqual(states, [true], 'above the custom threshold');
   // ~0.17 A: now below the custom threshold
-  send(current, 1.49);
+  send(current, 1.47);
   tickMs(2000);
   assert.deepStrictEqual(states, [true, false]);
   await teardown();
