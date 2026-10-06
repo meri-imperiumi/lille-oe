@@ -1,6 +1,6 @@
 /**
  * NoFlo component that emits a daily trigger when the onboard local time
- * reaches a configured time of day.
+ * crosses a configured time of day.
  *
  * Receives the current time as a UTC ISO date string (Signal K
  * `navigation.datetime`) and the onboard timezone offset from UTC in
@@ -10,16 +10,19 @@
  *
  * Evaluation only starts once a timezone offset has been received:
  * evaluating in UTC before the offset is known could misfire the daily
- * catch-up when the graph starts.
+ * trigger when the graph starts.
  *
- * Fires `out` at most once per local calendar day: the first datetime
- * update at or after the configured local time sends the trigger. This
- * also acts as catch-up when the network starts after the configured
- * time has already passed.
+ * Fires `out` when an onboard update crosses the configured local time:
+ * the previous update was before it and the current one is at or after
+ * it. This happens exactly once per local day. There is deliberately no
+ * catch-up: starting the system after the configured time does not
+ * trigger until the next occurrence, because clock and timezone state
+ * cannot be trusted right after start-up (e.g. a derived timezone
+ * offset of 0 before a GPS fix, or a stale system clock).
  *
- * This is a generator-style component: it keeps the time of the last
- * firing so repeated datetime updates don't retrigger within the same
- * local day.
+ * This is a generator-style component: it keeps the local date and time
+ * of day of the last onboard update so crossings are only detected
+ * between consecutive updates.
  *
  * @module signalk-server-config/RunDailyAt
  */
@@ -42,21 +45,6 @@ function offsetToMinutes(hhmm) {
   const sign = offset < 0 ? -1 : 1;
   const abs = Math.abs(offset);
   return sign * (Math.floor(abs / 100) * 60 + (abs % 100));
-}
-
-/**
- * Time of day of a timezone-shifted timestamp, as HH:MM.
- *
- * The timezone shift is applied to the epoch value, so the UTC getters
- * return the onboard local wall-clock time.
- *
- * @param {Date} shifted - Datetime shifted by the timezone offset
- * @returns {string} Time of day as HH:MM
- */
-function timeOfDay(shifted) {
-  const hh = String(shifted.getUTCHours()).padStart(2, '0');
-  const mm = String(shifted.getUTCMinutes()).padStart(2, '0');
-  return `${hh}:${mm}`;
 }
 
 /**
@@ -92,15 +80,18 @@ class RunDailyAt extends noflo.Component {
     });
     this.outPorts.add('out', {
       datatype: 'all',
-      description: 'Daily trigger, sent when local time reaches the '
-        + 'configured time',
+      description: 'Daily trigger, sent when an onboard update crosses '
+        + 'the configured local time',
     });
     this.outPorts.add('error', {
       datatype: 'object',
     });
 
-    /** Local date (YYYY-MM-DD) the trigger last fired on */
-    this.lastFired = null;
+    /** Local date (YYYY-MM-DD) of the last onboard update */
+    this.lastSeenDate = null;
+
+    /** Minutes since local midnight of the last onboard update */
+    this.lastSeenMinutes = null;
 
     this.process((input, output) => {
       if (!input.hasData('datetime')) {
@@ -112,7 +103,7 @@ class RunDailyAt extends noflo.Component {
       // the previous one and the newest would sit unconsumed forever.
       const datetime = input.getData('datetime');
       // Without a received timezone offset the onboard local time is
-      // unknown; evaluating in UTC could misfire the daily catch-up
+      // unknown; evaluating in UTC could misfire the daily trigger
       if (!input.hasData('timezone')) {
         output.done();
         return;
@@ -141,18 +132,28 @@ class RunDailyAt extends noflo.Component {
         utc.getTime() + offsetToMinutes(timezone) * 60 * 1000,
       );
       const today = local.toISOString().slice(0, 10);
-      if (this.lastFired === today) {
-        // Already fired today
-        output.done();
-        return;
-      }
-      if (timeOfDay(local) < time) {
-        // Configured time not reached yet
+      const minutes = local.getUTCHours() * 60 + local.getUTCMinutes();
+
+      const [targetHh, targetMm] = time.split(':').map(Number);
+      const targetMinutes = targetHh * 60 + targetMm;
+
+      // Fire only on an observed crossing of the configured time: the
+      // previous onboard update was before it and this one is at or
+      // after it. Firing on the first evaluation alone (catch-up) would
+      // misfire whenever clock or timezone state is untrustworthy at
+      // start-up, e.g. a derived timezoneOffset of 0 before a GPS fix.
+      const crossed = this.lastSeenDate === today
+        && this.lastSeenMinutes < targetMinutes
+        && minutes >= targetMinutes;
+
+      this.lastSeenDate = today;
+      this.lastSeenMinutes = minutes;
+
+      if (!crossed) {
         output.done();
         return;
       }
 
-      this.lastFired = today;
       output.sendDone({ out: true });
     });
   }

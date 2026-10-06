@@ -174,7 +174,8 @@ test('daily timer starts a pump cycle at 14:00 local and runs it until dry', asy
   feed('feedDatetime')('2025-11-07T11:30:00Z'); // 13:30 local: not yet
   assert.deepStrictEqual(pumpPuts, [], 'no PUT before 14:00 local');
 
-  feed('feedDatetime')('2025-11-07T12:00:00Z'); // 14:00 local
+  feed('feedDatetime')('2025-11-07T11:59:00Z'); // 13:59 local: still before
+  feed('feedDatetime')('2025-11-07T12:00:00Z'); // 14:00 local: crossing fires
   assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
 
   // Pumping water: stays running past the 30s minimum
@@ -198,7 +199,8 @@ test('timer fires once per local day through the graph', async (t) => {
   const { network, feed, pumpPuts } = await buildNetwork();
 
   feed('feedTimezone')(200);
-  feed('feedDatetime')('2025-11-07T12:00:00Z'); // fires
+  feed('feedDatetime')('2025-11-07T11:59:00Z'); // 13:59 local: not yet
+  feed('feedDatetime')('2025-11-07T12:00:00Z'); // crossing: fires
   feed('feedCurrent')(DRY_V);
   t.mock.timers.tick(126000); // run past minimum time and dry time: stops
   feed('feedDatetime')('2025-11-07T12:05:00Z'); // same local day: no start
@@ -207,6 +209,7 @@ test('timer fires once per local day through the graph', async (t) => {
     { path: PUMP_PATH, value: false },
   ]);
 
+  feed('feedDatetime')('2025-11-08T11:59:00Z'); // next local day, before target
   feed('feedDatetime')('2025-11-08T12:00:00Z'); // next local day: starts
   assert.deepStrictEqual(pumpPuts[2], { path: PUMP_PATH, value: true });
   feed('feedCurrent')(DRY_V);
@@ -226,7 +229,8 @@ test('negative timezone offset fires at 14:00 local through the graph', async (t
   const { network, feed, pumpPuts } = await buildNetwork();
 
   feed('feedTimezone')(-930);
-  feed('feedDatetime')('2025-11-07T23:30:00Z'); // 14:00 local (UTC-9:30)
+  feed('feedDatetime')('2025-11-07T23:29:00Z'); // 13:59 local: not yet
+  feed('feedDatetime')('2025-11-07T23:30:00Z'); // 14:00 local (UTC-9:30): crossing
   assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
   feed('feedCurrent')(DRY_V);
   t.mock.timers.tick(126000);
@@ -270,11 +274,12 @@ test('bilge alarm transition starts the pump and it runs until dry', async (t) =
   await network.stop();
 });
 
-test('start-up race: datetime before timezone does not misfire the catch-up', async (t) => {
+test('start-up race: datetime before timezone does not misfire at start-up', async (t) => {
   // Regression for the UTC+13 incident: at graph start the first
   // navigation.datetime update was evaluated with the timezone default
   // (UTC), so 22:00 UTC read as 22:00 local and started the pump at 11:00
-  // local time. The component now waits for the timezone offset.
+  // local time. The component now waits for the timezone offset and only
+  // fires on an observed crossing of the configured time.
   t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
   const { network, feed, pumpPuts } = await buildNetwork();
 
