@@ -5,13 +5,18 @@
  * is empty, i.e. all of the following hold:
  *
  * - pump has run for at least `minruntime` seconds
- * - pump is running dry (current below `drycurrent` amps)
+ * - pump has been reading dry (`current` below `drycurrent` amps) for
+ *   at least `drytime` consecutive seconds
  *
- * The current sensor reports voltage; amps are derived with:
- * `(voltage - currentOffset) / currentScale`
+ * The pump is force-stopped after `maxruntime` seconds even if it still
+ * reads wet, guarding against a sensor that stops reporting (missing
+ * readings count as wet) or a pump that never reaches the dry threshold.
  *
- * The thresholds and sensor calibration are configurable via control
- * ports, typically wired as IIPs in the graph.
+ * The `current` port expects calibrated amps, e.g. derived from a
+ * current-sensor voltage reading with signalk-server-config/LinearConvert.
+ *
+ * The thresholds are configurable via control ports, typically wired
+ * as IIPs in the graph.
  *
  * This is a generator-style component: it keeps itself activated between
  * the trigger and the stop decision, polling the control ports.
@@ -26,14 +31,14 @@ const DEFAULT_MIN_RUNTIME_S = 120;
 /** How often stop conditions are evaluated while pump is running */
 const POLL_INTERVAL_MS = 1000;
 
-/** Default current sensor output at 0 A, in volts */
-const DEFAULT_CURRENT_OFFSET_V = 1.46;
-
-/** Default current sensor scale, volts per amp */
-const DEFAULT_CURRENT_SCALE_V_PER_A = 0.0596;
-
 /** Default pump current below which no water is being pumped, in amps */
-const DEFAULT_DRY_CURRENT_A = 0.8;
+const DEFAULT_DRY_CURRENT_A = 0.65;
+
+/** Default time the pump must read dry continuously before stopping, in seconds */
+const DEFAULT_DRY_TIME_S = 5;
+
+/** Default hard stop time after which the pump is stopped regardless, in seconds */
+const DEFAULT_MAX_RUNTIME_S = 600;
 
 /**
  * Coerce a control port value to a finite number, falling back to the
@@ -61,7 +66,8 @@ class EmptyBilge extends noflo.Component {
 
     this.description = 'Runs bilge pump on trigger until bilge is empty. '
       + 'Stops when pump has run at least minruntime seconds and pump '
-      + 'current is below drycurrent amps. Tunable via control ports';
+      + 'current has stayed below drycurrent amps for drytime seconds. '
+      + 'Force-stops after maxruntime seconds';
     this.icon = 'tint';
 
     this.inPorts.add('trigger', {
@@ -71,7 +77,7 @@ class EmptyBilge extends noflo.Component {
     });
     this.inPorts.add('current', {
       datatype: 'number',
-      description: 'Bilge pump current sensor voltage reading',
+      description: 'Bilge pump current in amps',
       control: true,
     });
     this.inPorts.add('minruntime', {
@@ -88,17 +94,19 @@ class EmptyBilge extends noflo.Component {
       control: true,
       default: DEFAULT_DRY_CURRENT_A,
     });
-    this.inPorts.add('currentoffset', {
+    this.inPorts.add('drytime', {
       datatype: 'number',
-      description: 'Current sensor output at 0 A, in volts',
+      description: 'Time the pump must read dry continuously before it '
+        + 'counts as empty, in seconds',
       control: true,
-      default: DEFAULT_CURRENT_OFFSET_V,
+      default: DEFAULT_DRY_TIME_S,
     });
-    this.inPorts.add('currentscale', {
+    this.inPorts.add('maxruntime', {
       datatype: 'number',
-      description: 'Current sensor scale, volts per amp',
+      description: 'Hard stop time regardless of the current reading, in '
+        + 'seconds. 0 disables the limit',
       control: true,
-      default: DEFAULT_CURRENT_SCALE_V_PER_A,
+      default: DEFAULT_MAX_RUNTIME_S,
     });
     this.outPorts.add('out', {
       datatype: 'boolean',
@@ -110,6 +118,9 @@ class EmptyBilge extends noflo.Component {
 
     /** Timestamp of pump cycle start */
     this.startedAt = 0;
+
+    /** Consecutive dry polls in this cycle */
+    this.dryPolls = 0;
 
     /** Timer handle for stop condition polling */
     this.pollTimer = null;
@@ -128,6 +139,7 @@ class EmptyBilge extends noflo.Component {
 
       this.running = true;
       this.startedAt = Date.now();
+      this.dryPolls = 0;
       output.send({ out: true });
 
       this.pollTimer = setInterval(() => {
@@ -158,28 +170,47 @@ class EmptyBilge extends noflo.Component {
       return;
     }
 
+    const maxRunMs = toNumber(input.getData('maxruntime'), DEFAULT_MAX_RUNTIME_S)
+      * 1000;
+    if (maxRunMs > 0 && elapsed >= maxRunMs) {
+      this.stopPump(output);
+      return;
+    }
+
     const dryCurrentA = toNumber(
       input.getData('drycurrent'),
       DEFAULT_DRY_CURRENT_A,
     );
-    const offsetV = toNumber(
-      input.getData('currentoffset'),
-      DEFAULT_CURRENT_OFFSET_V,
-    );
-    const scaleVPerA = toNumber(
-      input.getData('currentscale'),
-      DEFAULT_CURRENT_SCALE_V_PER_A,
-    );
+    const dryTimeMs = toNumber(input.getData('drytime'), DEFAULT_DRY_TIME_S)
+      * 1000;
 
-    const voltage = Number(input.getData('current'));
-    const amps = (voltage - offsetV) / scaleVPerA;
+    const amps = Number(input.getData('current'));
     // NaN (no reading) fails the comparison, keeping the pump running
     if (!(amps < dryCurrentA)) {
+      this.dryPolls = 0;
       return;
     }
 
+    this.dryPolls += 1;
+    // The dry time is sampled at the poll interval, so e.g. the default
+    // 5s means five consecutive dry polls
+    const dryPollsNeeded = Math.max(1, Math.ceil(dryTimeMs / POLL_INTERVAL_MS));
+    if (this.dryPolls < dryPollsNeeded) {
+      return;
+    }
+
+    this.stopPump(output);
+  }
+
+  /**
+   * Stop the pump and finish the cycle.
+   *
+   * @param {noflo.ProcessOutput} output - Process output context
+   */
+  stopPump(output) {
     this.clearPollTimer();
     this.running = false;
+    this.dryPolls = 0;
     output.sendDone({ out: false });
   }
 

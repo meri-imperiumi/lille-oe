@@ -601,6 +601,26 @@
                 "height": 72
             }
         },
+        "ConvertBilgeCurrent": {
+            "component": "signalk-server-config/LinearConvert",
+            "metadata": {
+                "label": "ConvertBilgeCurrent",
+                "x": 648,
+                "y": 2132,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "PublishBilgeCurrent": {
+            "component": "signalk/SendPut",
+            "metadata": {
+                "label": "PublishBilgeCurrent",
+                "x": 900,
+                "y": 2132,
+                "width": 72,
+                "height": 72
+            }
+        },
         "SwitchBilgePump": {
             "component": "signalk/SendPut",
             "metadata": {
@@ -1490,11 +1510,37 @@
                 "port": "out"
             },
             "tgt": {
+                "process": "ConvertBilgeCurrent",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "ConvertBilgeCurrent",
+                "port": "out"
+            },
+            "tgt": {
                 "process": "EmptyBilge",
                 "port": "current"
             },
             "metadata": {
                 "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "ConvertBilgeCurrent",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "PublishBilgeCurrent",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 1
             }
         },
         {
@@ -1917,24 +1963,45 @@
             }
         },
         {
-            "data": 0.8,
+            "data": 0.65,
             "tgt": {
                 "process": "EmptyBilge",
                 "port": "drycurrent"
             }
         },
         {
-            "data": 1.46,
+            "data": 5,
             "tgt": {
                 "process": "EmptyBilge",
-                "port": "currentoffset"
+                "port": "drytime"
+            }
+        },
+        {
+            "data": 600,
+            "tgt": {
+                "process": "EmptyBilge",
+                "port": "maxruntime"
+            }
+        },
+        {
+            "data": "electrical.switches.bilgeCurrentSensor.current0",
+            "tgt": {
+                "process": "PublishBilgeCurrent",
+                "port": "path"
+            }
+        },
+        {
+            "data": 1.46,
+            "tgt": {
+                "process": "ConvertBilgeCurrent",
+                "port": "offset"
             }
         },
         {
             "data": 0.0596,
             "tgt": {
-                "process": "EmptyBilge",
-                "port": "currentscale"
+                "process": "ConvertBilgeCurrent",
+                "port": "scale"
             }
         }
     ]

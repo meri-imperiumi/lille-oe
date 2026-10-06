@@ -1,8 +1,13 @@
 /**
  * Unit tests for the EmptyBilge component. The pump always runs until
- * dry: it stops only after the minimum run time once the current sensor
- * voltage indicates it is pumping air. The 30s minimum run and 1s stop
- * polling are driven with a mocked clock.
+ * dry: it stops only after the minimum run time once the pump current
+ * (in amps, calibrated by LinearConvert upstream) has stayed below the
+ * dry threshold for drytime seconds. A maxruntime failsafe stops the
+ * pump even when it never reads dry. The timings are driven with a
+ * mocked clock.
+ *
+ * Current levels follow the real Seaflo 21-series pump: ~0.84 A
+ * pumping water, ~0.45 A pumping air.
  *
  * Run from the repo root with NoFlo resolvable, e.g.:
  *
@@ -13,19 +18,23 @@ const assert = require('node:assert');
 const noflo = require('noflo');
 const getComponent = require('../components/EmptyBilge.js').getComponent;
 
-/** Same conversion constants as the component */
-const CURRENT_OFFSET_V = 1.46;
-const CURRENT_SCALE_V_PER_A = 0.0596;
-
 /** The component's default minimum run time, in milliseconds */
 const MIN_RUN_MS = 120 * 1000;
 
-/** ~8.7 A: pumping water */
-const WET_V = 2.0;
-/** ~0.67 A: pumping air, below the default 0.8 A dry threshold */
-const DRY_V = 1.5;
-/** ~0.9 A: still above the default dry threshold */
-const NEARLY_DRY_V = CURRENT_OFFSET_V + 0.9 * CURRENT_SCALE_V_PER_A;
+/** Pumping water, just above the 0.65 A dry threshold */
+const WET_A = 0.85;
+/** Pumping air, below the default 0.65 A dry threshold */
+const DRY_A = 0.45;
+/** Just above the default dry threshold */
+const NEARLY_DRY_A = 0.75;
+
+/** Observed pumping-water reading: 1.51 V through the sensor calibration */
+const WATER_OBSERVED_A = 0.84;
+/** Observed near-idle reading: 1.47 V through the sensor calibration */
+const NEAR_IDLE_OBSERVED_A = 0.17;
+
+/** Time from trigger to a completed dry stop: min run + 5 s drytime + slack */
+const DRY_STOP_MS = MIN_RUN_MS + 6 * 1000;
 
 /**
  * Instantiate the component with a mocked clock and sockets attached.
@@ -41,12 +50,10 @@ function setup(t) {
   const current = noflo.internalSocket.createSocket();
   const out = noflo.internalSocket.createSocket();
   const config = {};
-  ['minruntime', 'drycurrent', 'currentoffset', 'currentscale'].forEach(
-    (port) => {
-      config[port] = noflo.internalSocket.createSocket();
-      c.inPorts[port].attach(config[port]);
-    },
-  );
+  ['minruntime', 'drycurrent', 'drytime', 'maxruntime'].forEach((port) => {
+    config[port] = noflo.internalSocket.createSocket();
+    c.inPorts[port].attach(config[port]);
+  });
   c.inPorts.trigger.attach(trigger);
   c.inPorts.current.attach(current);
   c.outPorts.out.attach(out);
@@ -84,8 +91,8 @@ test('ignores duplicate triggers while a cycle is running', async (t) => {
   const { states, trigger, current, send, tickMs, teardown } = setup(t);
   send(trigger, true);
   send(trigger, true);
-  send(current, DRY_V);
-  tickMs(MIN_RUN_MS + 2000);
+  send(current, DRY_A);
+  tickMs(DRY_STOP_MS);
   assert.deepStrictEqual(states, [true, false]);
   await teardown();
 });
@@ -93,17 +100,35 @@ test('ignores duplicate triggers while a cycle is running', async (t) => {
 test('keeps running while water is flowing past the minimum run time', async (t) => {
   const { states, trigger, current, send, tickMs, teardown } = setup(t);
   send(trigger, true);
-  send(current, WET_V);
+  send(current, WET_A);
   tickMs(MIN_RUN_MS * 2);
   assert.deepStrictEqual(states, [true]);
   await teardown();
 });
 
-test('stops once the voltage reads dry after the minimum run time', async (t) => {
+test('stops after the current has read dry for the dry time', async (t) => {
   const { states, trigger, current, send, tickMs, teardown } = setup(t);
   send(trigger, true);
-  send(current, DRY_V);
-  tickMs(MIN_RUN_MS + 2000);
+  send(current, DRY_A);
+  tickMs(DRY_STOP_MS);
+  assert.deepStrictEqual(states, [true, false]);
+  await teardown();
+});
+
+test('debounces a brief dry reading into the wet phase', async (t) => {
+  const { states, trigger, current, send, tickMs, teardown } = setup(t);
+  send(trigger, true);
+  send(current, WET_A);
+  tickMs(MIN_RUN_MS);
+  // End-of-cycle slug flow: dips dry briefly, then wet again
+  send(current, DRY_A);
+  tickMs(3 * 1000);
+  send(current, WET_A);
+  tickMs(3 * 1000);
+  assert.deepStrictEqual(states, [true], 'brief dry dip must not stop the pump');
+  // Steady dry reading still stops it
+  send(current, DRY_A);
+  tickMs(DRY_STOP_MS);
   assert.deepStrictEqual(states, [true, false]);
   await teardown();
 });
@@ -111,11 +136,11 @@ test('stops once the voltage reads dry after the minimum run time', async (t) =>
 test('does not stop while the current is just above the dry threshold', async (t) => {
   const { states, trigger, current, send, tickMs, teardown } = setup(t);
   send(trigger, true);
-  send(current, NEARLY_DRY_V);
-  tickMs(MIN_RUN_MS + 2000);
+  send(current, NEARLY_DRY_A);
+  tickMs(DRY_STOP_MS);
   assert.deepStrictEqual(states, [true], 'still pumping water');
-  send(current, DRY_V);
-  tickMs(2000);
+  send(current, DRY_A);
+  tickMs(6 * 1000);
   assert.deepStrictEqual(states, [true, false]);
   await teardown();
 });
@@ -128,29 +153,37 @@ test('keeps running when no current reading is available', async (t) => {
   await teardown();
 });
 
+test('force-stops at the max runtime even while reading wet', async (t) => {
+  const { states, trigger, current, send, tickMs, teardown } = setup(t);
+  send(trigger, true);
+  send(current, WET_A);
+  tickMs(600 * 1000 + 2000);
+  assert.deepStrictEqual(states, [true, false], 'maxruntime failsafe');
+  await teardown();
+});
+
+test('maxruntime can be disabled with zero', async (t) => {
+  const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
+  configure({ maxruntime: 0 });
+  send(trigger, true);
+  send(current, WET_A);
+  tickMs(700 * 1000);
+  assert.deepStrictEqual(states, [true]);
+  await teardown();
+});
+
 test('runs a new cycle after the previous one completed', async (t) => {
   const { states, trigger, current, send, tickMs, teardown } = setup(t);
   send(trigger, true);
-  send(current, DRY_V);
-  tickMs(MIN_RUN_MS + 2000);
+  send(current, DRY_A);
+  tickMs(DRY_STOP_MS);
   assert.deepStrictEqual(states, [true, false]);
 
   send(trigger, true);
   assert.deepStrictEqual(states, [true, false, true]);
-  send(current, DRY_V);
-  tickMs(MIN_RUN_MS + 2000);
+  send(current, DRY_A);
+  tickMs(DRY_STOP_MS);
   assert.deepStrictEqual(states, [true, false, true, false]);
-  await teardown();
-});
-
-test('stops on the next poll tick after the minimum run time has passed', async (t) => {
-  const { states, trigger, current, send, tickMs, teardown } = setup(t);
-  send(trigger, true);
-  send(current, WET_V);
-  tickMs(MIN_RUN_MS + 500); // min time reached while still wet
-  send(current, DRY_V);
-  tickMs(2000); // next poll sees dry
-  assert.deepStrictEqual(states, [true, false]);
   await teardown();
 });
 
@@ -158,9 +191,20 @@ test('honors a custom minimum runtime', async (t) => {
   const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
   configure({ minruntime: 2 });
   send(trigger, true);
-  send(current, DRY_V);
-  // With the 30s default the pump would still be running here
-  tickMs(3000);
+  send(current, DRY_A);
+  // With the 120s default the pump would still be running here; the
+  // default 5s drytime also has to elapse after the 2s minimum
+  tickMs(9 * 1000);
+  assert.deepStrictEqual(states, [true, false]);
+  await teardown();
+});
+
+test('honors a custom dry time', async (t) => {
+  const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
+  configure({ minruntime: 2, drytime: 1 });
+  send(trigger, true);
+  send(current, DRY_A);
+  tickMs(4 * 1000);
   assert.deepStrictEqual(states, [true, false]);
   await teardown();
 });
@@ -169,35 +213,53 @@ test('honors a custom dry current threshold', async (t) => {
   const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
   configure({ drycurrent: 0.2 });
   send(trigger, true);
-  // ~0.67 A: dry under the default 0.8 A threshold, wet under 0.2 A
-  send(current, DRY_V);
-  tickMs(MIN_RUN_MS + 2000);
+  // 0.45 A: dry under the default 0.65 A threshold, wet under 0.2 A
+  send(current, DRY_A);
+  tickMs(DRY_STOP_MS);
   assert.deepStrictEqual(states, [true], 'above the custom threshold');
-  // ~0.17 A: now below the custom threshold
-  send(current, 1.47);
-  tickMs(2000);
+  // 0.15 A: now below the custom threshold
+  send(current, 0.15);
+  tickMs(6 * 1000);
   assert.deepStrictEqual(states, [true, false]);
   await teardown();
 });
 
-test('honors custom sensor calibration', async (t) => {
-  const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
-  // Custom calibration: 1.55 V reads as (1.55 - 1.5) / 0.1 = 0.5 A, dry.
-  // With the default calibration it would read ~1.17 A and keep running.
-  configure({ currentoffset: 1.5, currentscale: 0.1, minruntime: 1 });
+test('guardrail: the observed water draw keeps the pump running', async (t) => {
+  const { states, trigger, current, send, tickMs, teardown } = setup(t);
   send(trigger, true);
-  send(current, 1.55);
-  tickMs(2000);
+  // 1.51 V through the sensor calibration: regression for the 1.50 V
+  // premature stop during the daily 14:00 run
+  send(current, WATER_OBSERVED_A);
+  tickMs(DRY_STOP_MS);
+  assert.deepStrictEqual(states, [true]);
+  await teardown();
+});
+
+test('guardrail: the observed near-idle draw stops the pump', async (t) => {
+  const { states, trigger, current, send, tickMs, teardown } = setup(t);
+  send(trigger, true);
+  // 1.47 V through the sensor calibration
+  send(current, NEAR_IDLE_OBSERVED_A);
+  tickMs(DRY_STOP_MS);
   assert.deepStrictEqual(states, [true, false]);
   await teardown();
 });
 
 test('unusable tuning values fall back to defaults', async (t) => {
   const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
-  configure({ minruntime: 'garbage', drycurrent: 'garbage' });
+  configure({
+    minruntime: 'garbage',
+    drycurrent: 'garbage',
+    drytime: null,
+    maxruntime: undefined,
+  });
   send(trigger, true);
-  send(current, DRY_V);
-  tickMs(MIN_RUN_MS + 2000);
-  assert.deepStrictEqual(states, [true, false], '30s default and 0.8 A default apply');
+  send(current, DRY_A);
+  tickMs(DRY_STOP_MS);
+  assert.deepStrictEqual(
+    states,
+    [true, false],
+    '120s, 0.65 A and 5s defaults apply',
+  );
   await teardown();
 });

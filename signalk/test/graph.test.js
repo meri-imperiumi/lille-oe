@@ -59,6 +59,8 @@ test('bilge nodes exist with the expected components', () => {
     BilgeAlarmGate: 'signalk/And',
     EmptyBilge: 'signalk-server-config/EmptyBilge',
     ListenBilgeCurrent: 'signalk/GetSelfStream',
+    ConvertBilgeCurrent: 'signalk-server-config/LinearConvert',
+    PublishBilgeCurrent: 'signalk/SendPut',
     SwitchBilgePump: 'signalk/SendPut',
   };
   for (const [node, component] of Object.entries(expected)) {
@@ -76,6 +78,7 @@ test('Signal K paths are subscribed via listen-path IIPs', () => {
     'environment.time.timezoneOffset': 'ListenTimezone.in',
     'electrical.venus-input.1.inputState': 'ListenBilgeAlarm.in',
     'electrical.switches.bilgeCurrentSensor.voltage0': 'ListenBilgeCurrent.in',
+    'electrical.switches.bilgeCurrentSensor.current0': 'PublishBilgeCurrent.path',
     'electrical.switches.gx.gxInternalRelay1.state': 'SwitchBilgePump.path',
   };
   for (const [path, tgt] of Object.entries(pathIips)) {
@@ -114,7 +117,10 @@ test('pump always runs until dry: alarm stream never gates stopping', () => {
     0,
     'alarm stream must not feed the stop conditions',
   );
-  assert.strictEqual(findConn({ src: 'ListenBilgeCurrent.out', tgt: 'EmptyBilge.current' }).length, 1);
+  assert.strictEqual(
+    findConn({ src: 'ConvertBilgeCurrent.out', tgt: 'EmptyBilge.current' }).length,
+    1,
+  );
 });
 
 test('pump state is PUT to the pump switch path', () => {
@@ -128,11 +134,47 @@ test('pump state is PUT to the pump switch path', () => {
 test('pump tuning is pinned via IIPs', () => {
   const tuningIips = {
     120: 'EmptyBilge.minruntime',
-    0.8: 'EmptyBilge.drycurrent',
-    1.46: 'EmptyBilge.currentoffset',
-    0.0596: 'EmptyBilge.currentscale',
+    0.65: 'EmptyBilge.drycurrent',
+    5: 'EmptyBilge.drytime',
+    600: 'EmptyBilge.maxruntime',
   };
   for (const [value, tgt] of Object.entries(tuningIips)) {
+    assert.strictEqual(
+      findConn({ data: Number(value), tgt }).length,
+      1,
+      `IIP ${value} -> ${tgt}`,
+    );
+  }
+});
+
+test('bilge current reading is derived from the sensor voltage', () => {
+  // The voltage listener feeds the linear calibration, whose output
+  // feeds both the pump controller and the current0 publication: the
+  // calibration exists in exactly one place
+  assert.strictEqual(
+    findConn({ src: 'ListenBilgeCurrent.out', tgt: 'ConvertBilgeCurrent.in' }).length,
+    1,
+  );
+  assert.strictEqual(
+    findConn({ src: 'ConvertBilgeCurrent.out', tgt: 'EmptyBilge.current' }).length,
+    1,
+  );
+  assert.strictEqual(
+    findConn({ src: 'ConvertBilgeCurrent.out', tgt: 'PublishBilgeCurrent.value' }).length,
+    1,
+  );
+  assert.strictEqual(
+    findConn({ src: 'ListenBilgeCurrent.out', tgt: 'EmptyBilge.current' }).length,
+    0,
+    'EmptyBilge must not consume raw volts',
+  );
+
+  // The only calibration IIPs in the graph
+  const calibrationIips = {
+    1.46: 'ConvertBilgeCurrent.offset',
+    0.0596: 'ConvertBilgeCurrent.scale',
+  };
+  for (const [value, tgt] of Object.entries(calibrationIips)) {
     assert.strictEqual(
       findConn({ data: Number(value), tgt }).length,
       1,

@@ -9,10 +9,10 @@
  * - signalk/SendPut is replaced by test/CapturePut, which records the
  *   PUT requests that would be sent to the Signal K API.
  *
- * Everything else (RunDailyAt, EmptyBilge, DetectChange, InvertBoolean,
- * And, the edge layout including BilgeAlarmGate values-before-in) is the
- * real graph wiring. EmptyBilge's 30s minimum run and 1s stop polling are
- * driven with a mocked clock.
+ * Everything else (RunDailyAt, EmptyBilge, LinearConvert, DetectChange,
+ * InvertBoolean, And, the edge layout including BilgeAlarmGate
+ * values-before-in) is the real graph wiring. EmptyBilge's 120s minimum
+ * run, 5s dry time and 1s stop polling are driven with a mocked clock.
  *
  * Run from the repo root with NoFlo and noflo-signalk resolvable, e.g.:
  *
@@ -25,33 +25,42 @@ const noflo = require('noflo');
 
 const signalKComponent = (name) => require(`noflo-signalk/components/${name}`);
 
-/** Sensor voltage while pumping water, ~8.7 A through the current sensor */
-const WET_V = 2.0;
-/** Sensor voltage while pumping air, ~0.67 A: below the dry threshold */
-const DRY_V = 1.5;
+/** Observed sensor voltage while pumping water (stable in Grafana) */
+const WET_V = 1.51;
+/** Observed near-idle sensor voltage, i.e. pump off or nearly off */
+const DRY_V = 1.47;
 /** PUT target path of the pump switch, from graphs/main.json */
 const PUMP_PATH = 'electrical.switches.gx.gxInternalRelay1.state';
+/** PUT target path of the calibrated pump current, from graphs/main.json */
+const CURRENT_PATH = 'electrical.switches.bilgeCurrentSensor.current0';
+/** Same sensor calibration as graphs/main.json pins via IIPs */
+const CURRENT_OFFSET_V = 1.46;
+const CURRENT_SCALE_V_PER_A = 0.0596;
 
 /**
  * Build and start a network with the bilge wiring of graphs/main.json.
  *
  * @param {Object} [tuning] - IIP values for EmptyBilge tuning ports
- * @returns {Promise<Object>} Network, value feed sockets, and the puts
- *   array collecting the PUT requests captured by test/CapturePut
+ * @returns {Promise<Object>} Network, value feed sockets, and the pumpPuts
+ *   and currentPuts arrays collecting the PUT requests captured by
+ *   test/CapturePut and test/CaptureCurrentPut
  */
 async function buildNetwork(tuning = {}) {
-  const puts = [];
+  const pumpPuts = [];
+  const currentPuts = [];
   const graph = new noflo.Graph('BilgeIntegration');
   graph.addNode('feedDatetime', 'test/Feed');
   graph.addNode('feedTimezone', 'test/Feed');
   graph.addNode('feedAlarm', 'test/Feed');
   graph.addNode('feedCurrent', 'test/Feed');
+  graph.addNode('convert', 'signalk-server-config/LinearConvert');
   graph.addNode('timer', 'signalk-server-config/RunDailyAt');
   graph.addNode('detect', 'signalk/DetectChange');
   graph.addNode('invert', 'signalk/InvertBoolean');
   graph.addNode('gate', 'signalk/And');
   graph.addNode('emptybilge', 'signalk-server-config/EmptyBilge');
   graph.addNode('put', 'test/CapturePut');
+  graph.addNode('putCurrent', 'test/CaptureCurrentPut');
   // Same edges as graphs/main.json (gate values edge before in edge)
   graph.addEdge('feedDatetime', 'out', 'timer', 'datetime');
   graph.addEdge('feedTimezone', 'out', 'timer', 'timezone');
@@ -61,31 +70,26 @@ async function buildNetwork(tuning = {}) {
   graph.addEdge('invert', 'out', 'gate', 'values');
   graph.addEdge('invert', 'out', 'gate', 'in');
   graph.addEdge('gate', 'pass', 'emptybilge', 'trigger');
-  graph.addEdge('feedCurrent', 'out', 'emptybilge', 'current');
+  graph.addEdge('feedCurrent', 'out', 'convert', 'in');
+  graph.addEdge('convert', 'out', 'emptybilge', 'current');
+  graph.addEdge('convert', 'out', 'putCurrent', 'value');
   graph.addEdge('emptybilge', 'out', 'put', 'value');
   // Same IIPs as graphs/main.json
   graph.addInitial('14:00', 'timer', 'time');
   graph.addInitial(PUMP_PATH, 'put', 'path');
+  graph.addInitial(CURRENT_PATH, 'putCurrent', 'path');
   graph.addInitial(
     tuning.minruntime === undefined ? 120 : tuning.minruntime,
     'emptybilge',
     'minruntime',
   );
   graph.addInitial(
-    tuning.drycurrent === undefined ? 0.8 : tuning.drycurrent,
+    tuning.drycurrent === undefined ? 0.65 : tuning.drycurrent,
     'emptybilge',
     'drycurrent',
   );
-  graph.addInitial(
-    tuning.currentoffset === undefined ? 1.46 : tuning.currentoffset,
-    'emptybilge',
-    'currentoffset',
-  );
-  graph.addInitial(
-    tuning.currentscale === undefined ? 0.0596 : tuning.currentscale,
-    'emptybilge',
-    'currentscale',
-  );
+  graph.addInitial(CURRENT_OFFSET_V, 'convert', 'offset');
+  graph.addInitial(CURRENT_SCALE_V_PER_A, 'convert', 'scale');
 
   const loader = new noflo.ComponentLoader(os.tmpdir());
   await loader.listComponents();
@@ -102,6 +106,11 @@ async function buildNetwork(tuning = {}) {
     'EmptyBilge',
     require('../components/EmptyBilge.js'),
   );
+  loader.registerComponent(
+    'signalk-server-config',
+    'LinearConvert',
+    require('../components/LinearConvert.js'),
+  );
   loader.registerComponent('test', 'Feed', {
     getComponent: () => {
       const c = new noflo.Component();
@@ -117,7 +126,7 @@ async function buildNetwork(tuning = {}) {
       return c;
     },
   });
-  loader.registerComponent('test', 'CapturePut', {
+  const capturePut = (records) => ({
     getComponent: () => {
       const c = new noflo.Component();
       c.description = 'Records PUT requests (SendPut stand-in)';
@@ -129,12 +138,14 @@ async function buildNetwork(tuning = {}) {
         }
         const value = input.getData('value');
         const path = input.hasData('path') ? input.getData('path') : null;
-        puts.push({ path, value });
+        records.push({ path, value });
         output.done();
       });
       return c;
     },
   });
+  loader.registerComponent('test', 'CapturePut', capturePut(pumpPuts));
+  loader.registerComponent('test', 'CaptureCurrentPut', capturePut(currentPuts));
 
   const network = await noflo.createNetwork(graph, {
     baseDir: os.tmpdir(),
@@ -152,29 +163,29 @@ async function buildNetwork(tuning = {}) {
       socket.disconnect();
     };
   };
-  return { network, feed, puts };
+  return { network, feed, pumpPuts, currentPuts };
 }
 
 test('daily timer starts a pump cycle at 14:00 local and runs it until dry', async (t) => {
   t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
-  const { network, feed, puts } = await buildNetwork();
+  const { network, feed, pumpPuts } = await buildNetwork();
 
   feed('feedTimezone')(200);
   feed('feedDatetime')('2025-11-07T11:30:00Z'); // 13:30 local: not yet
-  assert.deepStrictEqual(puts, [], 'no PUT before 14:00 local');
+  assert.deepStrictEqual(pumpPuts, [], 'no PUT before 14:00 local');
 
   feed('feedDatetime')('2025-11-07T12:00:00Z'); // 14:00 local
-  assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
+  assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
 
   // Pumping water: stays running past the 30s minimum
   feed('feedCurrent')(WET_V);
   t.mock.timers.tick(121000);
-  assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
+  assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
 
-  // Running dry: pump stops
+  // Running dry: pump stops after the 5s dry time
   feed('feedCurrent')(DRY_V);
-  t.mock.timers.tick(2000);
-  assert.deepStrictEqual(puts, [
+  t.mock.timers.tick(6000);
+  assert.deepStrictEqual(pumpPuts, [
     { path: PUMP_PATH, value: true },
     { path: PUMP_PATH, value: false },
   ]);
@@ -184,23 +195,23 @@ test('daily timer starts a pump cycle at 14:00 local and runs it until dry', asy
 
 test('timer fires once per local day through the graph', async (t) => {
   t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
-  const { network, feed, puts } = await buildNetwork();
+  const { network, feed, pumpPuts } = await buildNetwork();
 
   feed('feedTimezone')(200);
   feed('feedDatetime')('2025-11-07T12:00:00Z'); // fires
   feed('feedCurrent')(DRY_V);
-  t.mock.timers.tick(121000); // run past minimum time: cycle completes dry
+  t.mock.timers.tick(126000); // run past minimum time and dry time: stops
   feed('feedDatetime')('2025-11-07T12:05:00Z'); // same local day: no start
-  assert.deepStrictEqual(puts, [
+  assert.deepStrictEqual(pumpPuts, [
     { path: PUMP_PATH, value: true },
     { path: PUMP_PATH, value: false },
   ]);
 
   feed('feedDatetime')('2025-11-08T12:00:00Z'); // next local day: starts
-  assert.deepStrictEqual(puts[2], { path: PUMP_PATH, value: true });
+  assert.deepStrictEqual(pumpPuts[2], { path: PUMP_PATH, value: true });
   feed('feedCurrent')(DRY_V);
-  t.mock.timers.tick(121000);
-  assert.deepStrictEqual(puts, [
+  t.mock.timers.tick(126000);
+  assert.deepStrictEqual(pumpPuts, [
     { path: PUMP_PATH, value: true },
     { path: PUMP_PATH, value: false },
     { path: PUMP_PATH, value: true },
@@ -212,14 +223,14 @@ test('timer fires once per local day through the graph', async (t) => {
 
 test('negative timezone offset fires at 14:00 local through the graph', async (t) => {
   t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
-  const { network, feed, puts } = await buildNetwork();
+  const { network, feed, pumpPuts } = await buildNetwork();
 
   feed('feedTimezone')(-930);
   feed('feedDatetime')('2025-11-07T23:30:00Z'); // 14:00 local (UTC-9:30)
-  assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
+  assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
   feed('feedCurrent')(DRY_V);
-  t.mock.timers.tick(121000);
-  assert.deepStrictEqual(puts, [
+  t.mock.timers.tick(126000);
+  assert.deepStrictEqual(pumpPuts, [
     { path: PUMP_PATH, value: true },
     { path: PUMP_PATH, value: false },
   ]);
@@ -229,29 +240,29 @@ test('negative timezone offset fires at 14:00 local through the graph', async (t
 
 test('bilge alarm transition starts the pump and it runs until dry', async (t) => {
   t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
-  const { network, feed, puts } = await buildNetwork();
+  const { network, feed, pumpPuts } = await buildNetwork();
 
   // GetSelfStream emits the initial path value once at startup; 1 = nominal
   feed('feedAlarm')(1);
-  assert.deepStrictEqual(puts, [], 'initial value must not trigger the pump');
+  assert.deepStrictEqual(pumpPuts, [], 'initial value must not trigger the pump');
 
   feed('feedAlarm')(0); // alarm activates: pump starts
-  assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
+  assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
 
   // Alarm clears mid-cycle: pump keeps running (run until dry)
   feed('feedAlarm')(1);
   feed('feedCurrent')(WET_V);
   t.mock.timers.tick(121000);
-  assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
+  assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
 
   // Alarm re-activates while running: no duplicate start
   feed('feedAlarm')(0);
-  assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
+  assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
 
-  // Dry: stops
+  // Dry: stops after the 5s dry time
   feed('feedCurrent')(DRY_V);
-  t.mock.timers.tick(2000);
-  assert.deepStrictEqual(puts, [
+  t.mock.timers.tick(6000);
+  assert.deepStrictEqual(pumpPuts, [
     { path: PUMP_PATH, value: true },
     { path: PUMP_PATH, value: false },
   ]);
@@ -265,45 +276,70 @@ test('start-up race: datetime before timezone does not misfire the catch-up', as
   // (UTC), so 22:00 UTC read as 22:00 local and started the pump at 11:00
   // local time. The component now waits for the timezone offset.
   t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
-  const { network, feed, puts } = await buildNetwork();
+  const { network, feed, pumpPuts } = await buildNetwork();
 
   feed('feedDatetime')('2026-01-14T22:00:00Z'); // 11:00 local next day; no offset yet
   feed('feedDatetime')('2026-01-14T22:01:00Z');
   t.mock.timers.tick(60000);
-  assert.deepStrictEqual(puts, [], 'no evaluation before timezone is known');
+  assert.deepStrictEqual(pumpPuts, [], 'no evaluation before timezone is known');
 
   feed('feedTimezone')(1300); // offset arrives: now 11:01 local
   feed('feedDatetime')('2026-01-14T22:02:00Z');
   t.mock.timers.tick(60000);
-  assert.deepStrictEqual(puts, [], '11:00 local is before 14:00');
+  assert.deepStrictEqual(pumpPuts, [], '11:00 local is before 14:00');
 
   feed('feedDatetime')('2026-01-14T23:30:00Z'); // 12:30 local: still before
   feed('feedDatetime')('2026-01-15T01:00:00Z'); // 14:00 local Jan 15: fires
-  assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
+  assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
   feed('feedCurrent')(DRY_V);
-  t.mock.timers.tick(121000);
+  t.mock.timers.tick(126000);
 
   await network.stop();
 });
 
 test('pump tuning IIPs configure the cycle end-to-end', async (t) => {
   t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
-  // 2s minimum runtime and a 0.2 A dry threshold: the default dry voltage
-  // (~0.67 A) then counts as still wet, and ~0.17 A as dry
-  const { network, feed, puts } = await buildNetwork({
+  // 2s minimum runtime and a 0.2 A dry threshold: the pumping voltage
+  // (~0.84 A) then counts as still wet, and the near-idle 1.47 V
+  // (~0.17 A) as dry
+  const { network, feed, pumpPuts } = await buildNetwork({
     minruntime: 2,
     drycurrent: 0.2,
   });
 
   feed('feedAlarm')(1);
   feed('feedAlarm')(0); // alarm activates: pump starts
-  feed('feedCurrent')(DRY_V);
+  feed('feedCurrent')(WET_V);
   t.mock.timers.tick(5000); // past the 2s minimum, but above 0.2 A
-  assert.deepStrictEqual(puts, [{ path: PUMP_PATH, value: true }]);
+  assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
 
-  feed('feedCurrent')(1.47); // ~0.17 A: below the custom threshold
-  t.mock.timers.tick(2000);
-  assert.deepStrictEqual(puts, [
+  feed('feedCurrent')(DRY_V); // ~0.17 A: below the custom threshold
+  t.mock.timers.tick(6000); // default 5s dry time
+  assert.deepStrictEqual(pumpPuts, [
+    { path: PUMP_PATH, value: true },
+    { path: PUMP_PATH, value: false },
+  ]);
+
+  await network.stop();
+});
+
+test('guardrails: pumping voltage keeps running, near-idle stops it', async (t) => {
+  t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
+  const { network, feed, pumpPuts } = await buildNetwork();
+
+  feed('feedAlarm')(1);
+  feed('feedAlarm')(0); // alarm activates: pump starts
+  // Observed stable pumping-water reading (1.51 V, ~0.84 A): must not
+  // be cut off, regression for the 1.50 V premature stop
+  feed('feedCurrent')(1.51);
+  t.mock.timers.tick(127 * 1000);
+  assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
+
+  // Observed near-idle reading (1.47 V, ~0.17 A): must stop once the
+  // dry time has passed
+  feed('feedCurrent')(1.47);
+  t.mock.timers.tick(6 * 1000);
+  assert.deepStrictEqual(pumpPuts, [
     { path: PUMP_PATH, value: true },
     { path: PUMP_PATH, value: false },
   ]);
@@ -313,7 +349,7 @@ test('pump tuning IIPs configure the cycle end-to-end', async (t) => {
 
 test('datetime updates alone never start the pump before 14:00 local', async (t) => {
   t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
-  const { network, feed, puts } = await buildNetwork();
+  const { network, feed, pumpPuts } = await buildNetwork();
 
   feed('feedTimezone')(0);
   for (let minute = 0; minute < 30; minute += 7) {
@@ -322,7 +358,32 @@ test('datetime updates alone never start the pump before 14:00 local', async (t)
   feed('feedAlarm')(1);
   feed('feedAlarm')(1); // duplicate: DetectChange suppresses
   t.mock.timers.tick(60000);
-  assert.deepStrictEqual(puts, [], 'no PUT without a trigger');
+  assert.deepStrictEqual(pumpPuts, [], 'no PUT without a trigger');
+
+  await network.stop();
+});
+
+test('bilge current sensor voltage is published as calibrated amps', async (t) => {
+  t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
+  const { network, feed, currentPuts } = await buildNetwork();
+
+  const expectedAmps = (voltage) =>
+    (voltage - CURRENT_OFFSET_V) / CURRENT_SCALE_V_PER_A;
+  const expectPut = (voltage) => {
+    feed('feedCurrent')(voltage);
+    const put = currentPuts[currentPuts.length - 1];
+    assert.strictEqual(put.path, CURRENT_PATH);
+    assert.ok(
+      Math.abs(put.value - expectedAmps(voltage)) < 0.000001,
+      `${put.value} A for ${voltage} V`,
+    );
+  };
+
+  // Pumping water (observed stable at 1.51 V); near-idle reading;
+  // mid-band reading between air and water
+  expectPut(WET_V);
+  expectPut(DRY_V);
+  expectPut(1.49);
 
   await network.stop();
 });
