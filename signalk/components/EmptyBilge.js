@@ -11,6 +11,9 @@
  * The pump is force-stopped after `maxruntime` seconds even if it still
  * reads wet, guarding against a sensor that stops reporting (missing
  * readings count as wet) or a pump that never reaches the dry threshold.
+ * The failsafe does not apply while the bilge alarm is active
+ * (`alarmstate` 0/false): with water in the bilge the pump keeps running
+ * until the dry detection ends the cycle, however long that takes.
  *
  * The `current` port expects calibrated amps, e.g. derived from a
  * current-sensor voltage reading with signalk-server-config/LinearConvert.
@@ -43,13 +46,18 @@ const DEFAULT_MAX_RUNTIME_S = 600;
 /**
  * Coerce a control port value to a finite number, falling back to the
  * port default when it is missing or unusable. NoFlo delivers port
- * defaults via the network layer, so bare instances read undefined.
+ * defaults via the network layer, so bare instances read undefined, and
+ * ports with no data at all read null — which Number() would turn into
+ * 0, so both must map to the fallback.
  *
  * @param {any} value - Raw control port value
  * @param {number} fallback - Default to use when value is not finite
  * @returns {number} Numeric configuration value
  */
 function toNumber(value, fallback) {
+  if (value === null || value === undefined || value === '') {
+    return fallback;
+  }
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : fallback;
 }
@@ -67,7 +75,8 @@ class EmptyBilge extends noflo.Component {
     this.description = 'Runs bilge pump on trigger until bilge is empty. '
       + 'Stops when pump has run at least minruntime seconds and pump '
       + 'current has stayed below drycurrent amps for drytime seconds. '
-      + 'Force-stops after maxruntime seconds';
+      + 'Force-stops after maxruntime seconds unless the bilge alarm '
+      + 'is active';
     this.icon = 'tint';
 
     this.inPorts.add('trigger', {
@@ -104,9 +113,16 @@ class EmptyBilge extends noflo.Component {
     this.inPorts.add('maxruntime', {
       datatype: 'number',
       description: 'Hard stop time regardless of the current reading, in '
-        + 'seconds. 0 disables the limit',
+        + 'seconds. 0 disables the limit. Not applied while the bilge '
+        + 'alarm is active',
       control: true,
       default: DEFAULT_MAX_RUNTIME_S,
+    });
+    this.inPorts.add('alarmstate', {
+      datatype: 'all',
+      description: 'Bilge alarm state: 0/false = water in bilge (alarm '
+        + 'active), 1/true = Off. While active, maxruntime is not applied',
+      control: true,
     });
     this.outPorts.add('out', {
       datatype: 'boolean',
@@ -172,7 +188,11 @@ class EmptyBilge extends noflo.Component {
 
     const maxRunMs = toNumber(input.getData('maxruntime'), DEFAULT_MAX_RUNTIME_S)
       * 1000;
-    if (maxRunMs > 0 && elapsed >= maxRunMs) {
+    // With an active bilge alarm there is water in the bilge: the pump
+    // keeps running past maxruntime until the dry detection ends the
+    // cycle. Missing state is treated as Off, so the failsafe applies.
+    const alarmActive = toNumber(input.getData('alarmstate'), 1) === 0;
+    if (maxRunMs > 0 && elapsed >= maxRunMs && !alarmActive) {
       this.stopPump(output);
       return;
     }

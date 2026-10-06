@@ -3,7 +3,9 @@
  * dry: it stops only after the minimum run time once the pump current
  * (in amps, calibrated by LinearConvert upstream) has stayed below the
  * dry threshold for drytime seconds. A maxruntime failsafe stops the
- * pump even when it never reads dry. The timings are driven with a
+ * pump even when it never reads dry — unless the bilge alarm is active
+ * (alarmstate 0), in which case the pump runs until dry regardless of
+ * how long that takes. The timings are driven with a
  * mocked clock.
  *
  * Current levels follow the real Seaflo 21-series pump: ~0.84 A
@@ -50,7 +52,7 @@ function setup(t) {
   const current = noflo.internalSocket.createSocket();
   const out = noflo.internalSocket.createSocket();
   const config = {};
-  ['minruntime', 'drycurrent', 'drytime', 'maxruntime'].forEach((port) => {
+  ['minruntime', 'drycurrent', 'drytime', 'maxruntime', 'alarmstate'].forEach((port) => {
     config[port] = noflo.internalSocket.createSocket();
     c.inPorts[port].attach(config[port]);
   });
@@ -261,5 +263,45 @@ test('unusable tuning values fall back to defaults', async (t) => {
     [true, false],
     '120s, 0.65 A and 5s defaults apply',
   );
+  await teardown();
+});
+
+test('maxruntime does not force-stop while the bilge alarm is active', async (t) => {
+  const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
+  // 2s minimum run, 5s cap and a threshold the pumping current never
+  // drops below
+  configure({ minruntime: 2, maxruntime: 5, drycurrent: 0.3, alarmstate: 0 });
+  send(trigger, true);
+  send(current, WET_A);
+  tickMs(10 * 1000); // twice the cap: alarm keeps it running
+  assert.deepStrictEqual(states, [true]);
+
+  // Alarm clears: the cap applies again and force-stops the pump
+  configure({ alarmstate: 1 });
+  tickMs(2 * 1000);
+  assert.deepStrictEqual(states, [true, false]);
+  await teardown();
+});
+
+test('maxruntime force-stops when the alarm state is unknown', async (t) => {
+  const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
+  // No alarmstate sent: missing state is treated as alarm Off
+  configure({ minruntime: 2, maxruntime: 5, drycurrent: 0.3 });
+  send(trigger, true);
+  send(current, WET_A);
+  tickMs(7 * 1000);
+  assert.deepStrictEqual(states, [true, false]);
+  await teardown();
+});
+
+test('active alarm does not prevent a dry stop', async (t) => {
+  const { states, trigger, current, send, configure, tickMs, teardown } = setup(t);
+  configure({ alarmstate: 0 });
+  send(trigger, true);
+  // 0.45 A is below the 0.65 A threshold: dry detection still ends the
+  // cycle even though the alarm never clears
+  send(current, DRY_A);
+  tickMs(DRY_STOP_MS);
+  assert.deepStrictEqual(states, [true, false]);
   await teardown();
 });

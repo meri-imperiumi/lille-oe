@@ -1454,6 +1454,19 @@
         },
         {
             "src": {
+                "process": "ListenBilgeAlarm",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "EmptyBilge",
+                "port": "alarmstate"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
                 "process": "DetectBilgeAlarm",
                 "port": "out"
             },

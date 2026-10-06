@@ -70,6 +70,7 @@ async function buildNetwork(tuning = {}) {
   graph.addEdge('invert', 'out', 'gate', 'values');
   graph.addEdge('invert', 'out', 'gate', 'in');
   graph.addEdge('gate', 'pass', 'emptybilge', 'trigger');
+  graph.addEdge('feedAlarm', 'out', 'emptybilge', 'alarmstate');
   graph.addEdge('feedCurrent', 'out', 'convert', 'in');
   graph.addEdge('convert', 'out', 'emptybilge', 'current');
   graph.addEdge('convert', 'out', 'putCurrent', 'value');
@@ -320,6 +321,30 @@ test('pump tuning IIPs configure the cycle end-to-end', async (t) => {
 
   feed('feedCurrent')(DRY_V); // ~0.17 A: below the custom threshold
   t.mock.timers.tick(6000); // default 5s dry time
+  assert.deepStrictEqual(pumpPuts, [
+    { path: PUMP_PATH, value: true },
+    { path: PUMP_PATH, value: false },
+  ]);
+
+  await network.stop();
+});
+
+test('active bilge alarm suspends the maxruntime failsafe', async (t) => {
+  t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
+  const { network, feed, pumpPuts } = await buildNetwork();
+
+  // GetSelfStream emits the initial path value once at startup; 1 = Off.
+  // It feeds both DetectBilgeAlarm and the maxruntime exemption.
+  feed('feedAlarm')(1);
+  feed('feedAlarm')(0); // alarm activates: pump starts
+  assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
+  feed('feedCurrent')(WET_V);
+  t.mock.timers.tick(700 * 1000); // well past the 600s maxruntime
+  assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
+
+  // Alarm clears: the failsafe applies again and force-stops the pump
+  feed('feedAlarm')(1);
+  t.mock.timers.tick(2000);
   assert.deepStrictEqual(pumpPuts, [
     { path: PUMP_PATH, value: true },
     { path: PUMP_PATH, value: false },

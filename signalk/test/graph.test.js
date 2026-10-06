@@ -3,7 +3,8 @@
  *
  * Asserts that the daily timer and the bilge alarm trigger are wired to
  * EmptyBilge, that EmptyBilge PUTs the pump switch state, and that the
- * alarm stream can only ever start the pump (never gate stopping).
+ * alarm stream reaches EmptyBilge both as a trigger (via the transition
+ * chain) and as the maxruntime exemption, never as a stop condition.
  *
  * Run from the repo root:
  *
@@ -111,11 +112,14 @@ test('BilgeAlarmGate.values is wired before BilgeAlarmGate.in', () => {
   assert.ok(valuesIdx < inIdx, 'values edge precedes in edge');
 });
 
-test('pump always runs until dry: alarm stream never gates stopping', () => {
+test('alarm state exempts maxruntime, never gates stopping', () => {
+  // The alarm state is wired into EmptyBilge solely so an active alarm
+  // suspends the maxruntime failsafe; the dry detection (drycurrent +
+  // drytime) remains the only alarm-independent way the pump stops
   assert.strictEqual(
-    findConn({ tgt: 'EmptyBilge.alarmstate' }).length,
-    0,
-    'alarm stream must not feed the stop conditions',
+    findConn({ src: 'ListenBilgeAlarm.out', tgt: 'EmptyBilge.alarmstate' }).length,
+    1,
+    'alarm state feeds the maxruntime exemption',
   );
   assert.strictEqual(
     findConn({ src: 'ConvertBilgeCurrent.out', tgt: 'EmptyBilge.current' }).length,
