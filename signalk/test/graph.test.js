@@ -138,7 +138,7 @@ test('pump state is PUT to the pump switch path', () => {
 test('pump tuning is pinned via IIPs', () => {
   const tuningIips = {
     120: 'EmptyBilge.minruntime',
-    0.65: 'EmptyBilge.drycurrent',
+    0.75: 'EmptyBilge.drycurrent',
     5: 'EmptyBilge.drytime',
     600: 'EmptyBilge.maxruntime',
   };

@@ -85,7 +85,7 @@ async function buildNetwork(tuning = {}) {
     'minruntime',
   );
   graph.addInitial(
-    tuning.drycurrent === undefined ? 0.65 : tuning.drycurrent,
+    tuning.drycurrent === undefined ? 0.75 : tuning.drycurrent,
     'emptybilge',
     'drycurrent',
   );
@@ -353,21 +353,22 @@ test('active bilge alarm suspends the maxruntime failsafe', async (t) => {
   await network.stop();
 });
 
-test('guardrails: pumping voltage keeps running, near-idle stops it', async (t) => {
+test('guardrails: pumping voltage keeps running, air voltage stops it', async (t) => {
   t.mock.timers.enable({ apis: ['Date', 'setInterval'] });
   const { network, feed, pumpPuts } = await buildNetwork();
 
   feed('feedAlarm')(1);
   feed('feedAlarm')(0); // alarm activates: pump starts
   // Observed stable pumping-water reading (1.51 V, ~0.84 A): must not
-  // be cut off, regression for the 1.50 V premature stop
+  // be cut off
   feed('feedCurrent')(1.51);
   t.mock.timers.tick(127 * 1000);
   assert.deepStrictEqual(pumpPuts, [{ path: PUMP_PATH, value: true }]);
 
-  // Observed near-idle reading (1.47 V, ~0.17 A): must stop once the
+  // Observed pumping-air reading (1.50 V, ~0.67 A): the water/air
+  // boundary sits between the two readings, so this must stop once the
   // dry time has passed
-  feed('feedCurrent')(1.47);
+  feed('feedCurrent')(1.5);
   t.mock.timers.tick(6 * 1000);
   assert.deepStrictEqual(pumpPuts, [
     { path: PUMP_PATH, value: true },

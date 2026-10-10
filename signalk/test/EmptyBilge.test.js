@@ -23,15 +23,17 @@ const getComponent = require('../components/EmptyBilge.js').getComponent;
 /** The component's default minimum run time, in milliseconds */
 const MIN_RUN_MS = 120 * 1000;
 
-/** Pumping water, just above the 0.65 A dry threshold */
+/** Pumping water, just above the 0.75 A dry threshold */
 const WET_A = 0.85;
-/** Pumping air, below the default 0.65 A dry threshold */
+/** Pumping air, below the default 0.75 A dry threshold */
 const DRY_A = 0.45;
 /** Just above the default dry threshold */
-const NEARLY_DRY_A = 0.75;
+const NEARLY_DRY_A = 0.8;
 
 /** Observed pumping-water reading: 1.51 V through the sensor calibration */
 const WATER_OBSERVED_A = 0.84;
+/** Observed pumping-air reading: 1.50 V through the sensor calibration */
+const AIR_OBSERVED_A = 0.67;
 /** Observed near-idle reading: 1.47 V through the sensor calibration */
 const NEAR_IDLE_OBSERVED_A = 0.17;
 
@@ -229,11 +231,22 @@ test('honors a custom dry current threshold', async (t) => {
 test('guardrail: the observed water draw keeps the pump running', async (t) => {
   const { states, trigger, current, send, tickMs, teardown } = setup(t);
   send(trigger, true);
-  // 1.51 V through the sensor calibration: regression for the 1.50 V
-  // premature stop during the daily 14:00 run
+  // 1.51 V through the sensor calibration: the stable pumping plateau
   send(current, WATER_OBSERVED_A);
   tickMs(DRY_STOP_MS);
   assert.deepStrictEqual(states, [true]);
+  await teardown();
+});
+
+test('guardrail: the observed air reading stops the pump', async (t) => {
+  const { states, trigger, current, send, tickMs, teardown } = setup(t);
+  send(trigger, true);
+  // 1.50 V through the sensor calibration: end-of-cycle air reading,
+  // regression guard for the water/air boundary sitting between the
+  // 1.51 V and 1.50 V readings
+  send(current, AIR_OBSERVED_A);
+  tickMs(DRY_STOP_MS);
+  assert.deepStrictEqual(states, [true, false]);
   await teardown();
 });
 

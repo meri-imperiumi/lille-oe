@@ -35,7 +35,7 @@ const DEFAULT_MIN_RUNTIME_S = 120;
 const POLL_INTERVAL_MS = 1000;
 
 /** Default pump current below which no water is being pumped, in amps */
-const DEFAULT_DRY_CURRENT_A = 0.65;
+const DEFAULT_DRY_CURRENT_A = 0.75;
 
 /** Default time the pump must read dry continuously before stopping, in seconds */
 const DEFAULT_DRY_TIME_S = 5;
